@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace A11YTK
@@ -30,6 +31,8 @@ namespace A11YTK
 
         private SubtitleRenderer _subtitleRenderer;
 
+        private Coroutine _loopThroughSubtitleLinesCoroutine;
+
         private void Awake()
         {
 
@@ -40,14 +43,62 @@ namespace A11YTK
         public void PlayOneShot(AudioClip clip, float volumeScale = DEFAULT_VOLUME_SCALE)
         {
 
+            Stop();
+
             _audioSource.PlayOneShot(clip, volumeScale);
+
+            StartCoroutine(LoopThroughSubtitleLines());
 
         }
 
         public void PlayOneShot()
         {
 
+            Stop();
+
             _audioSource.PlayOneShot(_audioSource.clip, DEFAULT_VOLUME_SCALE);
+
+            StartCoroutine(LoopThroughSubtitleLines());
+
+        }
+
+        public void Stop()
+        {
+
+            _audioSource.Stop();
+
+            _subtitleRenderer.Hide();
+
+            if (_loopThroughSubtitleLinesCoroutine == null)
+            {
+                return;
+            }
+
+            StopCoroutine(_loopThroughSubtitleLinesCoroutine);
+
+            _loopThroughSubtitleLinesCoroutine = null;
+
+        }
+
+        private IEnumerator LoopThroughSubtitleLines()
+        {
+
+            var lines = _subtitleText.Trim().Split('\n');
+
+            var duration = new WaitForSecondsRealtime(_durationPerLine);
+
+            _subtitleRenderer.Show();
+
+            foreach (var line in lines)
+            {
+
+                _subtitleRenderer.SetText(line);
+
+                yield return duration;
+
+            }
+
+            _subtitleRenderer.Hide();
 
         }
 
