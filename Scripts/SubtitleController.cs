@@ -20,7 +20,7 @@ namespace A11YTK
         private float _durationPerLine = 1;
 
         [SerializeField]
-        private Subtitle.Position _position;
+        private Subtitle.Position _position = Subtitle.Position.AUTO;
 
         [SerializeField]
         private Subtitle.Type _type;

@@ -7,6 +7,8 @@ namespace A11YTK
         public enum Position
         {
 
+            AUTO,
+
             BOTTOM
 
         }
