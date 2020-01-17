@@ -25,6 +25,9 @@ namespace A11YTK
         [SerializeField]
         private Subtitle.Type _type;
 
+        [SerializeField]
+        private SubtitleOptionsReference _subtitleOptions;
+
         private SubtitleRenderer _subtitleRenderer;
 
         private void Awake()
