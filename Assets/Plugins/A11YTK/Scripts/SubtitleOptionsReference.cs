@@ -15,7 +15,7 @@ namespace A11YTK
 
         public Color fontBackgroundColor = Color.black;
 
-        public bool showBackgroundColor = false;
+        public bool showBackgroundColor;
 
     }
 
