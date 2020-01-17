@@ -4,5 +4,10 @@
   "version": "1.0.0",
   "unity": "2019.2",
   "description": "AR/VR context aware, spatialized subtitles for Unity",
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": [
+    "components",
+    "accessibility",
+    "subtitles"
+  ]
 }
