@@ -71,18 +71,16 @@ namespace A11YTK
         public void Stop()
         {
 
-            _audioSource.Stop();
-
-            _subtitleRenderer.Hide();
-
-            if (_loopThroughSubtitleLinesCoroutine == null)
+            if (_loopThroughSubtitleLinesCoroutine != null)
             {
-                return;
+
+                StopCoroutine(_loopThroughSubtitleLinesCoroutine);
+
+                _loopThroughSubtitleLinesCoroutine = null;
+
             }
 
-            StopCoroutine(_loopThroughSubtitleLinesCoroutine);
-
-            _loopThroughSubtitleLinesCoroutine = null;
+            _audioSource.Stop();
 
         }
 
