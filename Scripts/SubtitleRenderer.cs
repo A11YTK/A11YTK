@@ -59,7 +59,8 @@ namespace A11YTK
 
                 var canvasWrapperRectTransform = _canvasWrapper.GetComponent<RectTransform>();
 
-                canvasWrapperRectTransform.anchoredPosition = Vector3.zero;
+                canvasWrapperRectTransform.transform.localPosition = new Vector3(0, 0, 10);
+                canvasWrapperRectTransform.transform.localRotation = Quaternion.identity;
 
                 _canvas = _canvasWrapper.GetComponent<Canvas>();
 
