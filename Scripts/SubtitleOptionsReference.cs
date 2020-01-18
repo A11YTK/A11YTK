@@ -10,7 +10,7 @@ namespace A11YTK
 
         public Subtitle.Position defaultPosition = Subtitle.Position.BOTTOM;
 
-        public float fontSize = 1;
+        public float fontSize = 30;
 
         public Color fontForegroundColor = Color.white;
 
