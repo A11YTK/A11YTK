@@ -29,6 +29,8 @@ namespace A11YTK
         [SerializeField]
         private SubtitleOptionsReference _subtitleOptions;
 
+        public SubtitleOptionsReference subtitleOptions => _subtitleOptions;
+
         private SubtitleRenderer _subtitleRenderer;
 
         private Coroutine _loopThroughSubtitleLinesCoroutine;

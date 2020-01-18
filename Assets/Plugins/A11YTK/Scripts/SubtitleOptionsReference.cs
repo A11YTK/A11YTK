@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 namespace A11YTK
@@ -16,6 +17,10 @@ namespace A11YTK
         public Color fontBackgroundColor = Color.black;
 
         public bool showBackgroundColor;
+
+        public TMP_FontAsset fontAsset;
+
+        public Material fontMaterial;
 
     }
 
