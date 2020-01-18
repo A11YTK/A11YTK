@@ -13,6 +13,8 @@ namespace A11YTK
 
         private const string TEXT_MESH_NAME = "Text (TMP)";
 
+        private const string PANEL_NAME = "Panel";
+
 #pragma warning disable CS0649
         [SerializeField]
         private Camera _mainCamera;
@@ -25,6 +27,10 @@ namespace A11YTK
         private Canvas _canvas;
 
         private GameObject _textMeshWrapper;
+
+        private GameObject _panel;
+
+        private Image _panelImage;
 
         private TextMeshProUGUI _textMesh;
 
@@ -50,87 +56,83 @@ namespace A11YTK
                 return;
             }
 
-            if (Equals(_canvasWrapper, null))
+            if (_canvasWrapper == null)
             {
-
-                _canvasWrapper = new GameObject(CANVAS_WRAPPER_NAME, typeof(Canvas), typeof(CanvasScaler));
-
-                var canvasWrapperRectTransform = _canvasWrapper.GetComponent<RectTransform>();
-
-                canvasWrapperRectTransform.transform.localPosition = new Vector3(0, 0, 10);
-
-                _canvas = _canvasWrapper.GetComponent<Canvas>();
-
-                _textMeshWrapper = new GameObject(TEXT_MESH_NAME);
-
-                _textMeshWrapper.transform.SetParent(_canvasWrapper.transform);
-
-                _textMesh = _textMeshWrapper.AddComponent<TextMeshProUGUI>();
-
-                var textMeshWrapperRectTransform = _textMeshWrapper.transform.GetComponent<RectTransform>();
-
-                textMeshWrapperRectTransform.ResetRectTransform();
-
-                if (_subtitleController.subtitleOptions.showBackgroundColor)
-                {
-
-                    var _panel = new GameObject("Panel", typeof(Image));
-
-                    _panel.transform.SetParent(_textMeshWrapper.transform);
-
-                    var panelRectTransform = _panel.transform.GetComponent<RectTransform>();
-
-                    panelRectTransform.ResetRectTransform();
-
-                    _textMesh.color = _subtitleController.subtitleOptions.fontForegroundColor;
-                    _panel.GetComponent<Image>().color = _subtitleController.subtitleOptions.fontBackgroundColor;
-
-                }
-
-                var position = _subtitleController.position;
-
-                if (position.Equals(Subtitle.Position.AUTO))
-                {
-
-                    position = _subtitleController.subtitleOptions.defaultPosition;
-
-                }
-
-                _canvasWrapper.transform.SetParent(_mainCamera.transform, false);
-
-                _canvas.ScaleCanvasToMatchCamera(_mainCamera);
-
-                _textMesh.font = _subtitleController.subtitleOptions.fontAsset;
-                _textMesh.fontSize = _subtitleController.subtitleOptions.fontSize;
-                _textMesh.fontSharedMaterial = _subtitleController.subtitleOptions.fontMaterial;
-
+                SetupGameObjects();
             }
 
-            if (Equals(_textMesh, null))
+            SetOptions(_subtitleController.subtitleOptions);
+
+            _canvas.enabled = true;
+
+        }
+
+        private void SetupGameObjects()
+        {
+
+            _canvasWrapper = new GameObject(CANVAS_WRAPPER_NAME, typeof(Canvas), typeof(CanvasScaler));
+
+            _canvas = _canvasWrapper.GetComponent<Canvas>();
+
+            _textMeshWrapper = new GameObject(TEXT_MESH_NAME);
+
+            _textMeshWrapper.transform.SetParent(_canvasWrapper.transform);
+
+            _textMesh = _textMeshWrapper.AddComponent<TextMeshProUGUI>();
+
+            _textMeshWrapper.transform.GetComponent<RectTransform>().ResetRectTransform();
+
+            _panel = new GameObject(PANEL_NAME, typeof(Image));
+
+            _panel.transform.SetParent(_textMeshWrapper.transform);
+
+            _panel.transform.GetComponent<RectTransform>().ResetRectTransform();
+
+            _panelImage = _panel.GetComponent<Image>();
+
+            _canvasWrapper.GetComponent<RectTransform>().transform.localPosition = new Vector3(0, 0, 10);
+
+            _canvasWrapper.transform.SetParent(_mainCamera.transform, false);
+
+            _canvas.ScaleCanvasToMatchCamera(_mainCamera);
+
+        }
+
+        private void SetOptions(SubtitleOptionsReference subtitleOptions)
+        {
+
+            if (_textMesh == null)
             {
                 return;
             }
 
-            _canvas.enabled = true;
+            _textMesh.color = subtitleOptions.fontForegroundColor;
+            _textMesh.font = subtitleOptions.fontAsset;
+            _textMesh.fontSize = subtitleOptions.fontSize;
+            _textMesh.fontSharedMaterial = subtitleOptions.fontMaterial;
+
+            if (Equals(_panel, null) || Equals(_panelImage, null))
+            {
+                return;
+            }
+
+            _panelImage.enabled = subtitleOptions.showBackgroundColor;
+
+            _panelImage.color = subtitleOptions.fontBackgroundColor;
 
         }
 
         public void Hide()
         {
 
-            if (Equals(_textMesh, null))
-            {
-                return;
-            }
-
-            _canvas.enabled = false;
+            TearDown();
 
         }
 
         public void SetText(string value)
         {
 
-            if (Equals(_textMesh, null))
+            if (_textMesh == null || _canvasWrapper == null)
             {
                 return;
             }
@@ -140,6 +142,13 @@ namespace A11YTK
             _canvasWrapper.GetComponent<RectTransform>().sizeDelta = valueSizeDelta;
 
             _textMesh.text = value;
+
+        }
+
+        private void TearDown()
+        {
+
+            Destroy(_canvasWrapper);
 
         }
 
