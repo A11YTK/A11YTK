@@ -60,7 +60,7 @@ namespace A11YTK
 
                 _textMesh = _textMeshWrapper.AddComponent<TextMeshProUGUI>();
 
-                ResetRectTransform(_textMeshWrapper.transform);
+                _textMeshWrapper.transform.GetComponent<RectTransform>().ResetRectTransform();
 
                 if (_subtitleController.subtitleOptions.showBackgroundColor)
                 {
@@ -69,7 +69,7 @@ namespace A11YTK
 
                     _panel.transform.SetParent(_canvasWrapper.transform);
 
-                    ResetRectTransform(_panel.transform);
+                    _panel.transform.GetComponent<RectTransform>().ResetRectTransform();
 
                     _textMesh.color = _subtitleController.subtitleOptions.fontForegroundColor;
                     _panel.GetComponent<Image>().color = _subtitleController.subtitleOptions.fontBackgroundColor;
@@ -118,19 +118,6 @@ namespace A11YTK
             _canvasWrapper.GetComponent<RectTransform>().sizeDelta = valueSizeDelta;
 
             _textMesh.text = value;
-
-        }
-
-        private static void ResetRectTransform(Transform transform)
-        {
-
-            var rectTransform = transform.GetComponent<RectTransform>();
-
-            rectTransform.anchorMin = Vector2.zero;
-            rectTransform.anchorMax = Vector2.one;
-
-            rectTransform.offsetMin = Vector2.zero;
-            rectTransform.offsetMax = Vector2.zero;
 
         }
 
