@@ -9,6 +9,8 @@ namespace A11YTK
 
             AUTO,
 
+            TOP,
+
             BOTTOM
 
         }
