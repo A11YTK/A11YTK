@@ -13,3 +13,25 @@
   }
 }
 ```
+
+## Usage
+
+```csharp
+using A11YTK;
+using UnityEngine;
+
+public class PlayAudioFile : MonoBehaviour
+{
+
+    [SerializeField]
+    private SubtitleController _subtitleController;
+
+    public void Play()
+    {
+
+        _subtitleController.PlayOneShot();
+
+    }
+
+}
+```
