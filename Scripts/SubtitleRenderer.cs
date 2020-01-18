@@ -80,6 +80,8 @@ namespace A11YTK
 
             _textMesh = _textMeshWrapper.AddComponent<TextMeshProUGUI>();
 
+            _textMesh.raycastTarget = false;
+
             _textMeshWrapper.transform.GetComponent<RectTransform>().ResetRectTransform();
 
             _panel = new GameObject(PANEL_NAME, typeof(Image));
@@ -89,6 +91,8 @@ namespace A11YTK
             _panel.transform.GetComponent<RectTransform>().ResetRectTransform();
 
             _panelImage = _panel.GetComponent<Image>();
+
+            _panelImage.raycastTarget = false;
 
             _canvasWrapper.GetComponent<RectTransform>().transform.localPosition = new Vector3(0, 0, 10);
 
