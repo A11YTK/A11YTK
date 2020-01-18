@@ -57,6 +57,10 @@ namespace A11YTK
 
                 _canvasWrapper.transform.SetParent(_mainCamera.transform);
 
+                var canvasWrapperRectTransform = _canvasWrapper.GetComponent<RectTransform>();
+
+                canvasWrapperRectTransform.anchoredPosition = Vector3.zero;
+
                 _canvas = _canvasWrapper.GetComponent<Canvas>();
 
                 _textMeshWrapper = new GameObject(TEXT_MESH_NAME);
