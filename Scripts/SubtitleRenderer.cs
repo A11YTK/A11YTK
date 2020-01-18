@@ -76,7 +76,9 @@ namespace A11YTK
 
                     _panel.transform.SetParent(_textMeshWrapper.transform);
 
-                    _panel.transform.GetComponent<RectTransform>().ResetRectTransform();
+                    var panelRectTransform = _panel.transform.GetComponent<RectTransform>();
+
+                    panelRectTransform.ResetRectTransform();
 
                     _textMesh.color = _subtitleController.subtitleOptions.fontForegroundColor;
                     _panel.GetComponent<Image>().color = _subtitleController.subtitleOptions.fontBackgroundColor;
