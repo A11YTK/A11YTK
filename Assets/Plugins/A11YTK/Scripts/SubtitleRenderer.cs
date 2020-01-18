@@ -72,7 +72,7 @@ namespace A11YTK
 
                     var _panel = new GameObject("Panel", typeof(Image));
 
-                    _panel.transform.SetParent(_canvasWrapper.transform);
+                    _panel.transform.SetParent(_textMeshWrapper.transform);
 
                     _panel.transform.GetComponent<RectTransform>().ResetRectTransform();
 
