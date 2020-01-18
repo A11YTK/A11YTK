@@ -83,6 +83,15 @@ namespace A11YTK
 
                 }
 
+                var position = _subtitleController.position;
+
+                if (position.Equals(Subtitle.Position.AUTO))
+                {
+
+                    position = _subtitleController.subtitleOptions.defaultPosition;
+
+                }
+
                 _canvasWrapper.transform.localScale = Vector3.one * 0.025f;
 
                 _textMesh.font = _subtitleController.subtitleOptions.fontAsset;
