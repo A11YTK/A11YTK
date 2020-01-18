@@ -55,12 +55,9 @@ namespace A11YTK
 
                 _canvasWrapper = new GameObject(CANVAS_WRAPPER_NAME, typeof(Canvas), typeof(CanvasScaler));
 
-                _canvasWrapper.transform.SetParent(_mainCamera.transform);
-
                 var canvasWrapperRectTransform = _canvasWrapper.GetComponent<RectTransform>();
 
                 canvasWrapperRectTransform.transform.localPosition = new Vector3(0, 0, 10);
-                canvasWrapperRectTransform.transform.localRotation = Quaternion.identity;
 
                 _canvas = _canvasWrapper.GetComponent<Canvas>();
 
@@ -98,6 +95,8 @@ namespace A11YTK
                     position = _subtitleController.subtitleOptions.defaultPosition;
 
                 }
+
+                _canvasWrapper.transform.SetParent(_mainCamera.transform, false);
 
                 _canvas.ScaleCanvasToMatchCamera(_mainCamera);
 
