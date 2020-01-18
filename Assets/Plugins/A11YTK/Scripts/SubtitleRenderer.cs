@@ -45,6 +45,11 @@ namespace A11YTK
         public void Show()
         {
 
+            if (!_subtitleController.subtitleOptions.enabled)
+            {
+                return;
+            }
+
             if (Equals(_canvasWrapper, null))
             {
 
