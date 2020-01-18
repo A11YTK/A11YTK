@@ -98,7 +98,7 @@ namespace A11YTK
 
                 }
 
-                _canvasWrapper.transform.localScale = Vector3.one * 0.025f;
+                _canvas.ScaleCanvasToMatchCamera(_mainCamera);
 
                 _textMesh.font = _subtitleController.subtitleOptions.fontAsset;
                 _textMesh.fontSize = _subtitleController.subtitleOptions.fontSize;

@@ -17,6 +17,13 @@ namespace A11YTK
 
         }
 
+        public static void ScaleCanvasToMatchCamera(this Canvas canvas, Camera camera)
+        {
+
+            canvas.transform.localScale = Vector3.one * 0.025f;
+
+        }
+
     }
 
 }
