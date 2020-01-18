@@ -53,7 +53,7 @@ namespace A11YTK
 
             _audioSource.PlayOneShot(clip, volumeScale);
 
-            StartCoroutine(LoopThroughSubtitleLines());
+            _loopThroughSubtitleLinesCoroutine = StartCoroutine(LoopThroughSubtitleLines());
 
         }
 
@@ -64,7 +64,7 @@ namespace A11YTK
 
             _audioSource.PlayOneShot(_audioSource.clip, DEFAULT_VOLUME_SCALE);
 
-            StartCoroutine(LoopThroughSubtitleLines());
+            _loopThroughSubtitleLinesCoroutine = StartCoroutine(LoopThroughSubtitleLines());
 
         }
 
