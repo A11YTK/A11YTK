@@ -8,6 +8,8 @@ namespace A11YTK
     public class SubtitleOptionsReference : ScriptableObject
     {
 
+        public bool enabled = true;
+
         public Subtitle.Position defaultPosition = Subtitle.Position.BOTTOM;
 
         public float fontSize = 30;
