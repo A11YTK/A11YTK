@@ -31,6 +31,8 @@ namespace A11YTK
         private SubtitleOptionsReference _subtitleOptions;
 #pragma warning restore CS0649
 
+        public Subtitle.Position position => _position;
+
         public SubtitleOptionsReference subtitleOptions => _subtitleOptions;
 
         private SubtitleRenderer _subtitleRenderer;
