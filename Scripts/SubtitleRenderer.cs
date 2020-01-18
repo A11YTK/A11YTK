@@ -1,23 +1,134 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace A11YTK
 {
 
+    [RequireComponent(typeof(SubtitleController))]
     public class SubtitleRenderer : MonoBehaviour
     {
 
+        private const string CANVAS_WRAPPER_NAME = "Canvas (clone)";
+
+        private const string TEXT_MESH_NAME = "Text (TMP)";
+
+        [SerializeField]
+        private Camera _mainCamera;
+
+        private SubtitleController _subtitleController;
+
+        private GameObject _canvasWrapper;
+
+        private Canvas _canvas;
+
+        private GameObject _textMeshWrapper;
+
+        private TextMeshProUGUI _textMesh;
+
+        private void Awake()
+        {
+
+            if (_mainCamera == null)
+            {
+
+                _mainCamera = Camera.main;
+
+            }
+
+            _subtitleController = gameObject.GetComponent<SubtitleController>();
+
+        }
+
         public void Show()
         {
+
+            if (Equals(_canvasWrapper, null))
+            {
+
+                _canvasWrapper = new GameObject(CANVAS_WRAPPER_NAME, typeof(Canvas), typeof(CanvasScaler));
+
+                _canvasWrapper.transform.SetParent(_mainCamera.transform);
+
+                _canvas = _canvasWrapper.GetComponent<Canvas>();
+
+                _textMeshWrapper = new GameObject(TEXT_MESH_NAME);
+
+                _textMeshWrapper.transform.SetParent(_canvasWrapper.transform);
+
+                _textMesh = _textMeshWrapper.AddComponent<TextMeshProUGUI>();
+
+                ResetRectTransform(_textMeshWrapper.transform);
+
+                if (_subtitleController.subtitleOptions.showBackgroundColor)
+                {
+
+                    var _panel = new GameObject("Panel", typeof(Image));
+
+                    _panel.transform.SetParent(_canvasWrapper.transform);
+
+                    ResetRectTransform(_panel.transform);
+
+                    _textMesh.color = _subtitleController.subtitleOptions.fontForegroundColor;
+                    _panel.GetComponent<Image>().color = _subtitleController.subtitleOptions.fontBackgroundColor;
+
+                }
+
+                _canvasWrapper.transform.localScale = Vector3.one * 0.025f;
+
+                _textMesh.font = _subtitleController.subtitleOptions.fontAsset;
+                _textMesh.fontSize = _subtitleController.subtitleOptions.fontSize;
+                _textMesh.fontSharedMaterial = _subtitleController.subtitleOptions.fontMaterial;
+
+            }
+
+            if (Equals(_textMesh, null))
+            {
+                return;
+            }
+
+            _canvas.enabled = true;
 
         }
 
         public void Hide()
         {
 
+            if (Equals(_textMesh, null))
+            {
+                return;
+            }
+
+            _canvas.enabled = false;
+
         }
 
         public void SetText(string value)
         {
+
+            if (Equals(_textMesh, null))
+            {
+                return;
+            }
+
+            var valueSizeDelta = _textMesh.GetPreferredValues(value);
+
+            _canvasWrapper.GetComponent<RectTransform>().sizeDelta = valueSizeDelta;
+
+            _textMesh.text = value;
+
+        }
+
+        private static void ResetRectTransform(Transform transform)
+        {
+
+            var rectTransform = transform.GetComponent<RectTransform>();
+
+            rectTransform.anchorMin = Vector2.zero;
+            rectTransform.anchorMax = Vector2.one;
+
+            rectTransform.offsetMin = Vector2.zero;
+            rectTransform.offsetMax = Vector2.zero;
 
         }
 
