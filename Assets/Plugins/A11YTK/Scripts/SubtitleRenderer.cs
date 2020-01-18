@@ -65,7 +65,9 @@ namespace A11YTK
 
                 _textMesh = _textMeshWrapper.AddComponent<TextMeshProUGUI>();
 
-                _textMeshWrapper.transform.GetComponent<RectTransform>().ResetRectTransform();
+                var _textMeshWrapperRectTransform = _textMeshWrapper.transform.GetComponent<RectTransform>();
+
+                _textMeshWrapperRectTransform.ResetRectTransform();
 
                 if (_subtitleController.subtitleOptions.showBackgroundColor)
                 {
