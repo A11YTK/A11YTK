@@ -9,7 +9,8 @@
 ```json
 {
   "dependencies": {
-    "com.scottdoxey.a11ytk": "https://github.com/neogeek/a11ytk.git#upm"
+    "com.scottdoxey.a11ytk": "https://github.com/neogeek/a11ytk.git#upm",
+    ...
   }
 }
 ```
