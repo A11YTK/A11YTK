@@ -13,8 +13,10 @@ namespace A11YTK
 
         private const string TEXT_MESH_NAME = "Text (TMP)";
 
+#pragma warning disable CS0649
         [SerializeField]
         private Camera _mainCamera;
+#pragma warning restore CS0649
 
         private SubtitleController _subtitleController;
 

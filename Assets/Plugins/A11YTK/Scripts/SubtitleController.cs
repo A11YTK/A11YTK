@@ -10,6 +10,7 @@ namespace A11YTK
 
         private const float DEFAULT_VOLUME_SCALE = 1f;
 
+#pragma warning disable CS0649
         [SerializeField]
         private AudioSource _audioSource;
 
@@ -28,6 +29,7 @@ namespace A11YTK
 
         [SerializeField]
         private SubtitleOptionsReference _subtitleOptions;
+#pragma warning restore CS0649
 
         public SubtitleOptionsReference subtitleOptions => _subtitleOptions;
 
