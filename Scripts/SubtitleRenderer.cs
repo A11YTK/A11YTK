@@ -134,7 +134,7 @@ namespace A11YTK
 
             _panelImage.enabled = subtitleOptions.showBackgroundColor;
 
-            _panelImage.color = subtitleOptions.fontBackgroundColor;
+            _panelImage.material.color = subtitleOptions.fontBackgroundColor;
 
         }
 
