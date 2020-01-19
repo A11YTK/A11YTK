@@ -62,7 +62,7 @@ namespace A11YTK
         public void Show()
         {
 
-            if (!_subtitleController.subtitleOptions.enabled)
+            if (_subtitleController.subtitleOptions != null && !_subtitleController.subtitleOptions.enabled)
             {
                 return;
             }
@@ -72,7 +72,12 @@ namespace A11YTK
                 SetupGameObjects();
             }
 
-            SetOptions(_subtitleController.subtitleOptions);
+            if (_subtitleController.subtitleOptions != null)
+            {
+
+                SetOptions(_subtitleController.subtitleOptions);
+
+            }
 
             _canvas.enabled = true;
 
