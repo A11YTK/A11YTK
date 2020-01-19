@@ -6,6 +6,7 @@ using UnityEngine.UI;
 namespace A11YTK
 {
 
+    [AddComponentMenu("A11YTK/SubtitleRenderer")]
     [RequireComponent(typeof(SubtitleController))]
     public class SubtitleRenderer : MonoBehaviour
     {
