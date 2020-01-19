@@ -107,6 +107,18 @@ namespace A11YTK
 
         }
 
+        private void OnValidate()
+        {
+
+            if (_audioSource == null)
+            {
+
+                _audioSource = gameObject.GetComponent<AudioSource>();
+
+            }
+
+        }
+
     }
 
 }
