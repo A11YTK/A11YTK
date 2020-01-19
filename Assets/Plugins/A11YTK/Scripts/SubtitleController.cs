@@ -17,7 +17,7 @@ namespace A11YTK
 
         [SerializeField]
         [TextArea(1, 10)]
-        private string _subtitleText;
+        private string _subtitleText = "Hello, world.";
 
         [SerializeField]
         private float _durationPerLine = 1;
