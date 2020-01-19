@@ -169,6 +169,18 @@ namespace A11YTK
 
         }
 
+        private void OnValidate()
+        {
+
+            if (_mainCamera == null)
+            {
+
+                _mainCamera = Camera.main;
+
+            }
+
+        }
+
     }
 
 }
