@@ -1,4 +1,4 @@
-# A11YTK
+# ![A11YTK](logo.png)
 
 > AR/VR context aware, spatialized subtitles for Unity
 
