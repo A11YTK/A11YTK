@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,10 @@ namespace A11YTK
         private const string TEXT_MESH_NAME = "Text (TMP)";
 
         private const string PANEL_NAME = "Panel";
+
+        private const string RESOURCES_MATERIAL_FOLDER = "Materials/";
+
+        private const string SUBTITLE_BACKGROUND_MATERIAL_NAME = "SubtitleBackground";
 
 #pragma warning disable CS0649
         [SerializeField]
@@ -34,6 +39,8 @@ namespace A11YTK
 
         private TextMeshProUGUI _textMesh;
 
+        private Material _subtitleBackgroundMaterial;
+
         private void Awake()
         {
 
@@ -45,6 +52,9 @@ namespace A11YTK
             }
 
             _subtitleController = gameObject.GetComponent<SubtitleController>();
+
+            _subtitleBackgroundMaterial = Resources.LoadAll<Material>(RESOURCES_MATERIAL_FOLDER)
+                .First(material => material.name.Equals(SUBTITLE_BACKGROUND_MATERIAL_NAME));
 
         }
 
@@ -93,6 +103,8 @@ namespace A11YTK
             _panelImage = _panel.GetComponent<Image>();
 
             _panelImage.raycastTarget = false;
+
+            _panelImage.material = _subtitleBackgroundMaterial;
 
             _canvasWrapper.GetComponent<RectTransform>().transform.localPosition = new Vector3(0, 0, 10);
 
