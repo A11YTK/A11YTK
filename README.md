@@ -15,7 +15,21 @@
 }
 ```
 
+Install [TextMeshPro](https://docs.unity3d.com/Manual/com.unity.textmeshpro.html) and then import `Essential Resources` and `Examples and Extras`.
+
 ## Usage
+
+Attach a `SubtitleController` component to any GameObject that has an `Audio Source` component.
+
+<img src="Screenshots/components.png" width="400">
+
+Create a `SubtitleOptions` file via the create asset menu via `A11YTK > SubtitleOptionsReference`.
+
+<img src="Screenshots/options.png" width="400">
+
+Drag the `SubtitleOptions` file into the `SubtitleController` reference property.
+
+Then use the following code to start the audio file and associated subtitles.
 
 ```csharp
 using A11YTK;
