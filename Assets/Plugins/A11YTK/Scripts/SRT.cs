@@ -43,8 +43,8 @@ namespace A11YTK
             try
             {
 
-                startTime = ParseMillisecondsFromTimeStamp(times[0], out _);
-                endTime = ParseMillisecondsFromTimeStamp(times[1], out _);
+                startTime = ParseMillisecondsFromTimeStamp(times[0], out var _);
+                endTime = ParseMillisecondsFromTimeStamp(times[1], out var _);
 
             }
             catch (Exception _)
@@ -71,7 +71,7 @@ namespace A11YTK
 
             var subtitles = new List<Subtitle>();
 
-            var matches = content.Split(new char[] { '\n' }).ToList().ChunkListWithPatternDelimiter(@"^\s*$");
+            var matches = content.Split('\n').ToList().ChunkListWithPatternDelimiter(@"^\s*$");
 
             foreach (var match in matches)
             {
