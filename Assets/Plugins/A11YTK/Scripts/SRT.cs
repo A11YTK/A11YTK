@@ -47,13 +47,13 @@ namespace A11YTK
                 endTime = ParseMillisecondsFromTimeStamp(times[1], out var _);
 
             }
-            catch (Exception _)
+            catch (Exception error)
             {
 
                 startTime = -1;
                 endTime = -1;
 
-                throw new WarningException("Non-valid timestamp range.");
+                throw new InvalidOperationException($"Non-valid timestamp range. {error.Message}");
 
             }
 
