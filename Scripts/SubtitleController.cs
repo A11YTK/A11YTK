@@ -1,121 +1,104 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace A11YTK
 {
 
-    [AddComponentMenu("A11YTK/SubtitleController")]
-    [RequireComponent(typeof(SubtitleRenderer))]
-    public class SubtitleController : MonoBehaviour
+    public abstract class SubtitleController : MonoBehaviour
     {
 
-        private const float DEFAULT_VOLUME_SCALE = 1f;
+        protected const float DEFAULT_VOLUME_SCALE = 1f;
 
 #pragma warning disable CS0649
         [SerializeField]
-        private AudioSource _audioSource;
-
-        [SerializeField]
         [TextArea(1, 10)]
-        private string _subtitleText = "Hello, world.";
+        protected string _subtitleText = "1\n0:0:1,0 --> 0:0:2,0\nHello, world.\n";
 
         [SerializeField]
-        private float _durationPerLine = 1;
+        protected Subtitle.Position _position = Subtitle.Position.AUTO;
 
         [SerializeField]
-        private Subtitle.Position _position = Subtitle.Position.AUTO;
+        protected Subtitle.Type _type;
 
         [SerializeField]
-        private Subtitle.Type _type;
-
-        [SerializeField]
-        private SubtitleOptionsReference _subtitleOptions;
+        protected SubtitleOptionsReference _subtitleOptions;
 #pragma warning restore CS0649
 
         public Subtitle.Position position => _position;
 
         public SubtitleOptionsReference subtitleOptions => _subtitleOptions;
 
-        private SubtitleRenderer _subtitleRenderer;
+        protected SubtitleRenderer _subtitleRenderer;
 
-        private Coroutine _loopThroughSubtitleLinesCoroutine;
+        protected List<SRT.Subtitle> _subtitles;
 
-        private void Awake()
+        protected Coroutine _loopThroughSubtitleLinesCoroutine;
+
+        protected abstract double elapsedTime { get; }
+
+        protected void Awake()
         {
 
             _subtitleRenderer = gameObject.GetComponent<SubtitleRenderer>();
 
+            _subtitles = SRT.ParseSubtitlesFromString(_subtitleText);
+
         }
 
-        public void PlayOneShot(AudioClip clip, float volumeScale = DEFAULT_VOLUME_SCALE)
+        public virtual void Play()
         {
-
-            Stop();
-
-            _audioSource.PlayOneShot(clip, volumeScale);
 
             _loopThroughSubtitleLinesCoroutine = StartCoroutine(LoopThroughSubtitleLines());
 
         }
 
-        public void PlayOneShot()
+        public virtual void Stop()
         {
 
-            Stop();
-
-            _audioSource.PlayOneShot(_audioSource.clip, DEFAULT_VOLUME_SCALE);
-
-            _loopThroughSubtitleLinesCoroutine = StartCoroutine(LoopThroughSubtitleLines());
-
-        }
-
-        public void Stop()
-        {
-
-            if (_loopThroughSubtitleLinesCoroutine != null)
+            if (_loopThroughSubtitleLinesCoroutine == null)
             {
-
-                StopCoroutine(_loopThroughSubtitleLinesCoroutine);
-
-                _loopThroughSubtitleLinesCoroutine = null;
-
+                return;
             }
 
-            _audioSource.Stop();
+            StopCoroutine(_loopThroughSubtitleLinesCoroutine);
+
+            _loopThroughSubtitleLinesCoroutine = null;
 
         }
 
-        private IEnumerator LoopThroughSubtitleLines()
+        protected IEnumerator LoopThroughSubtitleLines()
         {
 
             var lines = _subtitleText.Trim().Split('\n');
 
-            var duration = new WaitForSecondsRealtime(_durationPerLine);
+            var currentSubtitleIndex = 0;
 
-            _subtitleRenderer.Show();
-
-            foreach (var line in lines)
+            while (currentSubtitleIndex < _subtitles.Count)
             {
 
-                _subtitleRenderer.SetText(line);
+                if (elapsedTime >= _subtitles[currentSubtitleIndex].endTime / 1000)
+                {
 
-                yield return duration;
+                    _subtitleRenderer.Hide();
+
+                    currentSubtitleIndex += 1;
+
+                }
+                else if (elapsedTime >= _subtitles[currentSubtitleIndex].startTime / 1000)
+                {
+
+                    _subtitleRenderer.Show();
+
+                    _subtitleRenderer.SetText(_subtitles[currentSubtitleIndex].text);
+
+                }
+
+                yield return null;
 
             }
 
             _subtitleRenderer.Hide();
-
-        }
-
-        private void OnValidate()
-        {
-
-            if (_audioSource == null)
-            {
-
-                _audioSource = gameObject.GetComponent<AudioSource>();
-
-            }
 
         }
 
