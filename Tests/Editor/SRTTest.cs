@@ -1,5 +1,5 @@
+using System;
 using System.IO;
-using System.Text;
 using NUnit.Framework;
 
 namespace A11YTK.Tests
@@ -50,6 +50,17 @@ namespace A11YTK.Tests
 
             Assert.AreEqual(4200d, startTime);
             Assert.AreEqual(8200d, endTime);
+
+        }
+
+        [Test]
+        public void ParseTimeFromContentStringWithException()
+        {
+
+            Assert.Throws<InvalidOperationException>(
+                () =>
+                    SRT.ParseTimeFromContent("0:0:4,200", out var startTime, out var endTime)
+            );
 
         }
 
