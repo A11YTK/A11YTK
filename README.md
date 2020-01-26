@@ -50,3 +50,19 @@ public class PlayAudioFile : MonoBehaviour
 
 }
 ```
+
+## Contributors
+
+### Core Team
+
+| <img src="https://avatars2.githubusercontent.com/u/6753?s=150" width="150"> | <img src="https://avatars2.githubusercontent.com/u/58125435?s=150" width="150"> | <img src="https://avatars2.githubusercontent.com/u/315474?s=150" width="150"> |
+| --------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| [Scott Doxey](https://github.com/neogeek)                                   | [Luigi Cody Nicastro](https://github.com/luiginicastro)                         | [Mo Kakwan](https://github.com/luiwavewashginicastro)                         |
+
+## Contributing
+
+Be sure to review the [Contributing Guidelines](https://github.com/neogeek/A11YTK/blob/master/CONTRIBUTING.md) before logging an issue or making a pull request.
+
+## License
+
+[MIT](https://github.com/neogeek/A11YTK/blob/master/LICENSE)
