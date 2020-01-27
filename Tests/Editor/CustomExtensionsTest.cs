@@ -11,7 +11,7 @@ namespace A11YTK.Tests
         public void ChunkListWithPatternDelimiterFromList()
         {
 
-            var list = new List<string>(new string[] { "1", "hello", "", "2", "world", "" });
+            var list = new List<string>(new[] { "1", "hello", "", "2", "world", "" });
 
             var chunks = list.ChunkListWithPatternDelimiter(@"^\s*$");
 
