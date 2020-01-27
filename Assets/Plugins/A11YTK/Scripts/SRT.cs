@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace A11YTK
 {
@@ -70,7 +71,9 @@ namespace A11YTK
 
             var subtitles = new List<Subtitle>();
 
-            var matches = content.Split('\n').ToList().ChunkListWithPatternDelimiter(@"^\s*$");
+            var sanitizedContent = Regex.Replace(content, @"[\n]{3,}", "\n\n");
+
+            var matches = sanitizedContent.Split('\n').ToList().ChunkListWithPatternDelimiter(@"^\s*$");
 
             foreach (var match in matches)
             {
