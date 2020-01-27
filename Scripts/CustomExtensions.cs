@@ -28,6 +28,13 @@ namespace A11YTK
 
             }
 
+            if (currentIndex < lines.Count)
+            {
+
+                matches.Add(lines.GetRange(currentIndex, lines.Count - currentIndex));
+
+            }
+
             return matches;
 
         }
