@@ -4,7 +4,7 @@ using UnityEngine;
 namespace A11YTK
 {
 
-    [CreateAssetMenu(fileName = "SubtitleOptions", menuName = "A11YTK/SubtitleOptionsReference")]
+    [CreateAssetMenu(fileName = "SubtitleOptions", menuName = "A11YTK/Subtitle Options")]
     public class SubtitleOptionsReference : ScriptableObject
     {
 
