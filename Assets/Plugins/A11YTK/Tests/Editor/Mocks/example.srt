@@ -21,3 +21,6 @@ can you wave?
 5
 00:00:40,200 --> 00:00:44,200
 Fine. If you can't wave, just yell out.
+
+
+

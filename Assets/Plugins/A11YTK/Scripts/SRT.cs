@@ -71,7 +71,7 @@ namespace A11YTK
 
             var subtitles = new List<Subtitle>();
 
-            var sanitizedContent = Regex.Replace(content, @"[\n]{3,}", "\n\n");
+            var sanitizedContent = Regex.Replace(content.Trim(), @"[\n]{3,}", "\n\n");
 
             var matches = sanitizedContent.Split('\n').ToList().ChunkListWithPatternDelimiter(@"^\s*$");
 
