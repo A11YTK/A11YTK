@@ -26,6 +26,9 @@ namespace A11YTK
 
         [SerializeField]
         protected SubtitleOptionsReference _subtitleOptions;
+
+        [SerializeField]
+        protected bool _autoPlaySubtitles = true;
 #pragma warning restore CS0649
 
         public Subtitle.Position position => _position;

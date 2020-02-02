@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -15,6 +16,25 @@ namespace A11YTK
 #pragma warning restore CS0649
 
         protected override double elapsedTime => _videoSource.time;
+
+        private IEnumerator Start()
+        {
+
+            while (_autoPlaySubtitles)
+            {
+
+                if (_videoSource.isPlaying && _loopThroughSubtitleLinesCoroutine == null)
+                {
+
+                    Play();
+
+                }
+
+                yield return null;
+
+            }
+
+        }
 
         public override void Play()
         {
