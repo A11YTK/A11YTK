@@ -16,6 +16,9 @@ namespace A11YTK
         protected string _subtitleText = "1\n0:0:1,0 --> 0:0:2,0\nHello, world.\n";
 
         [SerializeField]
+        protected TextAsset _subtitleTextAsset;
+
+        [SerializeField]
         protected Subtitle.Position _position = Subtitle.Position.AUTO;
 
         [SerializeField]
@@ -42,7 +45,18 @@ namespace A11YTK
 
             _subtitleRenderer = gameObject.GetComponent<SubtitleRenderer>();
 
-            _subtitles = SRT.ParseSubtitlesFromString(_subtitleText);
+            if (_subtitleTextAsset != null)
+            {
+
+                _subtitles = SRT.ParseSubtitlesFromString(_subtitleTextAsset.text);
+
+            }
+            else
+            {
+
+                _subtitles = SRT.ParseSubtitlesFromString(_subtitleText);
+
+            }
 
             if (subtitleOptions == null)
             {
