@@ -44,6 +44,13 @@ namespace A11YTK
 
             _subtitles = SRT.ParseSubtitlesFromString(_subtitleText);
 
+            if (subtitleOptions == null)
+            {
+
+                Debug.LogWarning("Subtitle options asset is missing!");
+
+            }
+
         }
 
         public virtual void Play()
