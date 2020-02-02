@@ -22,7 +22,7 @@ namespace A11YTK
             while (_autoPlaySubtitles)
             {
 
-                if (_audioSource.isPlaying && _loopThroughSubtitleLinesCoroutine == null)
+                if (_audioSource && _audioSource.isPlaying && _loopThroughSubtitleLinesCoroutine == null)
                 {
 
                     Play();
