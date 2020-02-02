@@ -94,8 +94,6 @@ namespace A11YTK
         protected IEnumerator LoopThroughSubtitleLines()
         {
 
-            var lines = _subtitleText.Trim().Split('\n');
-
             var currentSubtitleIndex = 0;
 
             while (currentSubtitleIndex < _subtitles.Count)
