@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace A11YTK
@@ -14,6 +15,25 @@ namespace A11YTK
 #pragma warning restore CS0649
 
         protected override double elapsedTime => _audioSource.time;
+
+        private IEnumerator Start()
+        {
+
+            while (_autoPlaySubtitles)
+            {
+
+                if (_audioSource.isPlaying && _loopThroughSubtitleLinesCoroutine == null)
+                {
+
+                    Play();
+
+                }
+
+                yield return null;
+
+            }
+
+        }
 
         public override void Play()
         {
