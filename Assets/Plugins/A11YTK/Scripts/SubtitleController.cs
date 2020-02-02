@@ -1,121 +1,131 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace A11YTK
 {
 
-    [AddComponentMenu("A11YTK/SubtitleController")]
-    [RequireComponent(typeof(SubtitleRenderer))]
-    public class SubtitleController : MonoBehaviour
+    public abstract class SubtitleController : MonoBehaviour
     {
 
-        private const float DEFAULT_VOLUME_SCALE = 1f;
+        protected const float DEFAULT_VOLUME_SCALE = 1f;
 
 #pragma warning disable CS0649
         [SerializeField]
-        private AudioSource _audioSource;
-
-        [SerializeField]
         [TextArea(1, 10)]
-        private string _subtitleText = "Hello, world.";
+        protected string _subtitleText = "1\n0:0:1,0 --> 0:0:2,0\nHello, world.\n";
 
         [SerializeField]
-        private float _durationPerLine = 1;
+        protected TextAsset _subtitleTextAsset;
 
         [SerializeField]
-        private Subtitle.Position _position = Subtitle.Position.AUTO;
+        protected Subtitle.Position _position = Subtitle.Position.AUTO;
 
         [SerializeField]
-        private Subtitle.Type _type;
+        protected Subtitle.Type _type;
 
         [SerializeField]
-        private SubtitleOptionsReference _subtitleOptions;
+        protected SubtitleOptionsReference _subtitleOptions;
+
+        [SerializeField]
+        protected bool _autoPlaySubtitles = true;
 #pragma warning restore CS0649
 
         public Subtitle.Position position => _position;
 
         public SubtitleOptionsReference subtitleOptions => _subtitleOptions;
 
-        private SubtitleRenderer _subtitleRenderer;
+        protected SubtitleRenderer _subtitleRenderer;
 
-        private Coroutine _loopThroughSubtitleLinesCoroutine;
+        protected List<SRT.Subtitle> _subtitles;
 
-        private void Awake()
+        protected Coroutine _loopThroughSubtitleLinesCoroutine;
+
+        protected abstract double elapsedTime { get; }
+
+        protected void Awake()
         {
 
             _subtitleRenderer = gameObject.GetComponent<SubtitleRenderer>();
 
-        }
+            if (_subtitleTextAsset != null)
+            {
 
-        public void PlayOneShot(AudioClip clip, float volumeScale = DEFAULT_VOLUME_SCALE)
-        {
+                _subtitles = SRT.ParseSubtitlesFromString(_subtitleTextAsset.text);
 
-            Stop();
+            }
+            else
+            {
 
-            _audioSource.PlayOneShot(clip, volumeScale);
+                _subtitles = SRT.ParseSubtitlesFromString(_subtitleText);
 
-            _loopThroughSubtitleLinesCoroutine = StartCoroutine(LoopThroughSubtitleLines());
+            }
 
-        }
+            if (subtitleOptions == null)
+            {
 
-        public void PlayOneShot()
-        {
+                Debug.LogWarning("Subtitle options asset is missing!");
 
-            Stop();
-
-            _audioSource.PlayOneShot(_audioSource.clip, DEFAULT_VOLUME_SCALE);
-
-            _loopThroughSubtitleLinesCoroutine = StartCoroutine(LoopThroughSubtitleLines());
+            }
 
         }
 
-        public void Stop()
+        public virtual void Play()
         {
 
             if (_loopThroughSubtitleLinesCoroutine != null)
             {
-
-                StopCoroutine(_loopThroughSubtitleLinesCoroutine);
-
-                _loopThroughSubtitleLinesCoroutine = null;
-
+                return;
             }
 
-            _audioSource.Stop();
+            _loopThroughSubtitleLinesCoroutine = StartCoroutine(LoopThroughSubtitleLines());
 
         }
 
-        private IEnumerator LoopThroughSubtitleLines()
+        public virtual void Stop()
         {
 
-            var lines = _subtitleText.Trim().Split('\n');
+            if (_loopThroughSubtitleLinesCoroutine == null)
+            {
+                return;
+            }
 
-            var duration = new WaitForSecondsRealtime(_durationPerLine);
+            StopCoroutine(_loopThroughSubtitleLinesCoroutine);
 
-            _subtitleRenderer.Show();
+            _loopThroughSubtitleLinesCoroutine = null;
 
-            foreach (var line in lines)
+        }
+
+        protected IEnumerator LoopThroughSubtitleLines()
+        {
+
+            var currentSubtitleIndex = 0;
+
+            while (currentSubtitleIndex < _subtitles.Count)
             {
 
-                _subtitleRenderer.SetText(line);
+                if (elapsedTime >= _subtitles[currentSubtitleIndex].endTime / 1000)
+                {
 
-                yield return duration;
+                    _subtitleRenderer.Hide();
+
+                    currentSubtitleIndex += 1;
+
+                }
+                else if (elapsedTime >= _subtitles[currentSubtitleIndex].startTime / 1000)
+                {
+
+                    _subtitleRenderer.Show();
+
+                    _subtitleRenderer.SetText(_subtitles[currentSubtitleIndex].text);
+
+                }
+
+                yield return null;
 
             }
 
             _subtitleRenderer.Hide();
-
-        }
-
-        private void OnValidate()
-        {
-
-            if (_audioSource == null)
-            {
-
-                _audioSource = gameObject.GetComponent<AudioSource>();
-
-            }
 
         }
 
