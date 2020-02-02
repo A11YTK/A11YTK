@@ -1,5 +1,5 @@
 ﻿{
-	"name": "A11YTK.Tests",
+    "name": "A11YTK.Tests",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
