@@ -4,7 +4,11 @@
 
 ## Installation
 
+### Unity Package Manager
+
 <https://docs.unity3d.com/Packages/com.unity.package-manager-ui@2.0/manual/index.html>
+
+#### Git
 
 ```json
 {
@@ -12,6 +16,17 @@
     "com.scottdoxey.a11ytk": "https://github.com/neogeek/a11ytk.git#upm",
     ...
   }
+}
+```
+
+### Include tests
+
+```json
+{
+  "dependencies": {
+    ...
+  },
+  "testables": ["com.scottdoxey.a11ytk"]
 }
 ```
 
