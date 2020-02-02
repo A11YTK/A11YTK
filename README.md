@@ -44,7 +44,7 @@ public class PlayAudioFile : MonoBehaviour
     public void Play()
     {
 
-        _subtitleController.PlayOneShot();
+        _subtitleController.Play();
 
     }
 
