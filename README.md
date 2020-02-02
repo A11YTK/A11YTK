@@ -19,37 +19,17 @@ Install [TextMeshPro](https://docs.unity3d.com/Manual/com.unity.textmeshpro.html
 
 ## Usage
 
-Attach a `SubtitleController` component to any GameObject that has an `Audio Source` component.
+Attach a `SubtitleAudioSourceController` or `SubtitleVideoPlayerController` component to any GameObject that has an `AudioSource` or `VideoPlayer` component respectively.
 
 <img src="Screenshots/components.png" width="400">
 
-Create a `SubtitleOptions` file via the create asset menu via `A11YTK > SubtitleOptionsReference`.
+Using an SRT file, either paste the contents or drag the asset reference into the `Subtitle Text` or `Subtitle Text Asset` property respectively.
+
+Create a `Subtitle Options` file via the create asset menu via `A11YTK > Subtitle Options`.
 
 <img src="Screenshots/options.png" width="400">
 
-Drag the `SubtitleOptions` file into the `SubtitleController` reference property.
-
-Then use the following code to start the audio file and associated subtitles.
-
-```csharp
-using A11YTK;
-using UnityEngine;
-
-public class PlayAudioFile : MonoBehaviour
-{
-
-    [SerializeField]
-    private SubtitleController _subtitleController;
-
-    public void Play()
-    {
-
-        _subtitleController.Play();
-
-    }
-
-}
-```
+Drag the `SubtitleOptions` asset into the `Subtitle Options` property of the `SubtitleAudioSourceController` or `SubtitleVideoPlayerController` component.
 
 ## Contributors
 
