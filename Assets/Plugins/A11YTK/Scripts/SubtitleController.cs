@@ -73,7 +73,10 @@ namespace A11YTK
         public virtual void Play()
         {
 
-            Stop();
+            if (_loopThroughSubtitleLinesCoroutine != null)
+            {
+                return;
+            }
 
             _loopThroughSubtitleLinesCoroutine = StartCoroutine(LoopThroughSubtitleLines());
 
