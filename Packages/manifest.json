@@ -5,7 +5,14 @@
     "com.unity.ide.vscode": "1.1.4",
     "com.unity.test-framework": "1.1.11",
     "com.unity.textmeshpro": "2.0.1",
+    "xyz.candycoded.gitstatus": "https://github.com/CandyCoded/gitstatus.git#v2.1.0",
     "com.unity.modules.audio": "1.0.0",
     "com.unity.modules.video": "1.0.0"
+  },
+  "lock": {
+    "xyz.candycoded.gitstatus": {
+      "revision": "v2.1.0",
+      "hash": "e631e4ff75a9cf1427a6a8d34bc21a59736ad76f"
+    }
   }
 }
