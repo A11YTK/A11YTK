@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using UnityEngine;
 
 namespace A11YTK
 {
@@ -36,6 +37,20 @@ namespace A11YTK
             }
 
             return matches;
+
+        }
+
+        public static Color ToColor(this string color)
+        {
+
+            var values = color.Split(',');
+
+            float.TryParse(values[0], out var r);
+            float.TryParse(values[1], out var g);
+            float.TryParse(values[2], out var b);
+            float.TryParse(values[3], out var a);
+
+            return new Color(r, g, b, a);
 
         }
 
