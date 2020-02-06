@@ -23,10 +23,6 @@ namespace A11YTK
 
         public bool showBackgroundColor;
 
-        public string fontAsset;
-
-        public string fontMaterial;
-
     }
 
     [CreateAssetMenu(fileName = "SubtitleOptions", menuName = "A11YTK/Subtitle Options")]
