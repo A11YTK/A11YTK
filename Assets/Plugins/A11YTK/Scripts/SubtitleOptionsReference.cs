@@ -64,10 +64,8 @@ namespace A11YTK
                             enabled = enabled,
                             defaultPosition = defaultPosition,
                             fontSize = fontSize,
-                            fontForegroundColor =
-                                $"{fontForegroundColor.r},{fontForegroundColor.g},{fontForegroundColor.b},{fontForegroundColor.a}",
-                            fontBackgroundColor =
-                                $"{fontBackgroundColor.r},{fontBackgroundColor.g},{fontBackgroundColor.b},{fontBackgroundColor.a}",
+                            fontForegroundColor = fontForegroundColor.ToString(),
+                            fontBackgroundColor = fontBackgroundColor.ToString(),
                             showBackgroundColor = showBackgroundColor
                         });
 
