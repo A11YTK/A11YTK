@@ -8,14 +8,14 @@ namespace A11YTK
 {
 
     [Serializable]
-    public class SubtitleOptions
+    public struct SubtitleOptions
     {
 
         public bool enabled;
 
-        public Subtitle.Position defaultPosition = Subtitle.Position.BOTTOM;
+        public Subtitle.Position defaultPosition;
 
-        public float fontSize = 30;
+        public float fontSize;
 
         public string fontForegroundColor;
 
