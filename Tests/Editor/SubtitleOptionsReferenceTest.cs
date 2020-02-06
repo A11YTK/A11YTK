@@ -40,6 +40,7 @@ namespace A11YTK.Tests
 
             Assert.AreEqual(true, loadedSubtitleOptions.enabled);
             Assert.AreEqual(24, loadedSubtitleOptions.fontSize);
+
             Assert.IsTrue(Mathf.Approximately(Color.yellow.r, loadedSubtitleOptions.fontForegroundColor.r));
             Assert.IsTrue(Mathf.Approximately(Color.yellow.g, loadedSubtitleOptions.fontForegroundColor.g));
             Assert.IsTrue(Mathf.Approximately(Color.yellow.b, loadedSubtitleOptions.fontForegroundColor.b));
