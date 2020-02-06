@@ -43,7 +43,7 @@ namespace A11YTK
         public static Color ToColor(this string color)
         {
 
-            var values = color.Split(',');
+            var values = color.Replace("RGBA", "").Trim('(', ')').Split(',');
 
             float.TryParse(values[0], out var r);
             float.TryParse(values[1], out var g);

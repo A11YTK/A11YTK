@@ -9,12 +9,15 @@ namespace A11YTK.Tests
     public static class SubtitleOptionsReferenceTest
     {
 
+        private const float COLOR_EPSILON = 0.01f;
+
         private const string subtitlesOptionsFileName = "SubtitleOptions.dat";
 
         private static string subtitlesOptionsPath =>
             Path.Combine(Application.persistentDataPath, subtitlesOptionsFileName);
 
-        [SetUp, TearDown]
+        [SetUp]
+        [TearDown]
         public static void DeleteFiles()
         {
 
@@ -41,10 +44,10 @@ namespace A11YTK.Tests
             Assert.AreEqual(true, loadedSubtitleOptions.enabled);
             Assert.AreEqual(24, loadedSubtitleOptions.fontSize);
 
-            Assert.IsTrue(Mathf.Approximately(Color.yellow.r, loadedSubtitleOptions.fontForegroundColor.r));
-            Assert.IsTrue(Mathf.Approximately(Color.yellow.g, loadedSubtitleOptions.fontForegroundColor.g));
-            Assert.IsTrue(Mathf.Approximately(Color.yellow.b, loadedSubtitleOptions.fontForegroundColor.b));
-            Assert.IsTrue(Mathf.Approximately(Color.yellow.a, loadedSubtitleOptions.fontForegroundColor.a));
+            Assert.Less(Mathf.Abs(Color.yellow.r - loadedSubtitleOptions.fontForegroundColor.r), COLOR_EPSILON);
+            Assert.Less(Mathf.Abs(Color.yellow.g - loadedSubtitleOptions.fontForegroundColor.g), COLOR_EPSILON);
+            Assert.Less(Mathf.Abs(Color.yellow.b - loadedSubtitleOptions.fontForegroundColor.b), COLOR_EPSILON);
+            Assert.Less(Mathf.Abs(Color.yellow.a - loadedSubtitleOptions.fontForegroundColor.a), COLOR_EPSILON);
 
         }
 
