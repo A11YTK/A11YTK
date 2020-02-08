@@ -30,9 +30,13 @@ namespace A11YTK
 
         private GameObject _canvasWrapper;
 
+        private RectTransform _canvasWrapperTransform;
+
         private Canvas _canvas;
 
         private GameObject _textMeshWrapper;
+
+        private RectTransform _textMeshWrapperTransform;
 
         private GameObject _panel;
 
@@ -88,35 +92,45 @@ namespace A11YTK
 
             _canvasWrapper = new GameObject(CANVAS_WRAPPER_NAME, typeof(Canvas), typeof(CanvasScaler));
 
+            _canvasWrapperTransform = _canvasWrapper.GetComponent<RectTransform>();
+
+            _canvasWrapperTransform.transform.localPosition = new Vector3(0, 0, 10);
+
+            _canvasWrapperTransform.SetParent(_mainCamera.transform, false);
+
             _canvas = _canvasWrapper.GetComponent<Canvas>();
 
-            _textMeshWrapper = new GameObject(TEXT_MESH_NAME);
+            _canvas.GetComponent<RectTransform>().ResetRectTransform();
 
-            _textMeshWrapper.transform.SetParent(_canvasWrapper.transform);
+            _canvas.ResizeCanvasToMatchCamera(_mainCamera);
+
+            _canvas.worldCamera = _mainCamera;
+
+            _textMeshWrapper = new GameObject(TEXT_MESH_NAME, typeof(RectTransform));
+
+            _textMeshWrapperTransform = _textMeshWrapper.GetComponent<RectTransform>();
+
+            _textMeshWrapperTransform.SetParent(_canvasWrapperTransform, false);
+
+            _textMeshWrapperTransform.localScale = Vector3.one * 0.025f;
 
             _textMesh = _textMeshWrapper.AddComponent<TextMeshProUGUI>();
 
             _textMesh.raycastTarget = false;
 
-            _textMeshWrapper.transform.GetComponent<RectTransform>().ResetRectTransform();
+            _textMeshWrapperTransform.ResetRectTransform();
 
-            _panel = new GameObject(PANEL_NAME, typeof(Image));
+            _panel = new GameObject(PANEL_NAME, typeof(RectTransform), typeof(Image));
 
-            _panel.transform.SetParent(_textMeshWrapper.transform);
+            _panel.transform.SetParent(_textMeshWrapperTransform, false);
 
-            _panel.transform.GetComponent<RectTransform>().ResetRectTransform();
+            _panel.GetComponent<RectTransform>().ResetRectTransform();
 
             _panelImage = _panel.GetComponent<Image>();
 
             _panelImage.raycastTarget = false;
 
             _panelImage.material = _subtitleBackgroundMaterial;
-
-            _canvasWrapper.GetComponent<RectTransform>().transform.localPosition = new Vector3(0, 0, 10);
-
-            _canvasWrapper.transform.SetParent(_mainCamera.transform, false);
-
-            _canvas.ScaleCanvasToMatchCamera(_mainCamera);
 
         }
 
@@ -163,7 +177,7 @@ namespace A11YTK
 
             var valueSizeDelta = _textMesh.GetPreferredValues(wrappedText);
 
-            _canvasWrapper.GetComponent<RectTransform>().sizeDelta = valueSizeDelta;
+            _textMeshWrapperTransform.sizeDelta = valueSizeDelta;
 
             _textMesh.text = wrappedText;
 
