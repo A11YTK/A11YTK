@@ -73,7 +73,11 @@ namespace A11YTK
 
             if (_canvasWrapper == null)
             {
-                SetupGameObjects();
+
+                SetupCanvasGameObjects();
+
+                SetupTextGameObjects();
+
             }
 
             if (_subtitleController.subtitleOptions != null)
@@ -87,24 +91,29 @@ namespace A11YTK
 
         }
 
-        private void SetupGameObjects()
+        private void SetupCanvasGameObjects()
         {
 
             _canvasWrapper = new GameObject(CANVAS_WRAPPER_NAME, typeof(Canvas), typeof(CanvasScaler));
 
             _canvasWrapperTransform = _canvasWrapper.GetComponent<RectTransform>();
 
-            _canvasWrapperTransform.transform.localPosition = new Vector3(0, 0, 10);
-
             _canvasWrapperTransform.SetParent(_mainCamera.transform, false);
 
-            _canvas = _canvasWrapper.GetComponent<Canvas>();
+            _canvasWrapperTransform.ResetRectTransform();
 
-            _canvas.GetComponent<RectTransform>().ResetRectTransform();
+            _canvasWrapperTransform.transform.localPosition = new Vector3(0, 0, 10);
+
+            _canvas = _canvasWrapper.GetComponent<Canvas>();
 
             _canvas.ResizeCanvasToMatchCamera(_mainCamera);
 
             _canvas.worldCamera = _mainCamera;
+
+        }
+
+        private void SetupTextGameObjects()
+        {
 
             _textMeshWrapper = new GameObject(TEXT_MESH_NAME, typeof(RectTransform));
 
@@ -112,13 +121,13 @@ namespace A11YTK
 
             _textMeshWrapperTransform.SetParent(_canvasWrapperTransform, false);
 
+            _textMeshWrapperTransform.ResetRectTransform();
+
             _textMeshWrapperTransform.localScale = Vector3.one * 0.025f;
 
             _textMesh = _textMeshWrapper.AddComponent<TextMeshProUGUI>();
 
             _textMesh.raycastTarget = false;
-
-            _textMeshWrapperTransform.ResetRectTransform();
 
             _panel = new GameObject(PANEL_NAME, typeof(RectTransform), typeof(Image));
 
