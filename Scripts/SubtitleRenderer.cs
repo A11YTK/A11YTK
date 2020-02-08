@@ -100,11 +100,11 @@ namespace A11YTK
 
             _canvasWrapperTransform.SetParent(_mainCamera.transform, false);
 
+            _canvasWrapperTransform.ResetRectTransform();
+
             _canvasWrapperTransform.transform.localPosition = new Vector3(0, 0, 10);
 
             _canvas = _canvasWrapper.GetComponent<Canvas>();
-
-            _canvas.GetComponent<RectTransform>().ResetRectTransform();
 
             _canvas.ResizeCanvasToMatchCamera(_mainCamera);
 
