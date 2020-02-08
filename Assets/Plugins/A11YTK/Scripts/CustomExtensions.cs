@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using TMPro;
 using UnityEngine;
 
 namespace A11YTK
@@ -51,6 +52,42 @@ namespace A11YTK
             float.TryParse(values[3], out var a);
 
             return new Color(r, g, b, a);
+
+        }
+
+        public static string WrapText(this TextMeshProUGUI textMesh, string text, float wrapWidth)
+        {
+
+            var lines = new List<string> { "" };
+
+            var words = Regex.Split(text, @"(\s+)");
+
+            var currentLine = 0;
+            var currentLineWidth = 0f;
+
+            foreach (var word in words)
+            {
+
+                var valueSizeDelta = textMesh.GetPreferredValues(word);
+
+                currentLineWidth += valueSizeDelta.x;
+
+                if (currentLineWidth > wrapWidth)
+                {
+
+                    currentLine += 1;
+
+                    currentLineWidth = valueSizeDelta.x;
+
+                    lines.Add("");
+
+                }
+
+                lines[currentLine] += word;
+
+            }
+
+            return string.Join("\n", lines).Trim();
 
         }
 
