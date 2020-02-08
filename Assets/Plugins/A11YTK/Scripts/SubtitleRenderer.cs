@@ -127,6 +127,11 @@ namespace A11YTK
 
             _textMesh = _textMeshWrapper.AddComponent<TextMeshProUGUI>();
 
+            _textMeshWrapperTransform.SetInsetAndSizeFromParentEdge(
+                _subtitleController.position.Equals(Subtitle.Position.TOP)
+                    ? RectTransform.Edge.Top
+                    : RectTransform.Edge.Bottom, 1, 1);
+
             _textMesh.alignment = TextAlignmentOptions.Midline;
 
             _textMesh.raycastTarget = false;
