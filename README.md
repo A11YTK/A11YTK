@@ -32,7 +32,7 @@
 
 Install [TextMeshPro](https://docs.unity3d.com/Manual/com.unity.textmeshpro.html) and then import `Essential Resources` and `Examples and Extras`.
 
-## Usage
+## Quick Start
 
 Attach a `SubtitleAudioSourceController` or `SubtitleVideoPlayerController` component to any GameObject that has an `AudioSource` or `VideoPlayer` component respectively.
 
@@ -51,8 +51,8 @@ Drag the `SubtitleOptions` asset into the `Subtitle Options` property of the `Su
 ### Core Team
 
 | <img src="https://avatars2.githubusercontent.com/u/6753?s=400&v=4" width="150"> | <img src="https://avatars2.githubusercontent.com/u/58125435?s=400&v=4" width="150"> | <img src="https://avatars2.githubusercontent.com/u/315474?s=400&v=4" width="150"> |
-| --------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| [Scott Doxey](https://github.com/neogeek)                                   | [Luigi Cody Nicastro](https://github.com/luiginicastro)                         | [Mo Kakwan](https://github.com/luiwavewashginicastro)                         |
+| ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| [Scott Doxey](https://github.com/neogeek)                                       | [Luigi Cody Nicastro](https://github.com/luiginicastro)                             | [Mo Kakwan](https://github.com/luiwavewashginicastro)                             |
 
 ## Contributing
 
