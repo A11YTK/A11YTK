@@ -40,11 +40,94 @@ Attach a `SubtitleAudioSourceController` or `SubtitleVideoPlayerController` comp
 
 Using an SRT file, either paste the contents or drag the asset reference into the `Subtitle Text` or `Subtitle Text Asset` property respectively.
 
-Create a `Subtitle Options` file via the create asset menu via `A11YTK > Subtitle Options`.
+Create a `Subtitle Options` asset via the create asset menu via `A11YTK > Subtitle Options` and populate with the values seen in the screenshot below.
 
 <img src="Screenshots/options.png" width="400">
 
-Drag the `SubtitleOptions` asset into the `Subtitle Options` property of the `SubtitleAudioSourceController` or `SubtitleVideoPlayerController` component.
+Drag the `Subtitle Options` asset into the `Subtitle Options` property of the `SubtitleAudioSourceController` or `SubtitleVideoPlayerController` component.
+
+## Documentation
+
+### SubtitleOptions
+
+#### Properties
+
+| Property              | Description                                            | Default  |
+| --------------------- | ------------------------------------------------------ | -------- |
+| Enabled               | Toggle subtitles on or off.                            | `Off`    |
+| Default Position      | Position subtitles should render on screen.            | `Bottom` |
+| Font Size             | Subtitle font size.                                    | `30`     |
+| Font Foreground Color | Subtile font color                                     | `White`  |
+| Font Background Color | Background color that appears behind subtitle text     | `Black`  |
+| Show Background Color | Toggle subtitle background on or off.                  | `On`     |
+| Font Asset            | TextMeshPro font to render subtitle with.              | `Null`   |
+| Font Material         | TextMeshPro material to use with the TextMeshPro font. | `Null`   |
+
+#### Methods
+
+##### Save
+
+Save current state of the `SubtitleOptions` asset to file path.
+
+```csharp
+using A11YTK;
+using UnityEngine;
+
+public class SubtitleOptionManager : MonoBehaviour
+{
+
+    private const string SUBTITLE_OPTIONS_FILENAME = "subtitleOptions.dat";
+
+    [SerializeField]
+    private SubtitleOptionsReference _subtitleOptions;
+
+    ...
+
+    public void OnDisable()
+    {
+
+        _subtitleOptions.Save(SUBTITLE_OPTIONS_FILENAME);
+
+    }
+
+}
+```
+
+##### Load
+
+Load saved state from a local file into the `SubtitleOptions` asset.
+
+```csharp
+using A11YTK;
+using UnityEngine;
+
+public class SubtitleOptionManager : MonoBehaviour
+{
+
+    private const string SUBTITLE_OPTIONS_FILENAME = "subtitleOptions.dat";
+
+    [SerializeField]
+    private SubtitleOptionsReference _subtitleOptions;
+
+    public void OnEnable()
+    {
+
+        _subtitleOptions.Load(SUBTITLE_OPTIONS_FILENAME);
+
+    }
+
+    ...
+
+}
+```
+
+##### Delete
+
+Delete local file.
+
+```csharp
+_subtitleOptions.Delete("subtitleOptions.dat");
+```
 
 ## Contributors
 
