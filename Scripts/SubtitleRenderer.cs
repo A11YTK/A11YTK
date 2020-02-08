@@ -36,6 +36,8 @@ namespace A11YTK
 
         private GameObject _textMeshWrapper;
 
+        private RectTransform _textMeshWrapperTransform;
+
         private GameObject _panel;
 
         private Image _panelImage;
@@ -106,17 +108,19 @@ namespace A11YTK
 
             _textMeshWrapper = new GameObject(TEXT_MESH_NAME);
 
-            _textMeshWrapper.transform.SetParent(_canvasWrapperTransform, false);
+            _textMeshWrapperTransform = _textMeshWrapper.GetComponent<RectTransform>();
+
+            _textMeshWrapperTransform.SetParent(_canvasWrapperTransform, false);
 
             _textMesh = _textMeshWrapper.AddComponent<TextMeshProUGUI>();
 
             _textMesh.raycastTarget = false;
 
-            _textMeshWrapper.GetComponent<RectTransform>().ResetRectTransform();
+            _textMeshWrapperTransform.ResetRectTransform();
 
             _panel = new GameObject(PANEL_NAME, typeof(Image));
 
-            _panel.transform.SetParent(_textMeshWrapper.transform, false);
+            _panel.transform.SetParent(_textMeshWrapperTransform, false);
 
             _panel.GetComponent<RectTransform>().ResetRectTransform();
 
@@ -171,7 +175,7 @@ namespace A11YTK
 
             var valueSizeDelta = _textMesh.GetPreferredValues(wrappedText);
 
-            _textMeshWrapper.GetComponent<RectTransform>().sizeDelta = valueSizeDelta;
+            _textMeshWrapperTransform.sizeDelta = valueSizeDelta;
 
             _textMesh.text = wrappedText;
 
