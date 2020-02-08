@@ -165,7 +165,7 @@ namespace A11YTK
 
             var valueSizeDelta = _textMesh.GetPreferredValues(wrappedText);
 
-            _canvasWrapper.GetComponent<RectTransform>().sizeDelta = valueSizeDelta;
+            _textMeshWrapper.GetComponent<RectTransform>().sizeDelta = valueSizeDelta;
 
             _textMesh.text = wrappedText;
 
