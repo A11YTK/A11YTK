@@ -50,7 +50,7 @@ Drag the `SubtitleOptions` asset into the `Subtitle Options` property of the `Su
 
 ### Core Team
 
-| <img src="https://avatars2.githubusercontent.com/u/6753?s=150" width="150"> | <img src="https://avatars2.githubusercontent.com/u/58125435?s=150" width="150"> | <img src="https://avatars2.githubusercontent.com/u/315474?s=150" width="150"> |
+| <img src="https://avatars2.githubusercontent.com/u/6753?s=400&v=4" width="150"> | <img src="https://avatars2.githubusercontent.com/u/58125435?s=400&v=4" width="150"> | <img src="https://avatars2.githubusercontent.com/u/315474?s=400&v=4" width="150"> |
 | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | [Scott Doxey](https://github.com/neogeek)                                   | [Luigi Cody Nicastro](https://github.com/luiginicastro)                         | [Mo Kakwan](https://github.com/luiwavewashginicastro)                         |
 
