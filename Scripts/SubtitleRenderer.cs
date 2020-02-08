@@ -106,7 +106,7 @@ namespace A11YTK
 
             _canvas.worldCamera = _mainCamera;
 
-            _textMeshWrapper = new GameObject(TEXT_MESH_NAME);
+            _textMeshWrapper = new GameObject(TEXT_MESH_NAME, typeof(RectTransform));
 
             _textMeshWrapperTransform = _textMeshWrapper.GetComponent<RectTransform>();
 
@@ -118,7 +118,7 @@ namespace A11YTK
 
             _textMeshWrapperTransform.ResetRectTransform();
 
-            _panel = new GameObject(PANEL_NAME, typeof(Image));
+            _panel = new GameObject(PANEL_NAME, typeof(RectTransform), typeof(Image));
 
             _panel.transform.SetParent(_textMeshWrapperTransform, false);
 
