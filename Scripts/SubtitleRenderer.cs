@@ -90,6 +90,8 @@ namespace A11YTK
 
             _canvas = _canvasWrapper.GetComponent<Canvas>();
 
+            _canvas.worldCamera = _mainCamera;
+
             _textMeshWrapper = new GameObject(TEXT_MESH_NAME);
 
             _textMeshWrapper.transform.SetParent(_canvasWrapper.transform);
