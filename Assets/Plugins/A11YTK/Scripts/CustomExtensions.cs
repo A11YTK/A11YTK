@@ -105,7 +105,11 @@ namespace A11YTK
         public static void ScaleCanvasToMatchCamera(this Canvas canvas, Camera camera)
         {
 
-            canvas.transform.localScale = Vector3.one * 0.025f;
+            var distance = Vector3.Distance(camera.transform.position, canvas.transform.position);
+
+            var camHeight = 2 * distance * Mathf.Tan(Mathf.Deg2Rad * (camera.fieldOfView / 2));
+
+            canvas.transform.localScale = new Vector3(camHeight * camera.aspect, camHeight, 1);
 
         }
 
