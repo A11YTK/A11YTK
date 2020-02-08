@@ -108,13 +108,13 @@ namespace A11YTK
 
             _textMesh.raycastTarget = false;
 
-            _textMeshWrapper.transform.GetComponent<RectTransform>().ResetRectTransform();
+            _textMeshWrapper.GetComponent<RectTransform>().ResetRectTransform();
 
             _panel = new GameObject(PANEL_NAME, typeof(Image));
 
             _panel.transform.SetParent(_textMeshWrapper.transform);
 
-            _panel.transform.GetComponent<RectTransform>().ResetRectTransform();
+            _panel.GetComponent<RectTransform>().ResetRectTransform();
 
             _panelImage = _panel.GetComponent<Image>();
 
