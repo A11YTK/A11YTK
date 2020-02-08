@@ -30,6 +30,8 @@ namespace A11YTK
 
         private GameObject _canvasWrapper;
 
+        private RectTransform _canvasWrapperTransform;
+
         private Canvas _canvas;
 
         private GameObject _textMeshWrapper;
@@ -88,9 +90,11 @@ namespace A11YTK
 
             _canvasWrapper = new GameObject(CANVAS_WRAPPER_NAME, typeof(Canvas), typeof(CanvasScaler));
 
-            _canvasWrapper.GetComponent<RectTransform>().transform.localPosition = new Vector3(0, 0, 10);
+            _canvasWrapperTransform = _canvasWrapper.GetComponent<RectTransform>();
 
-            _canvasWrapper.transform.SetParent(_mainCamera.transform, false);
+            _canvasWrapperTransform.transform.localPosition = new Vector3(0, 0, 10);
+
+            _canvasWrapperTransform.SetParent(_mainCamera.transform, false);
 
             _canvas = _canvasWrapper.GetComponent<Canvas>();
 
@@ -102,7 +106,7 @@ namespace A11YTK
 
             _textMeshWrapper = new GameObject(TEXT_MESH_NAME);
 
-            _textMeshWrapper.transform.SetParent(_canvasWrapper.transform, false);
+            _textMeshWrapper.transform.SetParent(_canvasWrapperTransform, false);
 
             _textMesh = _textMeshWrapper.AddComponent<TextMeshProUGUI>();
 
