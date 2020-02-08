@@ -112,6 +112,8 @@ namespace A11YTK
 
             _textMeshWrapperTransform.SetParent(_canvasWrapperTransform, false);
 
+            _textMeshWrapperTransform.localScale = Vector3.one * 0.025f;
+
             _textMesh = _textMeshWrapper.AddComponent<TextMeshProUGUI>();
 
             _textMesh.raycastTarget = false;
