@@ -31,7 +31,8 @@ namespace A11YTK
         protected bool _autoPlaySubtitles = true;
 #pragma warning restore CS0649
 
-        public Subtitle.Position position => _position;
+        public Subtitle.Position position =>
+            _position.Equals(Subtitle.Position.AUTO) ? _subtitleOptions.defaultPosition : _position;
 
         public SubtitleOptionsReference subtitleOptions => _subtitleOptions;
 
