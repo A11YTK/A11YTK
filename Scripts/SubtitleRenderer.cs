@@ -88,7 +88,13 @@ namespace A11YTK
 
             _canvasWrapper = new GameObject(CANVAS_WRAPPER_NAME, typeof(Canvas), typeof(CanvasScaler));
 
+            _canvasWrapper.GetComponent<RectTransform>().transform.localPosition = new Vector3(0, 0, 10);
+
+            _canvasWrapper.transform.SetParent(_mainCamera.transform, false);
+
             _canvas = _canvasWrapper.GetComponent<Canvas>();
+
+            _canvas.ScaleCanvasToMatchCamera(_mainCamera);
 
             _canvas.worldCamera = _mainCamera;
 
@@ -113,12 +119,6 @@ namespace A11YTK
             _panelImage.raycastTarget = false;
 
             _panelImage.material = _subtitleBackgroundMaterial;
-
-            _canvasWrapper.GetComponent<RectTransform>().transform.localPosition = new Vector3(0, 0, 10);
-
-            _canvasWrapper.transform.SetParent(_mainCamera.transform, false);
-
-            _canvas.ScaleCanvasToMatchCamera(_mainCamera);
 
         }
 
