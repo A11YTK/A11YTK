@@ -159,11 +159,13 @@ namespace A11YTK
                 return;
             }
 
-            var valueSizeDelta = _textMesh.GetPreferredValues(value);
+            var wrappedText = _textMesh.WrapText(value, 500);
+
+            var valueSizeDelta = _textMesh.GetPreferredValues(wrappedText);
 
             _canvasWrapper.GetComponent<RectTransform>().sizeDelta = valueSizeDelta;
 
-            _textMesh.text = value;
+            _textMesh.text = wrappedText;
 
         }
 
