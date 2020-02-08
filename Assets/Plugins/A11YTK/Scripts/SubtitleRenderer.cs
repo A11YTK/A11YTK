@@ -102,7 +102,7 @@ namespace A11YTK
 
             _textMeshWrapper = new GameObject(TEXT_MESH_NAME);
 
-            _textMeshWrapper.transform.SetParent(_canvasWrapper.transform);
+            _textMeshWrapper.transform.SetParent(_canvasWrapper.transform, false);
 
             _textMesh = _textMeshWrapper.AddComponent<TextMeshProUGUI>();
 
@@ -112,7 +112,7 @@ namespace A11YTK
 
             _panel = new GameObject(PANEL_NAME, typeof(Image));
 
-            _panel.transform.SetParent(_textMeshWrapper.transform);
+            _panel.transform.SetParent(_textMeshWrapper.transform, false);
 
             _panel.GetComponent<RectTransform>().ResetRectTransform();
 
