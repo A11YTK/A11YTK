@@ -209,6 +209,8 @@ namespace A11YTK
 
             var valueSizeDelta = _textMesh.GetPreferredValues(wrappedText);
 
+            valueSizeDelta += Vector2.one * _subtitleController.subtitleOptions.backgroundPadding;
+
             _textMeshWrapperTransform.sizeDelta = valueSizeDelta;
 
             _textMesh.text = wrappedText;
