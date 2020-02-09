@@ -13,8 +13,6 @@ namespace A11YTK
 
         public bool enabled;
 
-        public Subtitle.Position defaultPosition;
-
         public float fontSize;
 
         public string fontColor;
@@ -66,7 +64,6 @@ namespace A11YTK
                         new SubtitleOptions
                         {
                             enabled = enabled,
-                            defaultPosition = defaultPosition,
                             fontSize = fontSize,
                             fontColor = fontColor.ToString(),
                             backgroundColor = backgroundColor.ToString(),
@@ -116,7 +113,6 @@ namespace A11YTK
                     var subtitleOptions = (SubtitleOptions)binaryFormatter.Deserialize(fs);
 
                     enabled = subtitleOptions.enabled;
-                    defaultPosition = subtitleOptions.defaultPosition;
                     fontSize = subtitleOptions.fontSize;
                     fontColor = subtitleOptions.fontColor.ToColor();
                     backgroundColor = subtitleOptions.backgroundColor.ToColor();
