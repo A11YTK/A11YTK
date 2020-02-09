@@ -41,6 +41,8 @@ namespace A11YTK
 
         public Sprite backgroundSprite;
 
+        public float backgroundPadding = 20;
+
         public bool showBackground = true;
 
         public TMP_FontAsset fontAsset;
