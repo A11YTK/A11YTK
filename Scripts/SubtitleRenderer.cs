@@ -174,7 +174,7 @@ namespace A11YTK
                 return;
             }
 
-            _textMesh.color = subtitleOptions.fontForegroundColor;
+            _textMesh.color = subtitleOptions.fontColor;
             _textMesh.font = subtitleOptions.fontAsset;
             _textMesh.fontSize = subtitleOptions.fontSize;
             _textMesh.fontSharedMaterial = subtitleOptions.fontMaterial;
@@ -184,9 +184,9 @@ namespace A11YTK
                 return;
             }
 
-            _panelImage.enabled = subtitleOptions.showBackgroundColor;
+            _panelImage.enabled = subtitleOptions.showBackground;
 
-            _panelImage.material.color = subtitleOptions.fontBackgroundColor;
+            _panelImage.material.color = subtitleOptions.backgroundColor;
 
         }
 
