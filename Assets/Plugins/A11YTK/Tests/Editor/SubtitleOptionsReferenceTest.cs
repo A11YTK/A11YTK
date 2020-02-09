@@ -33,7 +33,7 @@ namespace A11YTK.Tests
 
             subtitleOptions.enabled = true;
             subtitleOptions.fontSize = 24;
-            subtitleOptions.fontForegroundColor = Color.yellow;
+            subtitleOptions.fontColor = Color.yellow;
 
             subtitleOptions.Save(subtitlesOptionsFileName);
 
@@ -44,10 +44,10 @@ namespace A11YTK.Tests
             Assert.AreEqual(true, loadedSubtitleOptions.enabled);
             Assert.AreEqual(24, loadedSubtitleOptions.fontSize);
 
-            Assert.Less(Mathf.Abs(Color.yellow.r - loadedSubtitleOptions.fontForegroundColor.r), COLOR_EPSILON);
-            Assert.Less(Mathf.Abs(Color.yellow.g - loadedSubtitleOptions.fontForegroundColor.g), COLOR_EPSILON);
-            Assert.Less(Mathf.Abs(Color.yellow.b - loadedSubtitleOptions.fontForegroundColor.b), COLOR_EPSILON);
-            Assert.Less(Mathf.Abs(Color.yellow.a - loadedSubtitleOptions.fontForegroundColor.a), COLOR_EPSILON);
+            Assert.Less(Mathf.Abs(Color.yellow.r - loadedSubtitleOptions.fontColor.r), COLOR_EPSILON);
+            Assert.Less(Mathf.Abs(Color.yellow.g - loadedSubtitleOptions.fontColor.g), COLOR_EPSILON);
+            Assert.Less(Mathf.Abs(Color.yellow.b - loadedSubtitleOptions.fontColor.b), COLOR_EPSILON);
+            Assert.Less(Mathf.Abs(Color.yellow.a - loadedSubtitleOptions.fontColor.a), COLOR_EPSILON);
 
         }
 
