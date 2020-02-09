@@ -17,11 +17,11 @@ namespace A11YTK
 
         public float fontSize;
 
-        public string fontForegroundColor;
+        public string fontColor;
 
-        public string fontBackgroundColor;
+        public string backgroundColor;
 
-        public bool showBackgroundColor;
+        public bool showBackground;
 
     }
 
@@ -35,13 +35,13 @@ namespace A11YTK
 
         public float fontSize = 30;
 
-        public Color fontForegroundColor = Color.white;
+        public Color fontColor = Color.white;
 
-        public Color fontBackgroundColor = Color.black;
+        public Color backgroundColor = Color.black;
 
         public Sprite backgroundSprite;
 
-        public bool showBackgroundColor = true;
+        public bool showBackground = true;
 
         public TMP_FontAsset fontAsset;
 
@@ -66,9 +66,9 @@ namespace A11YTK
                             enabled = enabled,
                             defaultPosition = defaultPosition,
                             fontSize = fontSize,
-                            fontForegroundColor = fontForegroundColor.ToString(),
-                            fontBackgroundColor = fontBackgroundColor.ToString(),
-                            showBackgroundColor = showBackgroundColor
+                            fontColor = fontColor.ToString(),
+                            backgroundColor = backgroundColor.ToString(),
+                            showBackground = showBackground
                         });
 
                 }
@@ -116,9 +116,9 @@ namespace A11YTK
                     enabled = subtitleOptions.enabled;
                     defaultPosition = subtitleOptions.defaultPosition;
                     fontSize = subtitleOptions.fontSize;
-                    fontForegroundColor = subtitleOptions.fontForegroundColor.ToColor();
-                    fontBackgroundColor = subtitleOptions.fontBackgroundColor.ToColor();
-                    showBackgroundColor = subtitleOptions.showBackgroundColor;
+                    fontColor = subtitleOptions.fontColor.ToColor();
+                    backgroundColor = subtitleOptions.backgroundColor.ToColor();
+                    showBackground = subtitleOptions.showBackground;
 
                 }
                 catch (Exception err)
