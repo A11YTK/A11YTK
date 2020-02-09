@@ -39,7 +39,7 @@ namespace A11YTK
 
         public Sprite backgroundSprite;
 
-        public float backgroundPadding = 20;
+        public float backgroundPadding = 10;
 
         public bool showBackground = true;
 
