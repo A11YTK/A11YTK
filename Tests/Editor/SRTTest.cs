@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using NUnit.Framework;
 
 namespace A11YTK.Tests
@@ -8,14 +7,40 @@ namespace A11YTK.Tests
     public class SRTTest
     {
 
-        private const string MOCK_PATH = "Assets/Plugins/A11YTK/Tests/Editor/Mocks";
+        private const string MOCK_SUBTITLE_CONTENTS = @"1
+00:00:04,200 --> 00:00:08,200
+Hello, world.
+
+2
+00:00:12,200 --> 00:00:20,200
+Hello, world!
+
+
+3
+00:00:24,200 --> 00:00:28,200
+I can see you. Can you see me?
+
+
+
+4
+00:00:32,200 --> 00:00:36,200
+If you can see me,
+can you wave?
+
+5
+00:00:40,200 --> 00:00:44,200
+Fine. If you can't wave, just yell out.
+
+
+
+";
 
         [Test]
-        public void ParseSubtitlesFromSRTFile()
+        public void ParseSubtitlesFromSRTContents()
         {
 
             var subtitles =
-                SRT.ParseSubtitlesFromFile(Path.Combine(MOCK_PATH, "example.srt"));
+                SRT.ParseSubtitlesFromString(MOCK_SUBTITLE_CONTENTS);
 
             Assert.AreEqual(1, subtitles[0].id);
             Assert.AreEqual(4200d, subtitles[0].startTime);
