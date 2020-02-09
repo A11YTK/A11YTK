@@ -52,16 +52,18 @@ Drag the `Subtitle Options` asset into the `Subtitle Options` property of the `S
 
 #### Properties
 
-| Property              | Description                                            | Default  |
-| --------------------- | ------------------------------------------------------ | -------- |
-| Enabled               | Toggle subtitles on or off.                            | `Off`    |
-| Default Position      | Position subtitles should render on screen.            | `Bottom` |
-| Font Size             | Subtitle font size.                                    | `30`     |
-| Font Foreground Color | Subtile font color                                     | `White`  |
-| Font Background Color | Background color that appears behind subtitle text     | `Black`  |
-| Show Background Color | Toggle subtitle background on or off.                  | `On`     |
-| Font Asset            | TextMeshPro font to render subtitle with.              | `Null`   |
-| Font Material         | TextMeshPro material to use with the TextMeshPro font. | `Null`   |
+| Property           | Description                                            | Default  |
+| ------------------ | ------------------------------------------------------ | -------- |
+| Enabled            | Toggle subtitles on or off.                            | `Off`    |
+| Default Position   | Position subtitles should render on screen.            | `Bottom` |
+| Font Size          | Subtitle font size.                                    | `30`     |
+| Font Color         | Subtile font color                                     | `White`  |
+| Background Color   | Background color that appears behind subtitle text     | `Black`  |
+| Background Sprite  | Optional 9-splice sprite.                              | `Null`   |
+| Background Padding | Padding around the text inside the background.         | `20`     |
+| Show Background    | Toggle subtitle background on or off.                  | `On`     |
+| Font Asset         | TextMeshPro font to render subtitle with.              | `Null`   |
+| Font Material      | TextMeshPro material to use with the TextMeshPro font. | `Null`   |
 
 #### Methods
 
