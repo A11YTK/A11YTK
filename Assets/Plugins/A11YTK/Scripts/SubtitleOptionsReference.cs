@@ -39,6 +39,8 @@ namespace A11YTK
 
         public Color fontBackgroundColor = Color.black;
 
+        public Sprite backgroundSprite;
+
         public bool showBackgroundColor = true;
 
         public TMP_FontAsset fontAsset;
