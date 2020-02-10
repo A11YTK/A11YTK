@@ -13,7 +13,7 @@
 ```json
 {
   "dependencies": {
-    "com.scottdoxey.a11ytk": "https://github.com/neogeek/a11ytk.git#upm",
+    "com.a11ytk.a11ytk": "https://github.com/a11ytk/a11ytk.git#upm",
     ...
   }
 }
@@ -26,7 +26,7 @@
   "dependencies": {
     ...
   },
-  "testables": ["com.scottdoxey.a11ytk"]
+  "testables": ["com.a11ytk.a11ytk"]
 }
 ```
 
