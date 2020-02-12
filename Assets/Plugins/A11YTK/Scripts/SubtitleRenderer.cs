@@ -30,6 +30,8 @@ namespace A11YTK
         private Camera _mainCamera;
 #pragma warning restore CS0649
 
+        public bool isVisible => _canvasWrapper != null;
+
         private SubtitleController _subtitleController;
 
         private GameObject _canvasWrapper;
