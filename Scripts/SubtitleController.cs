@@ -42,7 +42,7 @@ namespace A11YTK
 
         protected Coroutine _loopThroughSubtitleLinesCoroutine;
 
-        protected abstract double elapsedTime { get; }
+        protected abstract double _elapsedTime { get; }
 
         protected void Awake()
         {
@@ -105,7 +105,7 @@ namespace A11YTK
             while (currentSubtitleIndex < _subtitles.Count)
             {
 
-                if (elapsedTime >= _subtitles[currentSubtitleIndex].endTime / 1000)
+                if (_elapsedTime >= _subtitles[currentSubtitleIndex].endTime / 1000)
                 {
 
                     _subtitleRenderer.Hide();
@@ -113,7 +113,7 @@ namespace A11YTK
                     currentSubtitleIndex += 1;
 
                 }
-                else if (elapsedTime >= _subtitles[currentSubtitleIndex].startTime / 1000)
+                else if (_elapsedTime >= _subtitles[currentSubtitleIndex].startTime / 1000)
                 {
 
                     _subtitleRenderer.Show();

@@ -15,7 +15,7 @@ namespace A11YTK
         private VideoPlayer _videoSource;
 #pragma warning restore CS0649
 
-        protected override double elapsedTime => _videoSource.time;
+        protected override double _elapsedTime => _videoSource.time;
 
         private IEnumerator Start()
         {
