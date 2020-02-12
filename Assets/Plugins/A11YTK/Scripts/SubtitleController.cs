@@ -73,6 +73,25 @@ namespace A11YTK
 
         }
 
+        private IEnumerator Start()
+        {
+
+            while (_autoPlaySubtitles)
+            {
+
+                if (_isPlaying && _loopThroughSubtitleLinesCoroutine == null)
+                {
+
+                    Play();
+
+                }
+
+                yield return null;
+
+            }
+
+        }
+
         public virtual void Play()
         {
 
