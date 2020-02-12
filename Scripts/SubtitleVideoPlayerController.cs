@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -17,24 +16,6 @@ namespace A11YTK
 
         protected override double _elapsedTime => _videoSource.time;
 
-        private IEnumerator Start()
-        {
-
-            while (_autoPlaySubtitles)
-            {
-
-                if (_videoSource && _videoSource.isPlaying && _loopThroughSubtitleLinesCoroutine == null)
-                {
-
-                    Play();
-
-                }
-
-                yield return null;
-
-            }
-
-        }
         protected override bool _isPlaying => _videoSource && _videoSource.isPlaying;
 
         public override void Play()
