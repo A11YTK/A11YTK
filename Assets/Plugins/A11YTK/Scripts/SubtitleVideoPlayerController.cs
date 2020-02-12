@@ -16,7 +16,8 @@ namespace A11YTK
 
         protected override double _elapsedTime => _videoSource.time;
 
-        protected override bool _isPlaying => _videoSource && _videoSource.isPlaying;
+        protected override bool _isPlaying =>
+            _videoSource && _videoSource.isPlaying && _videoSource.time < _videoSource.length;
 
         public override void Play()
         {

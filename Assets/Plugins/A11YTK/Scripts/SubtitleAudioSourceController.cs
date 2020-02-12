@@ -15,7 +15,8 @@ namespace A11YTK
 
         protected override double _elapsedTime => _audioSource.time;
 
-        protected override bool _isPlaying => _audioSource && _audioSource.isPlaying;
+        protected override bool _isPlaying =>
+            _audioSource && _audioSource.isPlaying && _audioSource.time < _audioSource.clip.length;
 
         public override void Play()
         {
