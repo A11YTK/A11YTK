@@ -123,7 +123,7 @@ namespace A11YTK
 
             var currentSubtitleIndex = 0;
 
-            while (currentSubtitleIndex < _subtitles.Count)
+            while (currentSubtitleIndex < _subtitles.Count && _isPlaying)
             {
 
                 if (_subtitleRenderer.isVisible &&
