@@ -137,11 +137,6 @@ namespace A11YTK
 
             _textMesh = _textMeshWrapper.AddComponent<TextMeshProUGUI>();
 
-            _textMeshWrapperTransform.SetInsetAndSizeFromParentEdge(
-                _subtitleController.position.Equals(Subtitle.Position.TOP)
-                    ? RectTransform.Edge.Top
-                    : RectTransform.Edge.Bottom, 1, 1);
-
             _textMesh.alignment = TextAlignmentOptions.Midline;
 
             _textMesh.raycastTarget = false;
@@ -217,6 +212,11 @@ namespace A11YTK
             var valueSizeDelta = _textMesh.GetPreferredValues(wrappedText);
 
             valueSizeDelta += Vector2.one * _subtitleController.subtitleOptions.backgroundPadding;
+
+            _textMeshWrapperTransform.SetInsetAndSizeFromParentEdge(
+                _subtitleController.position.Equals(Subtitle.Position.TOP)
+                    ? RectTransform.Edge.Top
+                    : RectTransform.Edge.Bottom, 1, valueSizeDelta.y * SUBTITLE_SCREEN_SCALE);
 
             _textMeshWrapperTransform.sizeDelta = valueSizeDelta;
 
