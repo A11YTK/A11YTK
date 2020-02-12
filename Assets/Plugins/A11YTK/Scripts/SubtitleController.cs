@@ -44,6 +44,8 @@ namespace A11YTK
 
         protected abstract double _elapsedTime { get; }
 
+        protected abstract bool _isPlaying { get; }
+
         protected void Awake()
         {
 
@@ -66,6 +68,25 @@ namespace A11YTK
             {
 
                 Debug.LogWarning("Subtitle options asset is missing!");
+
+            }
+
+        }
+
+        private IEnumerator Start()
+        {
+
+            while (_autoPlaySubtitles)
+            {
+
+                if (_isPlaying && _loopThroughSubtitleLinesCoroutine == null)
+                {
+
+                    Play();
+
+                }
+
+                yield return null;
 
             }
 
@@ -102,7 +123,7 @@ namespace A11YTK
 
             var currentSubtitleIndex = 0;
 
-            while (currentSubtitleIndex < _subtitles.Count)
+            while (currentSubtitleIndex < _subtitles.Count && _isPlaying)
             {
 
                 if (_subtitleRenderer.isVisible &&
@@ -115,6 +136,7 @@ namespace A11YTK
 
                 }
                 else if (!_subtitleRenderer.isVisible &&
+                         _elapsedTime < _subtitles[currentSubtitleIndex].endTime / 1000 &&
                          _elapsedTime >= _subtitles[currentSubtitleIndex].startTime / 1000)
                 {
 
@@ -129,6 +151,8 @@ namespace A11YTK
             }
 
             _subtitleRenderer.Hide();
+
+            _loopThroughSubtitleLinesCoroutine = null;
 
         }
 
