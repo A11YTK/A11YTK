@@ -136,6 +136,7 @@ namespace A11YTK
 
                 }
                 else if (!_subtitleRenderer.isVisible &&
+                         _elapsedTime < _subtitles[currentSubtitleIndex].endTime / 1000 &&
                          _elapsedTime >= _subtitles[currentSubtitleIndex].startTime / 1000)
                 {
 
