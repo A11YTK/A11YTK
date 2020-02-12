@@ -151,19 +151,15 @@ namespace A11YTK
 
             _panelImage.raycastTarget = false;
 
-            if (_subtitleBackgroundSprite == null)
-            {
-
-                _panelImage.material = _subtitleBackgroundMaterial;
-
-            }
-            else
+            if (_subtitleBackgroundSprite != null)
             {
 
                 _panelImage.sprite = _subtitleBackgroundSprite;
                 _panelImage.type = Image.Type.Sliced;
 
             }
+
+            _panelImage.material = _subtitleBackgroundMaterial;
 
         }
 
