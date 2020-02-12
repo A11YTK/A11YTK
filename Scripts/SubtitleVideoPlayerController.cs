@@ -35,6 +35,7 @@ namespace A11YTK
             }
 
         }
+        protected override bool _isPlaying => _videoSource && _videoSource.isPlaying;
 
         public override void Play()
         {

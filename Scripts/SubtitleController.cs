@@ -44,6 +44,8 @@ namespace A11YTK
 
         protected abstract double _elapsedTime { get; }
 
+        protected abstract bool _isPlaying { get; }
+
         protected void Awake()
         {
 

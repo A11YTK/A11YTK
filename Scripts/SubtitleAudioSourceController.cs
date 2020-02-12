@@ -34,6 +34,7 @@ namespace A11YTK
             }
 
         }
+        protected override bool _isPlaying => _audioSource && _audioSource.isPlaying;
 
         public override void Play()
         {
