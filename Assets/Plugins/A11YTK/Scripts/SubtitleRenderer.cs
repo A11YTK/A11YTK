@@ -21,6 +21,10 @@ namespace A11YTK
 
         private const string SUBTITLE_BACKGROUND_MATERIAL_NAME = "SubtitleBackground";
 
+        private const float SUBTITLE_SCREEN_SCALE = 0.025f;
+
+        private const float SUBTITLE_SCREEN_PADDING = 100;
+
 #pragma warning disable CS0649
         [SerializeField]
         private Camera _mainCamera;
@@ -127,7 +131,7 @@ namespace A11YTK
 
             _textMeshWrapperTransform.ResetRectTransform();
 
-            _textMeshWrapperTransform.localScale = Vector3.one * 0.025f;
+            _textMeshWrapperTransform.localScale = Vector3.one * SUBTITLE_SCREEN_SCALE;
 
             _textMesh = _textMeshWrapper.AddComponent<TextMeshProUGUI>();
 
@@ -205,7 +209,8 @@ namespace A11YTK
                 return;
             }
 
-            var wrappedText = _textMesh.WrapText(value, 500);
+            var wrappedText = _textMesh.WrapText(value, Mathf.Min(
+                (_canvasWrapperTransform.sizeDelta.x / SUBTITLE_SCREEN_SCALE) - SUBTITLE_SCREEN_PADDING));
 
             var valueSizeDelta = _textMesh.GetPreferredValues(wrappedText);
 
