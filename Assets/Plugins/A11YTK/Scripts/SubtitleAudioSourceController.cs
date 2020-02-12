@@ -14,7 +14,7 @@ namespace A11YTK
         private AudioSource _audioSource;
 #pragma warning restore CS0649
 
-        protected override double elapsedTime => _audioSource.time;
+        protected override double _elapsedTime => _audioSource.time;
 
         private IEnumerator Start()
         {
