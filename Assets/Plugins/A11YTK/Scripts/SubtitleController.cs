@@ -151,6 +151,8 @@ namespace A11YTK
 
             _subtitleRenderer.Hide();
 
+            _loopThroughSubtitleLinesCoroutine = null;
+
         }
 
     }
