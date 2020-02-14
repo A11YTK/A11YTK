@@ -8,8 +8,6 @@ namespace A11YTK
     public abstract class SubtitleController : MonoBehaviour
     {
 
-        protected const float DEFAULT_VOLUME_SCALE = 1f;
-
 #pragma warning disable CS0649
         [SerializeField]
         [TextArea(1, 10)]
