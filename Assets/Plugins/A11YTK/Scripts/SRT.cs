@@ -24,6 +24,8 @@ namespace A11YTK
 
         }
 
+        public const int MILLISECOND = 1000;
+
         public static readonly string[] TIMESTAMP_DELIMITER = { "-->" };
 
         public static double ParseMillisecondsFromTimeStamp(string timestamp, out TimeSpan results)
@@ -43,8 +45,8 @@ namespace A11YTK
             try
             {
 
-                startTime = ParseMillisecondsFromTimeStamp(times[0], out var _);
-                endTime = ParseMillisecondsFromTimeStamp(times[1], out var _);
+                startTime = ParseMillisecondsFromTimeStamp(times[0], out var _) / MILLISECOND;
+                endTime = ParseMillisecondsFromTimeStamp(times[1], out var _) / MILLISECOND;
 
             }
             catch (Exception error)
