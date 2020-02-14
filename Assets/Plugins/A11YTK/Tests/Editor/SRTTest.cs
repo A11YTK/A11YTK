@@ -84,7 +84,7 @@ Fine. If you can't wave, just yell out.
 
             Assert.Throws<InvalidOperationException>(
                 () =>
-                    SRT.ParseTimeFromContent("0:0:4,200", out var startTime, out var endTime)
+                    SRT.ParseTimeFromContent("0:0:4,200", out var _, out var _)
             );
 
         }
