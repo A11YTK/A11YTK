@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +6,6 @@ namespace A11YTK
 
     public abstract class SubtitleController : MonoBehaviour
     {
-
-        protected const float DEFAULT_VOLUME_SCALE = 1f;
 
 #pragma warning disable CS0649
         [SerializeField]
@@ -26,9 +23,6 @@ namespace A11YTK
 
         [SerializeField]
         protected SubtitleOptionsReference _subtitleOptions;
-
-        [SerializeField]
-        protected bool _autoPlaySubtitles = true;
 #pragma warning restore CS0649
 
         public Subtitle.Position position =>
@@ -40,11 +34,11 @@ namespace A11YTK
 
         protected List<SRT.Subtitle> _subtitles;
 
-        protected Coroutine _loopThroughSubtitleLinesCoroutine;
-
         protected abstract double _elapsedTime { get; }
 
         protected abstract bool _isPlaying { get; }
+
+        protected SRT.Subtitle? _currentSubtitle;
 
         protected void Awake()
         {
@@ -73,86 +67,63 @@ namespace A11YTK
 
         }
 
-        private IEnumerator Start()
+        protected void FixedUpdate()
         {
 
-            while (_autoPlaySubtitles)
+            if (subtitleOptions.enabled && _isPlaying)
             {
 
-                if (_isPlaying && _loopThroughSubtitleLinesCoroutine == null)
-                {
-
-                    Play();
-
-                }
-
-                yield return null;
+                Tick();
 
             }
 
         }
 
-        public virtual void Play()
+        protected void Tick()
         {
 
-            if (_loopThroughSubtitleLinesCoroutine != null)
+            if (_currentSubtitle.HasValue &&
+                _subtitleRenderer.isVisible &&
+                (_elapsedTime < _currentSubtitle.Value.startTime ||
+                 _elapsedTime > _currentSubtitle.Value.endTime))
             {
-                return;
+
+                _subtitleRenderer.Hide();
+
+                _currentSubtitle = null;
+
             }
 
-            _loopThroughSubtitleLinesCoroutine = StartCoroutine(LoopThroughSubtitleLines());
-
-        }
-
-        public virtual void Stop()
-        {
-
-            if (_loopThroughSubtitleLinesCoroutine == null)
-            {
-                return;
-            }
-
-            StopCoroutine(_loopThroughSubtitleLinesCoroutine);
-
-            _loopThroughSubtitleLinesCoroutine = null;
-
-        }
-
-        protected IEnumerator LoopThroughSubtitleLines()
-        {
-
-            var currentSubtitleIndex = 0;
-
-            while (currentSubtitleIndex < _subtitles.Count && _isPlaying)
+            if (!_currentSubtitle.HasValue)
             {
 
-                if (_subtitleRenderer.isVisible &&
-                    _elapsedTime >= _subtitles[currentSubtitleIndex].endTime / 1000)
+                for (var i = 0; i < _subtitles.Count; i += 1)
                 {
 
-                    _subtitleRenderer.Hide();
+                    if (_elapsedTime < _subtitles[i].endTime)
+                    {
 
-                    currentSubtitleIndex += 1;
+                        _currentSubtitle = _subtitles[i];
 
-                }
-                else if (!_subtitleRenderer.isVisible &&
-                         _elapsedTime < _subtitles[currentSubtitleIndex].endTime / 1000 &&
-                         _elapsedTime >= _subtitles[currentSubtitleIndex].startTime / 1000)
-                {
+                        break;
 
-                    _subtitleRenderer.Show();
-
-                    _subtitleRenderer.SetText(_subtitles[currentSubtitleIndex].text);
+                    }
 
                 }
 
-                yield return null;
-
             }
 
-            _subtitleRenderer.Hide();
+            if (_currentSubtitle.HasValue &&
+                !_subtitleRenderer.isVisible &&
+                _elapsedTime >= _currentSubtitle.Value.startTime &&
+                _elapsedTime <= _currentSubtitle.Value.endTime)
+            {
 
-            _loopThroughSubtitleLinesCoroutine = null;
+                _subtitleRenderer.Show();
+
+                _subtitleRenderer.SetText(_currentSubtitle.Value.text);
+
+            }
 
         }
 
