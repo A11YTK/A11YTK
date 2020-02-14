@@ -19,34 +19,6 @@ namespace A11YTK
         protected override bool _isPlaying =>
             _videoSource && _videoSource.isPlaying && _videoSource.time < _videoSource.length;
 
-        public override void Play()
-        {
-
-            base.Play();
-
-            if (_videoSource)
-            {
-
-                _videoSource.Play();
-
-            }
-
-        }
-
-        public override void Stop()
-        {
-
-            base.Stop();
-
-            if (_videoSource)
-            {
-
-                _videoSource.Stop();
-
-            }
-
-        }
-
         private void OnValidate()
         {
 

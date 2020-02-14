@@ -40,11 +40,11 @@ namespace A11YTK
 
         protected List<SRT.Subtitle> _subtitles;
 
-        protected Coroutine _loopThroughSubtitleLinesCoroutine;
-
         protected abstract double _elapsedTime { get; }
 
         protected abstract bool _isPlaying { get; }
+
+        private int _currentSubtitleIndex;
 
         protected void Awake()
         {
@@ -79,10 +79,10 @@ namespace A11YTK
             while (_autoPlaySubtitles)
             {
 
-                if (_isPlaying && _loopThroughSubtitleLinesCoroutine == null)
+                if (_isPlaying)
                 {
 
-                    Play();
+                    Tick();
 
                 }
 
@@ -92,67 +92,28 @@ namespace A11YTK
 
         }
 
-        public virtual void Play()
+        protected void Tick()
         {
 
-            if (_loopThroughSubtitleLinesCoroutine != null)
-            {
-                return;
-            }
-
-            _loopThroughSubtitleLinesCoroutine = StartCoroutine(LoopThroughSubtitleLines());
-
-        }
-
-        public virtual void Stop()
-        {
-
-            if (_loopThroughSubtitleLinesCoroutine == null)
-            {
-                return;
-            }
-
-            StopCoroutine(_loopThroughSubtitleLinesCoroutine);
-
-            _loopThroughSubtitleLinesCoroutine = null;
-
-        }
-
-        protected IEnumerator LoopThroughSubtitleLines()
-        {
-
-            var currentSubtitleIndex = 0;
-
-            while (currentSubtitleIndex < _subtitles.Count && _isPlaying)
+            if (_subtitleRenderer.isVisible &&
+                _elapsedTime >= _subtitles[_currentSubtitleIndex].endTime)
             {
 
-                if (_subtitleRenderer.isVisible &&
-                    _elapsedTime >= _subtitles[currentSubtitleIndex].endTime)
-                {
+                _subtitleRenderer.Hide();
 
-                    _subtitleRenderer.Hide();
-
-                    currentSubtitleIndex += 1;
-
-                }
-                else if (!_subtitleRenderer.isVisible &&
-                         _elapsedTime < _subtitles[currentSubtitleIndex].endTime &&
-                         _elapsedTime >= _subtitles[currentSubtitleIndex].startTime)
-                {
-
-                    _subtitleRenderer.Show();
-
-                    _subtitleRenderer.SetText(_subtitles[currentSubtitleIndex].text);
-
-                }
-
-                yield return null;
+                _currentSubtitleIndex += 1;
 
             }
+            else if (!_subtitleRenderer.isVisible &&
+                     _elapsedTime < _subtitles[_currentSubtitleIndex].endTime &&
+                     _elapsedTime >= _subtitles[_currentSubtitleIndex].startTime)
+            {
 
-            _subtitleRenderer.Hide();
+                _subtitleRenderer.Show();
 
-            _loopThroughSubtitleLinesCoroutine = null;
+                _subtitleRenderer.SetText(_subtitles[_currentSubtitleIndex].text);
+
+            }
 
         }
 

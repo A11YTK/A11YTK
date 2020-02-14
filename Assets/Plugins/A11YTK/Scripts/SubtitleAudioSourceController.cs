@@ -18,34 +18,6 @@ namespace A11YTK
         protected override bool _isPlaying =>
             _audioSource && _audioSource.isPlaying && _audioSource.time < _audioSource.clip.length;
 
-        public override void Play()
-        {
-
-            base.Play();
-
-            if (_audioSource)
-            {
-
-                _audioSource.Play();
-
-            }
-
-        }
-
-        public override void Stop()
-        {
-
-            base.Stop();
-
-            if (_audioSource)
-            {
-
-                _audioSource.Stop();
-
-            }
-
-        }
-
         private void OnValidate()
         {
 
