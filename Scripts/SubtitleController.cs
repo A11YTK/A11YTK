@@ -127,7 +127,7 @@ namespace A11YTK
             {
 
                 if (_subtitleRenderer.isVisible &&
-                    _elapsedTime >= _subtitles[currentSubtitleIndex].endTime / 1000)
+                    _elapsedTime >= _subtitles[currentSubtitleIndex].endTime)
                 {
 
                     _subtitleRenderer.Hide();
@@ -136,8 +136,8 @@ namespace A11YTK
 
                 }
                 else if (!_subtitleRenderer.isVisible &&
-                         _elapsedTime < _subtitles[currentSubtitleIndex].endTime / 1000 &&
-                         _elapsedTime >= _subtitles[currentSubtitleIndex].startTime / 1000)
+                         _elapsedTime < _subtitles[currentSubtitleIndex].endTime &&
+                         _elapsedTime >= _subtitles[currentSubtitleIndex].startTime)
                 {
 
                     _subtitleRenderer.Show();
