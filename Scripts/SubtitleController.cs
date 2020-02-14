@@ -38,7 +38,7 @@ namespace A11YTK
 
         protected abstract bool _isPlaying { get; }
 
-        private int _currentSubtitleIndex;
+        protected SRT.Subtitle? _currentSubtitle;
 
         protected void Awake()
         {
@@ -70,7 +70,7 @@ namespace A11YTK
         protected void FixedUpdate()
         {
 
-            if (_isPlaying)
+            if (subtitleOptions.enabled && _isPlaying)
             {
 
                 Tick();
@@ -82,23 +82,46 @@ namespace A11YTK
         protected void Tick()
         {
 
-            if (_subtitleRenderer.isVisible &&
-                _elapsedTime >= _subtitles[_currentSubtitleIndex].endTime)
+            if (_currentSubtitle.HasValue &&
+                _subtitleRenderer.isVisible &&
+                (_elapsedTime < _currentSubtitle.Value.startTime ||
+                 _elapsedTime > _currentSubtitle.Value.endTime))
             {
 
                 _subtitleRenderer.Hide();
 
-                _currentSubtitleIndex += 1;
+                _currentSubtitle = null;
 
             }
-            else if (!_subtitleRenderer.isVisible &&
-                     _elapsedTime < _subtitles[_currentSubtitleIndex].endTime &&
-                     _elapsedTime >= _subtitles[_currentSubtitleIndex].startTime)
+
+            if (!_currentSubtitle.HasValue)
+            {
+
+                for (var i = 0; i < _subtitles.Count; i += 1)
+                {
+
+                    if (_elapsedTime < _subtitles[i].endTime)
+                    {
+
+                        _currentSubtitle = _subtitles[i];
+
+                        break;
+
+                    }
+
+                }
+
+            }
+
+            if (_currentSubtitle.HasValue &&
+                !_subtitleRenderer.isVisible &&
+                _elapsedTime >= _currentSubtitle.Value.startTime &&
+                _elapsedTime <= _currentSubtitle.Value.endTime)
             {
 
                 _subtitleRenderer.Show();
 
-                _subtitleRenderer.SetText(_subtitles[_currentSubtitleIndex].text);
+                _subtitleRenderer.SetText(_currentSubtitle.Value.text);
 
             }
 
