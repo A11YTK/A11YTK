@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -68,20 +67,13 @@ namespace A11YTK
 
         }
 
-        private IEnumerator Start()
+        protected void FixedUpdate()
         {
 
-            while (true)
+            if (_isPlaying)
             {
 
-                if (_isPlaying)
-                {
-
-                    Tick();
-
-                }
-
-                yield return null;
+                Tick();
 
             }
 
