@@ -23,8 +23,6 @@ namespace A11YTK
 
         private const float SUBTITLE_SCREEN_SCALE = 0.025f;
 
-        private const float SUBTITLE_SCREEN_PADDING = 100;
-
 #pragma warning disable CS0649
         [SerializeField]
         private Camera _mainCamera;
@@ -201,17 +199,23 @@ namespace A11YTK
                 return;
             }
 
+            var screenPadding = _canvasWrapperTransform.sizeDelta.x * 0.1f;
+
             var wrappedText = _textMesh.WrapText(value,
-                (_canvasWrapperTransform.sizeDelta.x / SUBTITLE_SCREEN_SCALE) - SUBTITLE_SCREEN_PADDING);
+                (_canvasWrapperTransform.sizeDelta.x / SUBTITLE_SCREEN_SCALE) - screenPadding);
 
             var valueSizeDelta = _textMesh.GetPreferredValues(wrappedText);
+
+            var paddingSizeDelta = _textMesh.GetPreferredValues(value);
 
             valueSizeDelta += Vector2.one * _subtitleController.subtitleOptions.backgroundPadding;
 
             _textMeshWrapperTransform.SetInsetAndSizeFromParentEdge(
                 _subtitleController.position.Equals(Subtitle.Position.TOP)
                     ? RectTransform.Edge.Top
-                    : RectTransform.Edge.Bottom, 1, valueSizeDelta.y * SUBTITLE_SCREEN_SCALE);
+                    : RectTransform.Edge.Bottom,
+                paddingSizeDelta.y * SUBTITLE_SCREEN_SCALE,
+                valueSizeDelta.y * SUBTITLE_SCREEN_SCALE);
 
             _textMeshWrapperTransform.sizeDelta = valueSizeDelta;
 
