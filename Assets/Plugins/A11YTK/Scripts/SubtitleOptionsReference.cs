@@ -31,21 +31,23 @@ namespace A11YTK
 
         public Subtitle.Position defaultPosition = Subtitle.Position.BOTTOM;
 
+        [Header("Text")]
         public float fontSize = 30;
 
         public Color fontColor = Color.white;
+
+        public TMP_FontAsset fontAsset;
+
+        public Material fontMaterial;
+
+        [Header("Background")]
+        public bool showBackground = true;
 
         public Color backgroundColor = Color.black;
 
         public Sprite backgroundSprite;
 
         public float backgroundPadding = 10;
-
-        public bool showBackground = true;
-
-        public TMP_FontAsset fontAsset;
-
-        public Material fontMaterial;
 
         public void Save(string fileName, string directory)
         {
