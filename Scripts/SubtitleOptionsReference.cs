@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using TMPro;
 using UnityEngine;
 
@@ -52,39 +52,26 @@ namespace A11YTK
 
             var path = Path.Combine(directory, fileName);
 
-            var binaryFormatter = new BinaryFormatter();
-
-            using (var fs = File.Create(path))
+            try
             {
 
-                try
-                {
+                File.WriteAllText(path, JsonUtility.ToJson(
+                    new SubtitleOptions
+                    {
+                        enabled = enabled,
+                        fontSize = fontSize,
+                        fontColor = fontColor.ToString(),
+                        backgroundColor = backgroundColor.ToString(),
+                        showBackground = showBackground
+                    }));
 
-                    binaryFormatter.Serialize(fs,
-                        new SubtitleOptions
-                        {
-                            enabled = enabled,
-                            fontSize = fontSize,
-                            fontColor = fontColor.ToString(),
-                            backgroundColor = backgroundColor.ToString(),
-                            showBackground = showBackground
-                        });
+            }
+            catch (Exception err)
+            {
 
-                }
-                catch (Exception err)
-                {
+                Debug.LogError(err.Message);
 
-                    Debug.LogError(err.Message);
-
-                    throw;
-
-                }
-                finally
-                {
-
-                    fs.Close();
-
-                }
+                throw;
 
             }
 
@@ -102,37 +89,24 @@ namespace A11YTK
 
             var path = Path.Combine(directory, fileName);
 
-            var binaryFormatter = new BinaryFormatter();
-
-            using (var fs = File.OpenRead(path))
+            try
             {
 
-                try
-                {
+                var subtitleOptions = JsonUtility.FromJson<SubtitleOptions>(File.ReadAllText(path, Encoding.UTF8));
 
-                    var subtitleOptions = (SubtitleOptions)binaryFormatter.Deserialize(fs);
+                enabled = subtitleOptions.enabled;
+                fontSize = subtitleOptions.fontSize;
+                fontColor = subtitleOptions.fontColor.ToColor();
+                backgroundColor = subtitleOptions.backgroundColor.ToColor();
+                showBackground = subtitleOptions.showBackground;
 
-                    enabled = subtitleOptions.enabled;
-                    fontSize = subtitleOptions.fontSize;
-                    fontColor = subtitleOptions.fontColor.ToColor();
-                    backgroundColor = subtitleOptions.backgroundColor.ToColor();
-                    showBackground = subtitleOptions.showBackground;
+            }
+            catch (Exception err)
+            {
 
-                }
-                catch (Exception err)
-                {
+                Debug.LogError(err.Message);
 
-                    Debug.LogError(err.Message);
-
-                    throw;
-
-                }
-                finally
-                {
-
-                    fs.Close();
-
-                }
+                throw;
 
             }
 
