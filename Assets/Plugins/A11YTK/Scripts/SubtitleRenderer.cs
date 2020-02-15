@@ -180,7 +180,7 @@ namespace A11YTK
             _textMesh.fontSharedMaterial = subtitleOptions.fontMaterial;
             _textMesh.alignment = subtitleOptions.textAlignment;
 
-            if (Equals(_panel, null) || Equals(_panelImage, null))
+            if (_panel == null || _panelImage == null)
             {
                 return;
             }
