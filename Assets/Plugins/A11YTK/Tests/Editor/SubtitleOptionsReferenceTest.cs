@@ -11,7 +11,7 @@ namespace A11YTK.Tests
 
         private const float COLOR_EPSILON = 0.01f;
 
-        private const string subtitlesOptionsFileName = "SubtitleOptions.dat";
+        private const string subtitlesOptionsFileName = "SubtitleOptions.json";
 
         private static string subtitlesOptionsPath =>
             Path.Combine(Application.persistentDataPath, subtitlesOptionsFileName);
