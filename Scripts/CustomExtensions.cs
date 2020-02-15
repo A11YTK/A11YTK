@@ -60,30 +60,25 @@ namespace A11YTK
 
             var lines = new List<string> { "" };
 
-            var words = Regex.Split(text, @"(\s+)");
-
-            var currentLine = 0;
-            var currentLineWidth = 0f;
+            var words = Regex.Split(text, @"(?:\s+)");
 
             foreach (var word in words)
             {
 
-                var valueSizeDelta = textMesh.GetPreferredValues(word);
+                var valueSizeDelta = textMesh.GetPreferredValues($"{lines[lines.Count - 1]} {word}");
 
-                currentLineWidth += valueSizeDelta.x;
-
-                if (currentLineWidth > wrapWidth)
+                if (valueSizeDelta.x > wrapWidth)
                 {
 
-                    currentLine += 1;
-
-                    currentLineWidth = valueSizeDelta.x;
-
-                    lines.Add("");
+                    lines.Add(word);
 
                 }
+                else
+                {
 
-                lines[currentLine] += word;
+                    lines[lines.Count - 1] = $"{lines[lines.Count - 1]} {word}";
+
+                }
 
             }
 
