@@ -78,7 +78,7 @@ using UnityEngine;
 public class SubtitleOptionManager : MonoBehaviour
 {
 
-    private const string SUBTITLE_OPTIONS_FILENAME = "subtitleOptions.dat";
+    private const string SUBTITLE_OPTIONS_FILENAME = "subtitle_options.json";
 
     [SerializeField]
     private SubtitleOptionsReference _subtitleOptions;
@@ -106,7 +106,7 @@ using UnityEngine;
 public class SubtitleOptionManager : MonoBehaviour
 {
 
-    private const string SUBTITLE_OPTIONS_FILENAME = "subtitleOptions.dat";
+    private const string SUBTITLE_OPTIONS_FILENAME = "subtitle_options.json";
 
     [SerializeField]
     private SubtitleOptionsReference _subtitleOptions;
@@ -128,7 +128,7 @@ public class SubtitleOptionManager : MonoBehaviour
 Delete local file.
 
 ```csharp
-_subtitleOptions.Delete("subtitleOptions.dat");
+_subtitleOptions.Delete("subtitle_options.json");
 ```
 
 ## Contributors
