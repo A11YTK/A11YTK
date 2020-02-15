@@ -116,7 +116,7 @@ namespace A11YTK
 
             _canvas = _canvasWrapper.GetComponent<Canvas>();
 
-            _canvas.ResizeCanvasToMatchCamera(_mainCamera);
+            _canvasWrapperTransform.ResizeRectTransformToMatchCamera(_mainCamera);
 
             _canvas.worldCamera = _mainCamera;
 

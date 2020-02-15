@@ -102,14 +102,14 @@ namespace A11YTK
 
         }
 
-        public static void ResizeCanvasToMatchCamera(this Canvas canvas, Camera camera)
+        public static void ResizeRectTransformToMatchCamera(this RectTransform rectTransform, Camera camera)
         {
 
-            var distance = Vector3.Distance(camera.transform.position, canvas.transform.position);
+            var distance = Vector3.Distance(camera.transform.position, rectTransform.gameObject.transform.position);
 
             var camHeight = 2 * distance * Mathf.Tan(Mathf.Deg2Rad * (camera.fieldOfView / 2));
 
-            canvas.GetComponent<RectTransform>().sizeDelta = new Vector2(camHeight * camera.aspect, camHeight);
+            rectTransform.sizeDelta = new Vector2(camHeight * camera.aspect, camHeight);
 
         }
 
