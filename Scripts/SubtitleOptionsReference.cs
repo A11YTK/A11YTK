@@ -40,6 +40,8 @@ namespace A11YTK
 
         public Material fontMaterial;
 
+        public TextAlignmentOptions textAlignment = TextAlignmentOptions.Midline;
+
         [Header("Background")]
         public bool showBackground = true;
 

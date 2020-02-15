@@ -137,8 +137,6 @@ namespace A11YTK
 
             _textMesh = _textMeshWrapper.AddComponent<TextMeshProUGUI>();
 
-            _textMesh.alignment = TextAlignmentOptions.Midline;
-
             _textMesh.raycastTarget = false;
 
             _panel = new GameObject(PANEL_NAME, typeof(RectTransform), typeof(Image));
@@ -175,6 +173,7 @@ namespace A11YTK
             _textMesh.font = subtitleOptions.fontAsset;
             _textMesh.fontSize = subtitleOptions.fontSize;
             _textMesh.fontSharedMaterial = subtitleOptions.fontMaterial;
+            _textMesh.alignment = subtitleOptions.textAlignment;
 
             if (Equals(_panel, null) || Equals(_panelImage, null))
             {
