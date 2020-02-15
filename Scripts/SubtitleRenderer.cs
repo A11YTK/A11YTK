@@ -186,7 +186,6 @@ namespace A11YTK
             }
 
             _panelImage.enabled = subtitleOptions.showBackground;
-
             _panelImage.material.color = subtitleOptions.backgroundColor;
 
         }
