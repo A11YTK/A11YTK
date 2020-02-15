@@ -50,8 +50,6 @@ namespace A11YTK
 
         private TextMeshProUGUI _textMesh;
 
-        private Sprite _subtitleBackgroundSprite;
-
         private Material _subtitleBackgroundMaterial;
 
         private void Awake()
@@ -65,8 +63,6 @@ namespace A11YTK
             }
 
             _subtitleController = gameObject.GetComponent<SubtitleController>();
-
-            _subtitleBackgroundSprite = _subtitleController.subtitleOptions.backgroundSprite;
 
             _subtitleBackgroundMaterial = Resources.LoadAll<Material>(RESOURCES_MATERIAL_FOLDER)
                 .First(material => material.name.Equals(SUBTITLE_BACKGROUND_MATERIAL_NAME));
@@ -149,10 +145,10 @@ namespace A11YTK
 
             _panelImage.raycastTarget = false;
 
-            if (_subtitleBackgroundSprite != null)
+            if (_subtitleController.subtitleOptions.backgroundSprite != null)
             {
 
-                _panelImage.sprite = _subtitleBackgroundSprite;
+                _panelImage.sprite = _subtitleController.subtitleOptions.backgroundSprite;
                 _panelImage.type = Image.Type.Sliced;
 
             }
