@@ -157,7 +157,12 @@ namespace A11YTK
 
             }
 
-            _panelImage.material = _subtitleBackgroundMaterial;
+            if (_canvas.renderMode.Equals(RenderMode.WorldSpace))
+            {
+
+                _panelImage.material = _subtitleBackgroundMaterial;
+
+            }
 
         }
 
