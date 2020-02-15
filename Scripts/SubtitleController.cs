@@ -19,7 +19,7 @@ namespace A11YTK
         protected Subtitle.Position _position = Subtitle.Position.AUTO;
 
         [SerializeField]
-        protected Subtitle.Type _type;
+        protected Subtitle.Type _type = Subtitle.Type.AUTO;
 
         [SerializeField]
         protected SubtitleOptionsReference _subtitleOptions;
@@ -27,6 +27,9 @@ namespace A11YTK
 
         public Subtitle.Position position =>
             _position.Equals(Subtitle.Position.AUTO) ? _subtitleOptions.defaultPosition : _position;
+
+        public Subtitle.Type type =>
+            _type.Equals(Subtitle.Type.AUTO) ? _subtitleOptions.defaultType : _type;
 
         public SubtitleOptionsReference subtitleOptions => _subtitleOptions;
 
