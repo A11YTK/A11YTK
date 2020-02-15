@@ -202,8 +202,8 @@ namespace A11YTK
                 return;
             }
 
-            var wrappedText = _textMesh.WrapText(value, Mathf.Min(
-                (_canvasWrapperTransform.sizeDelta.x / SUBTITLE_SCREEN_SCALE) - SUBTITLE_SCREEN_PADDING));
+            var wrappedText = _textMesh.WrapText(value,
+                (_canvasWrapperTransform.sizeDelta.x / SUBTITLE_SCREEN_SCALE) - SUBTITLE_SCREEN_PADDING);
 
             var valueSizeDelta = _textMesh.GetPreferredValues(wrappedText);
 
