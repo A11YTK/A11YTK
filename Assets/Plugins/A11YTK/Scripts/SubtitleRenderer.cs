@@ -11,11 +11,11 @@ namespace A11YTK
     public class SubtitleRenderer : MonoBehaviour
     {
 
-        private const string CANVAS_WRAPPER_NAME = "Canvas (clone)";
+        private const string CANVAS_WRAPPER_NAME = "Canvas (A11YTK)";
 
-        private const string TEXT_MESH_NAME = "Text (TMP)";
+        private const string TEXT_MESH_NAME = "Text";
 
-        private const string PANEL_NAME = "Panel";
+        private const string PANEL_NAME = "Panel Background";
 
         private const string RESOURCES_MATERIAL_FOLDER = "Materials/";
 
