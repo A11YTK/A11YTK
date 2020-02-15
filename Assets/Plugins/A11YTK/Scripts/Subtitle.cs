@@ -18,7 +18,11 @@ namespace A11YTK
         public enum Type
         {
 
+            AUTO,
+
             SCREEN,
+
+            HEADSET,
 
             OBJECT
 
