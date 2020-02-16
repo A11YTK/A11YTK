@@ -65,7 +65,9 @@ namespace A11YTK
             foreach (var word in words)
             {
 
-                var valueSizeDelta = textMesh.GetPreferredValues($"{lines[lines.Count - 1]} {word}");
+                var combinedWords = $"{lines[lines.Count - 1]} {word}".Trim();
+
+                var valueSizeDelta = textMesh.GetPreferredValues(combinedWords);
 
                 if (valueSizeDelta.x > wrapWidth)
                 {
@@ -76,7 +78,7 @@ namespace A11YTK
                 else
                 {
 
-                    lines[lines.Count - 1] = $"{lines[lines.Count - 1]} {word}";
+                    lines[lines.Count - 1] = combinedWords;
 
                 }
 
@@ -97,12 +99,24 @@ namespace A11YTK
 
         }
 
-        public static void ResizeRectTransformToMatchCamera(this RectTransform rectTransform, Camera camera)
+        public static void ScaleBasedOnDistanceFromCamera(this RectTransform rectTransform, Camera camera)
         {
 
             var distance = Vector3.Distance(camera.transform.position, rectTransform.gameObject.transform.position);
 
-            var camHeight = 2 * distance * Mathf.Tan(Mathf.Deg2Rad * (camera.fieldOfView / 2));
+            var scale = distance / 1000;
+
+            rectTransform.localScale = Vector3.one * scale;
+
+        }
+
+        public static void ResizeToMatchCamera(this RectTransform rectTransform, Camera camera)
+        {
+
+            var distance = Vector3.Distance(camera.transform.position, rectTransform.gameObject.transform.position);
+
+            var camHeight = 2 * distance * Mathf.Tan(Mathf.Deg2Rad * (camera.fieldOfView / 2)) /
+                            rectTransform.localScale.y;
 
             rectTransform.sizeDelta = new Vector2(camHeight * camera.aspect, camHeight);
 

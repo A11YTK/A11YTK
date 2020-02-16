@@ -31,8 +31,13 @@ namespace A11YTK
 
         public Subtitle.Position defaultPosition = Subtitle.Position.BOTTOM;
 
+        public Subtitle.Type defaultType = Subtitle.Type.HEADSET;
+
+        [Range(0, 100)]
+        public float screenPadding = 10;
+
         [Header("Text")]
-        public float fontSize = 30;
+        public float fontSize = 60;
 
         public Color fontColor = Color.white;
 
@@ -49,7 +54,7 @@ namespace A11YTK
 
         public Sprite backgroundSprite;
 
-        public float backgroundPadding = 10;
+        public float backgroundPadding = 30;
 
         public void Save(string fileName, string directory)
         {

@@ -11,19 +11,15 @@ namespace A11YTK
     public class SubtitleRenderer : MonoBehaviour
     {
 
-        private const string CANVAS_WRAPPER_NAME = "Canvas (clone)";
+        private const string CANVAS_WRAPPER_NAME = "Canvas (A11YTK)";
 
-        private const string TEXT_MESH_NAME = "Text (TMP)";
+        private const string TEXT_MESH_NAME = "Text";
 
-        private const string PANEL_NAME = "Panel";
+        private const string PANEL_NAME = "Panel Background";
 
         private const string RESOURCES_MATERIAL_FOLDER = "Materials/";
 
         private const string SUBTITLE_BACKGROUND_MATERIAL_NAME = "SubtitleBackground";
-
-        private const float SUBTITLE_SCREEN_SCALE = 0.025f;
-
-        private const float SUBTITLE_SCREEN_PADDING = 100;
 
 #pragma warning disable CS0649
         [SerializeField]
@@ -44,13 +40,13 @@ namespace A11YTK
 
         private RectTransform _textMeshWrapperTransform;
 
-        private GameObject _panel;
+        private GameObject _panelWrapper;
+
+        private RectTransform _panelWrapperTransform;
 
         private Image _panelImage;
 
         private TextMeshProUGUI _textMesh;
-
-        private Sprite _subtitleBackgroundSprite;
 
         private Material _subtitleBackgroundMaterial;
 
@@ -65,8 +61,6 @@ namespace A11YTK
             }
 
             _subtitleController = gameObject.GetComponent<SubtitleController>();
-
-            _subtitleBackgroundSprite = _subtitleController.subtitleOptions.backgroundSprite;
 
             _subtitleBackgroundMaterial = Resources.LoadAll<Material>(RESOURCES_MATERIAL_FOLDER)
                 .First(material => material.name.Equals(SUBTITLE_BACKGROUND_MATERIAL_NAME));
@@ -84,14 +78,13 @@ namespace A11YTK
             if (_canvasWrapper == null)
             {
 
+                CreateCanvasGameObjects();
+
+                CreateTextGameObjects();
+
                 SetupCanvasGameObjects();
 
                 SetupTextGameObjects();
-
-            }
-
-            if (_subtitleController.subtitleOptions != null)
-            {
 
                 SetOptions(_subtitleController.subtitleOptions);
 
@@ -101,63 +94,115 @@ namespace A11YTK
 
         }
 
-        private void SetupCanvasGameObjects()
+        private void CreateCanvasGameObjects()
         {
+
+            if (_canvasWrapper != null)
+            {
+                return;
+            }
 
             _canvasWrapper = new GameObject(CANVAS_WRAPPER_NAME, typeof(Canvas), typeof(CanvasScaler));
 
             _canvasWrapperTransform = _canvasWrapper.GetComponent<RectTransform>();
 
-            _canvasWrapperTransform.SetParent(_mainCamera.transform, false);
-
-            _canvasWrapperTransform.ResetRectTransform();
-
-            _canvasWrapperTransform.transform.localPosition = new Vector3(0, 0, 10);
-
             _canvas = _canvasWrapper.GetComponent<Canvas>();
 
-            _canvasWrapperTransform.ResizeRectTransformToMatchCamera(_mainCamera);
+        }
+
+        private void CreateTextGameObjects()
+        {
+
+            if (_textMeshWrapper != null && _panelWrapper != null)
+            {
+                return;
+            }
+
+            _textMeshWrapper = new GameObject(TEXT_MESH_NAME, typeof(RectTransform), typeof(TextMeshProUGUI));
+
+            _textMeshWrapperTransform = _textMeshWrapper.GetComponent<RectTransform>();
+
+            _textMeshWrapperTransform.SetParent(_canvasWrapperTransform, false);
+
+            _textMesh = _textMeshWrapper.GetComponent<TextMeshProUGUI>();
+
+            _panelWrapper = new GameObject(PANEL_NAME, typeof(RectTransform), typeof(Image));
+
+            _panelWrapperTransform = _panelWrapper.GetComponent<RectTransform>();
+
+            _panelWrapperTransform.SetParent(_textMeshWrapperTransform, false);
+
+            _panelImage = _panelWrapper.GetComponent<Image>();
+
+        }
+
+        private void SetupCanvasGameObjects()
+        {
+
+            if (_subtitleController.type.Equals(Subtitle.Type.HEADSET))
+            {
+
+                _canvasWrapperTransform.SetParent(_mainCamera.transform, false);
+
+                _canvasWrapperTransform.localPosition = new Vector3(0, 0, 10);
+
+                _canvasWrapperTransform.ScaleBasedOnDistanceFromCamera(_mainCamera);
+
+                _canvas.renderMode = RenderMode.WorldSpace;
+
+            }
+            else if (_subtitleController.type.Equals(Subtitle.Type.OBJECT))
+            {
+
+                _canvasWrapperTransform.localPosition = gameObject.transform.position;
+
+                _canvasWrapperTransform.ScaleBasedOnDistanceFromCamera(_mainCamera);
+
+                _canvas.renderMode = RenderMode.WorldSpace;
+
+            }
+            else if (_subtitleController.type.Equals(Subtitle.Type.AUTO) ||
+                     _subtitleController.type.Equals(Subtitle.Type.SCREEN))
+            {
+
+                _canvas.renderMode = RenderMode.ScreenSpaceCamera;
+
+            }
 
             _canvas.worldCamera = _mainCamera;
+
+            if (_canvas.renderMode.Equals(RenderMode.WorldSpace))
+            {
+
+                _canvasWrapperTransform.ResizeToMatchCamera(_mainCamera);
+
+            }
 
         }
 
         private void SetupTextGameObjects()
         {
 
-            _textMeshWrapper = new GameObject(TEXT_MESH_NAME, typeof(RectTransform));
-
-            _textMeshWrapperTransform = _textMeshWrapper.GetComponent<RectTransform>();
-
-            _textMeshWrapperTransform.SetParent(_canvasWrapperTransform, false);
-
-            _textMeshWrapperTransform.ResetRectTransform();
-
-            _textMeshWrapperTransform.localScale = Vector3.one * SUBTITLE_SCREEN_SCALE;
-
-            _textMesh = _textMeshWrapper.AddComponent<TextMeshProUGUI>();
-
             _textMesh.raycastTarget = false;
 
-            _panel = new GameObject(PANEL_NAME, typeof(RectTransform), typeof(Image));
-
-            _panel.transform.SetParent(_textMeshWrapperTransform, false);
-
-            _panel.GetComponent<RectTransform>().ResetRectTransform();
-
-            _panelImage = _panel.GetComponent<Image>();
+            _panelWrapperTransform.ResetRectTransform();
 
             _panelImage.raycastTarget = false;
 
-            if (_subtitleBackgroundSprite != null)
+            if (_subtitleController.subtitleOptions.backgroundSprite != null)
             {
 
-                _panelImage.sprite = _subtitleBackgroundSprite;
+                _panelImage.sprite = _subtitleController.subtitleOptions.backgroundSprite;
                 _panelImage.type = Image.Type.Sliced;
 
             }
 
-            _panelImage.material = _subtitleBackgroundMaterial;
+            if (_canvas.renderMode.Equals(RenderMode.WorldSpace))
+            {
+
+                _panelImage.material = _subtitleBackgroundMaterial;
+
+            }
 
         }
 
@@ -175,13 +220,12 @@ namespace A11YTK
             _textMesh.fontSharedMaterial = subtitleOptions.fontMaterial;
             _textMesh.alignment = subtitleOptions.textAlignment;
 
-            if (Equals(_panel, null) || Equals(_panelImage, null))
+            if (_panelWrapper == null || _panelImage == null)
             {
                 return;
             }
 
             _panelImage.enabled = subtitleOptions.showBackground;
-
             _panelImage.material.color = subtitleOptions.backgroundColor;
 
         }
@@ -189,7 +233,7 @@ namespace A11YTK
         public void Hide()
         {
 
-            TearDown();
+            Destroy(_canvasWrapper);
 
         }
 
@@ -201,28 +245,28 @@ namespace A11YTK
                 return;
             }
 
+            var screenPadding = _canvasWrapperTransform.sizeDelta.x *
+                                (_subtitleController.subtitleOptions.screenPadding / 100);
+
             var wrappedText = _textMesh.WrapText(value,
-                (_canvasWrapperTransform.sizeDelta.x / SUBTITLE_SCREEN_SCALE) - SUBTITLE_SCREEN_PADDING);
+                _canvasWrapperTransform.sizeDelta.x - screenPadding);
 
             var valueSizeDelta = _textMesh.GetPreferredValues(wrappedText);
+
+            var paddingSizeDelta = _textMesh.GetPreferredValues(value);
 
             valueSizeDelta += Vector2.one * _subtitleController.subtitleOptions.backgroundPadding;
 
             _textMeshWrapperTransform.SetInsetAndSizeFromParentEdge(
                 _subtitleController.position.Equals(Subtitle.Position.TOP)
                     ? RectTransform.Edge.Top
-                    : RectTransform.Edge.Bottom, 1, valueSizeDelta.y * SUBTITLE_SCREEN_SCALE);
+                    : RectTransform.Edge.Bottom,
+                paddingSizeDelta.y,
+                valueSizeDelta.y);
 
             _textMeshWrapperTransform.sizeDelta = valueSizeDelta;
 
             _textMesh.text = wrappedText;
-
-        }
-
-        private void TearDown()
-        {
-
-            Destroy(_canvasWrapper);
 
         }
 
