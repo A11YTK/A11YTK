@@ -65,7 +65,9 @@ namespace A11YTK
             foreach (var word in words)
             {
 
-                var valueSizeDelta = textMesh.GetPreferredValues($"{lines[lines.Count - 1]} {word}");
+                var combinedWords = $"{lines[lines.Count - 1]} {word}".Trim();
+
+                var valueSizeDelta = textMesh.GetPreferredValues(combinedWords);
 
                 if (valueSizeDelta.x > wrapWidth)
                 {
@@ -76,7 +78,7 @@ namespace A11YTK
                 else
                 {
 
-                    lines[lines.Count - 1] = $"{lines[lines.Count - 1]} {word}";
+                    lines[lines.Count - 1] = combinedWords;
 
                 }
 
