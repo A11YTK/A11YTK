@@ -21,7 +21,7 @@ namespace A11YTK
 
         private const string SUBTITLE_BACKGROUND_MATERIAL_NAME = "SubtitleBackground";
 
-        private const float SUBTITLE_SCREEN_SCALE = 0.025f;
+        private const float SUBTITLE_SCREEN_SCALE = 0.01f;
 
 #pragma warning disable CS0649
         [SerializeField]
@@ -148,6 +148,8 @@ namespace A11YTK
 
                 _canvasWrapperTransform.localPosition = new Vector3(0, 0, 10);
 
+                _canvasWrapperTransform.localScale = Vector3.one * SUBTITLE_SCREEN_SCALE;
+
                 _canvas.renderMode = RenderMode.WorldSpace;
 
             }
@@ -174,8 +176,6 @@ namespace A11YTK
         {
 
             _textMeshWrapperTransform.ResetRectTransform();
-
-            _textMeshWrapperTransform.localScale = Vector3.one * SUBTITLE_SCREEN_SCALE;
 
             _textMesh.raycastTarget = false;
 
@@ -242,7 +242,7 @@ namespace A11YTK
             var screenPadding = _canvasWrapperTransform.sizeDelta.x * 0.1f;
 
             var wrappedText = _textMesh.WrapText(value,
-                (_canvasWrapperTransform.sizeDelta.x / SUBTITLE_SCREEN_SCALE) - screenPadding);
+                (_canvasWrapperTransform.sizeDelta.x / _canvasWrapperTransform.localScale.x) - screenPadding);
 
             var valueSizeDelta = _textMesh.GetPreferredValues(wrappedText);
 
@@ -254,8 +254,8 @@ namespace A11YTK
                 _subtitleController.position.Equals(Subtitle.Position.TOP)
                     ? RectTransform.Edge.Top
                     : RectTransform.Edge.Bottom,
-                paddingSizeDelta.y * SUBTITLE_SCREEN_SCALE,
-                valueSizeDelta.y * SUBTITLE_SCREEN_SCALE);
+                paddingSizeDelta.y,
+                valueSizeDelta.y);
 
             _textMeshWrapperTransform.sizeDelta = valueSizeDelta;
 
