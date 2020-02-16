@@ -247,7 +247,8 @@ namespace A11YTK
                 return;
             }
 
-            var screenPadding = _canvasWrapperTransform.sizeDelta.x * 0.1f;
+            var screenPadding = _canvasWrapperTransform.sizeDelta.x *
+                                (_subtitleController.subtitleOptions.screenPadding / 100);
 
             var wrappedText = _textMesh.WrapText(value,
                 _canvasWrapperTransform.sizeDelta.x - screenPadding);
