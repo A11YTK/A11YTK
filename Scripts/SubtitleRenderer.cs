@@ -147,9 +147,14 @@ namespace A11YTK
 
             _canvasWrapperTransform.localPosition = new Vector3(0, 0, 10);
 
-            _canvasWrapperTransform.ResizeRectTransformToMatchCamera(_mainCamera);
-
             _canvas.worldCamera = _mainCamera;
+
+            if (_canvas.renderMode.Equals(RenderMode.WorldSpace))
+            {
+
+                _canvasWrapperTransform.ResizeRectTransformToMatchCamera(_mainCamera);
+
+            }
 
         }
 
