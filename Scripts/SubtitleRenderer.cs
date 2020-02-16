@@ -250,7 +250,7 @@ namespace A11YTK
             var screenPadding = _canvasWrapperTransform.sizeDelta.x * 0.1f;
 
             var wrappedText = _textMesh.WrapText(value,
-                (_canvasWrapperTransform.sizeDelta.x / _canvasWrapperTransform.localScale.x) - screenPadding);
+                _canvasWrapperTransform.sizeDelta.x - screenPadding);
 
             var valueSizeDelta = _textMesh.GetPreferredValues(wrappedText);
 
