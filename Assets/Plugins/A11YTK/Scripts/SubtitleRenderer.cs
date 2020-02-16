@@ -151,6 +151,13 @@ namespace A11YTK
                 _canvas.renderMode = RenderMode.WorldSpace;
 
             }
+            else if (_subtitleController.type.Equals(Subtitle.Type.AUTO) ||
+                     _subtitleController.type.Equals(Subtitle.Type.SCREEN))
+            {
+
+                _canvas.renderMode = RenderMode.ScreenSpaceCamera;
+
+            }
 
             _canvas.worldCamera = _mainCamera;
 
