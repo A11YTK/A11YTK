@@ -21,8 +21,6 @@ namespace A11YTK
 
         private const string SUBTITLE_BACKGROUND_MATERIAL_NAME = "SubtitleBackground";
 
-        private const float SUBTITLE_SCREEN_SCALE = 0.01f;
-
 #pragma warning disable CS0649
         [SerializeField]
         private Camera _mainCamera;
@@ -148,7 +146,7 @@ namespace A11YTK
 
                 _canvasWrapperTransform.localPosition = new Vector3(0, 0, 10);
 
-                _canvasWrapperTransform.localScale = Vector3.one * SUBTITLE_SCREEN_SCALE;
+                _canvasWrapperTransform.ScaleBasedOnDistanceFromCamera(_mainCamera);
 
                 _canvas.renderMode = RenderMode.WorldSpace;
 
@@ -158,7 +156,7 @@ namespace A11YTK
 
                 _canvasWrapperTransform.localPosition = gameObject.transform.position;
 
-                _canvasWrapperTransform.localScale = Vector3.one * SUBTITLE_SCREEN_SCALE;
+                _canvasWrapperTransform.ScaleBasedOnDistanceFromCamera(_mainCamera);
 
                 _canvas.renderMode = RenderMode.WorldSpace;
 
