@@ -174,7 +174,7 @@ namespace A11YTK
             if (_canvas.renderMode.Equals(RenderMode.WorldSpace))
             {
 
-                _canvasWrapperTransform.ResizeRectTransformToMatchCamera(_mainCamera);
+                _canvasWrapperTransform.ResizeToMatchCamera(_mainCamera);
 
             }
 
