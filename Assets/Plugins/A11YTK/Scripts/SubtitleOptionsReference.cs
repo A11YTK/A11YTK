@@ -33,6 +33,7 @@ namespace A11YTK
 
         public Subtitle.Type defaultType = Subtitle.Type.HEADSET;
 
+        [Range(0, 100)]
         public float screenPadding = 10;
 
         [Header("Text")]
