@@ -110,7 +110,7 @@ namespace A11YTK
 
         }
 
-        public static void ResizeRectTransformToMatchCamera(this RectTransform rectTransform, Camera camera)
+        public static void ResizeToMatchCamera(this RectTransform rectTransform, Camera camera)
         {
 
             var distance = Vector3.Distance(camera.transform.position, rectTransform.gameObject.transform.position);
