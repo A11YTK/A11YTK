@@ -187,7 +187,7 @@ namespace A11YTK
         public void Hide()
         {
 
-            TearDown();
+            Destroy(_canvasWrapper);
 
         }
 
@@ -220,13 +220,6 @@ namespace A11YTK
             _textMeshWrapperTransform.sizeDelta = valueSizeDelta;
 
             _textMesh.text = wrappedText;
-
-        }
-
-        private void TearDown()
-        {
-
-            Destroy(_canvasWrapper);
 
         }
 
