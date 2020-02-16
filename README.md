@@ -36,7 +36,7 @@ Install [TextMeshPro](https://docs.unity3d.com/Manual/com.unity.textmeshpro.html
 
 Attach a `SubtitleAudioSourceController` or `SubtitleVideoPlayerController` component to any GameObject that has an `AudioSource` or `VideoPlayer` component respectively.
 
-<img src="Screenshots/components.png" width="400">
+<img src="Screenshots/component.png" width="400">
 
 Using an SRT file, either paste the contents or drag the asset reference into the `Subtitle Text` or `Subtitle Text Asset` property respectively.
 
@@ -52,18 +52,21 @@ Drag the `Subtitle Options` asset into the `Subtitle Options` property of the `S
 
 #### Properties
 
-| Property           | Description                                            | Default  |
-| ------------------ | ------------------------------------------------------ | -------- |
-| Enabled            | Toggle subtitles on or off.                            | `Off`    |
-| Default Position   | Position subtitles should render on screen.            | `Bottom` |
-| Font Size          | Subtitle font size.                                    | `30`     |
-| Font Color         | Subtile font color                                     | `White`  |
-| Background Color   | Background color that appears behind subtitle text     | `Black`  |
-| Background Sprite  | Optional 9-splice sprite.                              | `Null`   |
-| Background Padding | Padding around the text inside the background.         | `10`     |
-| Show Background    | Toggle subtitle background on or off.                  | `On`     |
-| Font Asset         | TextMeshPro font to render subtitle with.              | `Null`   |
-| Font Material      | TextMeshPro material to use with the TextMeshPro font. | `Null`   |
+| Property           | Description                                                          | Default   |
+| ------------------ | -------------------------------------------------------------------- | --------- |
+| Enabled            | Toggle subtitles on or off.                                          | `Off`     |
+| Default Position   | Position subtitles should render on screen. Either `TOP` or `BOTTOM` | `BOTTOM`  |
+| Default Type       | Type of subtitle. Either `SCREEN`, `HEADSET`, or `OBJECT`            | `HEADSET` |
+| Screen Padding     | Percentage of screen to be used as padding around subtitles.         | `10`      |
+| Font Size          | Subtitle font size.                                                  | `30`      |
+| Font Color         | Subtile font color                                                   | `White`   |
+| Font Asset         | TextMeshPro font to render subtitle with.                            | `Null`    |
+| Font Material      | TextMeshPro material to use with the TextMeshPro font.               | `Null`    |
+| Text Alignment     | TextMeshPro text alignment property.                                 | `MidLine` |
+| Show Background    | Toggle subtitle background on or off.                                | `On`      |
+| Background Color   | Background color that appears behind subtitle text                   | `Black`   |
+| Background Sprite  | Optional 9-splice sprite.                                            | `Null`    |
+| Background Padding | Padding around the text inside the background.                       | `10`      |
 
 #### Methods
 
