@@ -42,7 +42,9 @@ namespace A11YTK
 
         private RectTransform _textMeshWrapperTransform;
 
-        private GameObject _panel;
+        private GameObject _panelWrapper;
+
+        private RectTransform _panelWrapperTransform;
 
         private Image _panelImage;
 
@@ -78,14 +80,13 @@ namespace A11YTK
             if (_canvasWrapper == null)
             {
 
+                CreateCanvasGameObjects();
+
+                CreateTextGameObjects();
+
                 SetupCanvasGameObjects();
 
                 SetupTextGameObjects();
-
-            }
-
-            if (_subtitleController.subtitleOptions != null)
-            {
 
                 SetOptions(_subtitleController.subtitleOptions);
 
@@ -95,20 +96,56 @@ namespace A11YTK
 
         }
 
-        private void SetupCanvasGameObjects()
+        private void CreateCanvasGameObjects()
         {
+
+            if (_canvasWrapper != null)
+            {
+                return;
+            }
 
             _canvasWrapper = new GameObject(CANVAS_WRAPPER_NAME, typeof(Canvas), typeof(CanvasScaler));
 
             _canvasWrapperTransform = _canvasWrapper.GetComponent<RectTransform>();
+
+            _canvas = _canvasWrapper.GetComponent<Canvas>();
+
+        }
+
+        private void CreateTextGameObjects()
+        {
+
+            if (_textMeshWrapper != null && _panelWrapper != null)
+            {
+                return;
+            }
+
+            _textMeshWrapper = new GameObject(TEXT_MESH_NAME, typeof(RectTransform), typeof(TextMeshProUGUI));
+
+            _textMeshWrapperTransform = _textMeshWrapper.GetComponent<RectTransform>();
+
+            _textMeshWrapperTransform.SetParent(_canvasWrapperTransform, false);
+
+            _textMesh = _textMeshWrapper.GetComponent<TextMeshProUGUI>();
+
+            _panelWrapper = new GameObject(PANEL_NAME, typeof(RectTransform), typeof(Image));
+
+            _panelWrapperTransform = _panelWrapper.GetComponent<RectTransform>();
+
+            _panelWrapperTransform.SetParent(_textMeshWrapperTransform, false);
+
+            _panelImage = _panelWrapper.GetComponent<Image>();
+
+        }
+
+        private void SetupCanvasGameObjects()
+        {
 
             _canvasWrapperTransform.SetParent(_mainCamera.transform, false);
 
             _canvasWrapperTransform.ResetRectTransform();
 
             _canvasWrapperTransform.localPosition = new Vector3(0, 0, 10);
-
-            _canvas = _canvasWrapper.GetComponent<Canvas>();
 
             _canvasWrapperTransform.ResizeRectTransformToMatchCamera(_mainCamera);
 
@@ -119,27 +156,13 @@ namespace A11YTK
         private void SetupTextGameObjects()
         {
 
-            _textMeshWrapper = new GameObject(TEXT_MESH_NAME, typeof(RectTransform));
-
-            _textMeshWrapperTransform = _textMeshWrapper.GetComponent<RectTransform>();
-
-            _textMeshWrapperTransform.SetParent(_canvasWrapperTransform, false);
-
             _textMeshWrapperTransform.ResetRectTransform();
 
             _textMeshWrapperTransform.localScale = Vector3.one * SUBTITLE_SCREEN_SCALE;
 
-            _textMesh = _textMeshWrapper.AddComponent<TextMeshProUGUI>();
-
             _textMesh.raycastTarget = false;
 
-            _panel = new GameObject(PANEL_NAME, typeof(RectTransform), typeof(Image));
-
-            _panel.transform.SetParent(_textMeshWrapperTransform, false);
-
-            _panel.GetComponent<RectTransform>().ResetRectTransform();
-
-            _panelImage = _panel.GetComponent<Image>();
+            _panelWrapperTransform.ResetRectTransform();
 
             _panelImage.raycastTarget = false;
 
@@ -174,7 +197,7 @@ namespace A11YTK
             _textMesh.fontSharedMaterial = subtitleOptions.fontMaterial;
             _textMesh.alignment = subtitleOptions.textAlignment;
 
-            if (_panel == null || _panelImage == null)
+            if (_panelWrapper == null || _panelImage == null)
             {
                 return;
             }
