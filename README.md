@@ -58,7 +58,7 @@ Drag the `Subtitle Options` asset into the `Subtitle Options` property of the `S
 | Default Position   | Position subtitles should render on screen. Either `TOP` or `BOTTOM` | `BOTTOM`  |
 | Default Type       | Type of subtitle. Either `SCREEN`, `HEADSET`, or `OBJECT`            | `HEADSET` |
 | Screen Padding     | Percentage of screen to be used as padding around subtitles.         | `10`      |
-| Font Size          | Subtitle font size.                                                  | `30`      |
+| Font Size          | Subtitle font size.                                                  | `60`      |
 | Font Color         | Subtile font color                                                   | `White`   |
 | Font Asset         | TextMeshPro font to render subtitle with.                            | `Null`    |
 | Font Material      | TextMeshPro material to use with the TextMeshPro font.               | `Null`    |
@@ -66,7 +66,7 @@ Drag the `Subtitle Options` asset into the `Subtitle Options` property of the `S
 | Show Background    | Toggle subtitle background on or off.                                | `On`      |
 | Background Color   | Background color that appears behind subtitle text                   | `Black`   |
 | Background Sprite  | Optional 9-splice sprite.                                            | `Null`    |
-| Background Padding | Padding around the text inside the background.                       | `10`      |
+| Background Padding | Padding around the text inside the background.                       | `30`      |
 
 #### Methods
 
