@@ -141,11 +141,16 @@ namespace A11YTK
         private void SetupCanvasGameObjects()
         {
 
-            _canvasWrapperTransform.SetParent(_mainCamera.transform, false);
+            if (_subtitleController.type.Equals(Subtitle.Type.HEADSET))
+            {
 
-            _canvasWrapperTransform.ResetRectTransform();
+                _canvasWrapperTransform.SetParent(_mainCamera.transform, false);
 
-            _canvasWrapperTransform.localPosition = new Vector3(0, 0, 10);
+                _canvasWrapperTransform.localPosition = new Vector3(0, 0, 10);
+
+                _canvas.renderMode = RenderMode.WorldSpace;
+
+            }
 
             _canvas.worldCamera = _mainCamera;
 
