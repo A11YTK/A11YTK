@@ -185,8 +185,6 @@ namespace A11YTK
         private void SetupTextGameObjects()
         {
 
-            _textMeshWrapperTransform.ResetRectTransform();
-
             _textMesh.raycastTarget = false;
 
             _panelWrapperTransform.ResetRectTransform();
