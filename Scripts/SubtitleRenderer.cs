@@ -106,7 +106,7 @@ namespace A11YTK
 
             _canvasWrapperTransform.ResetRectTransform();
 
-            _canvasWrapperTransform.transform.localPosition = new Vector3(0, 0, 10);
+            _canvasWrapperTransform.localPosition = new Vector3(0, 0, 10);
 
             _canvas = _canvasWrapper.GetComponent<Canvas>();
 
