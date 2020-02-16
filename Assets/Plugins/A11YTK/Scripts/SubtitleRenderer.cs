@@ -153,6 +153,16 @@ namespace A11YTK
                 _canvas.renderMode = RenderMode.WorldSpace;
 
             }
+            else if (_subtitleController.type.Equals(Subtitle.Type.OBJECT))
+            {
+
+                _canvasWrapperTransform.localPosition = gameObject.transform.position;
+
+                _canvasWrapperTransform.localScale = Vector3.one * SUBTITLE_SCREEN_SCALE;
+
+                _canvas.renderMode = RenderMode.WorldSpace;
+
+            }
             else if (_subtitleController.type.Equals(Subtitle.Type.AUTO) ||
                      _subtitleController.type.Equals(Subtitle.Type.SCREEN))
             {
