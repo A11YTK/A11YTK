@@ -148,6 +148,8 @@ namespace A11YTK
 
                 _canvasWrapperTransform.ScaleBasedOnDistanceFromCamera(_mainCamera);
 
+                _canvasWrapperTransform.ResizeToMatchCamera(_mainCamera);
+
                 _canvas.renderMode = RenderMode.WorldSpace;
 
             }
@@ -171,17 +173,17 @@ namespace A11YTK
 
             _canvas.worldCamera = _mainCamera;
 
-            if (_canvas.renderMode.Equals(RenderMode.WorldSpace))
-            {
-
-                _canvasWrapperTransform.ResizeToMatchCamera(_mainCamera);
-
-            }
-
         }
 
         private void SetupTextGameObjects()
         {
+
+            if (_subtitleController.type.Equals(Subtitle.Type.OBJECT))
+            {
+
+                _textMeshWrapperTransform.ResetRectTransform();
+
+            }
 
             _textMesh.raycastTarget = false;
 
@@ -248,8 +250,16 @@ namespace A11YTK
             var screenPadding = _canvasWrapperTransform.sizeDelta.x *
                                 (_subtitleController.subtitleOptions.screenPadding / 100);
 
-            var wrappedText = _textMesh.WrapText(value,
-                _canvasWrapperTransform.sizeDelta.x - screenPadding);
+            var wrapWidth = _canvasWrapperTransform.sizeDelta.x - screenPadding;
+
+            if (_subtitleController.type.Equals(Subtitle.Type.OBJECT))
+            {
+
+                wrapWidth = Screen.width / 2;
+
+            }
+
+            var wrappedText = _textMesh.WrapText(value, wrapWidth);
 
             var valueSizeDelta = _textMesh.GetPreferredValues(wrappedText);
 
@@ -257,14 +267,40 @@ namespace A11YTK
 
             valueSizeDelta += Vector2.one * _subtitleController.subtitleOptions.backgroundPadding;
 
-            _textMeshWrapperTransform.SetInsetAndSizeFromParentEdge(
-                _subtitleController.position.Equals(Subtitle.Position.TOP)
-                    ? RectTransform.Edge.Top
-                    : RectTransform.Edge.Bottom,
-                paddingSizeDelta.y,
-                valueSizeDelta.y);
+            if (_subtitleController.type.Equals(Subtitle.Type.OBJECT))
+            {
 
-            _textMeshWrapperTransform.sizeDelta = valueSizeDelta;
+                _canvasWrapperTransform.sizeDelta = valueSizeDelta;
+
+                if (_subtitleController.position.Equals(Subtitle.Position.TOP))
+                {
+
+                    _canvasWrapperTransform.position += new Vector3(0,
+                        (paddingSizeDelta.y + valueSizeDelta.y) * _canvasWrapperTransform.localScale.y, 0);
+
+                }
+                else
+                {
+
+                    _canvasWrapperTransform.position -= new Vector3(0,
+                        (paddingSizeDelta.y + valueSizeDelta.y) * _canvasWrapperTransform.localScale.y, 0);
+
+                }
+
+            }
+            else
+            {
+
+                _textMeshWrapperTransform.SetInsetAndSizeFromParentEdge(
+                    _subtitleController.position.Equals(Subtitle.Position.TOP)
+                        ? RectTransform.Edge.Top
+                        : RectTransform.Edge.Bottom,
+                    paddingSizeDelta.y,
+                    valueSizeDelta.y);
+
+                _textMeshWrapperTransform.sizeDelta = valueSizeDelta;
+
+            }
 
             _textMesh.text = wrappedText;
 
