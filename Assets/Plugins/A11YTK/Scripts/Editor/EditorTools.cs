@@ -19,7 +19,7 @@ namespace A11YTK.Editor
                 .OfType<T>()
                 .First();
 
-        [MenuItem("Window/A11YTK/Setup Audio Sources")]
+        [MenuItem("Window/A11YTK/Setup Audio Sources in Scene")]
         public static void SetupAudioSources()
         {
 
@@ -50,7 +50,7 @@ namespace A11YTK.Editor
 
         }
 
-        [MenuItem("Window/A11YTK/Setup Video Players")]
+        [MenuItem("Window/A11YTK/Setup Video Players in Scene")]
         public static void SetupVideoSources()
         {
 
