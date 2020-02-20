@@ -1,3 +1,7 @@
+#if UNITY_EDITOR
+using System.Linq;
+using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -19,8 +23,19 @@ namespace A11YTK
         protected override bool _isPlaying =>
             _videoSource && _videoSource.isPlaying && _videoSource.time < _videoSource.length;
 
-        private void OnValidate()
+#if UNITY_EDITOR
+        protected void OnValidate()
         {
+
+            if (_subtitleOptions == null)
+            {
+
+                _subtitleOptions =
+                    AssetDatabase.LoadAssetAtPath<SubtitleOptionsReference>(AssetDatabase.GUIDToAssetPath(AssetDatabase
+                        .FindAssets("t:SubtitleOptionsReference", null)
+                        .FirstOrDefault()));
+
+            }
 
             if (_videoSource == null)
             {
@@ -30,6 +45,7 @@ namespace A11YTK
             }
 
         }
+#endif
 
     }
 
