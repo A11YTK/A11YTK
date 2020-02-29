@@ -62,7 +62,7 @@ namespace A11YTK
 
             }
 
-            if (subtitleOptions == null)
+            if (_subtitleOptions == null)
             {
 
                 Debug.LogWarning("Subtitle options asset is missing!");
@@ -74,7 +74,7 @@ namespace A11YTK
         protected void FixedUpdate()
         {
 
-            if (subtitleOptions.enabled && _isPlaying)
+            if (_subtitleOptions != null && _subtitleOptions.enabled && _isPlaying)
             {
 
                 Tick();
