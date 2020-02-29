@@ -285,15 +285,23 @@ namespace A11YTK
                 if (_subtitleController.position.Equals(Subtitle.Position.TOP))
                 {
 
-                    _canvasWrapperTransform.position += new Vector3(0,
-                        (paddingSizeDelta.y + valueSizeDelta.y) * _canvasWrapperTransform.localScale.y, 0);
+                    _canvasWrapperTransform.pivot = new Vector2(0.5f, 0);
+
+                    _canvasWrapperTransform.position += new Vector3(
+                        0,
+                        _collider.bounds.extents.y,
+                        0);
 
                 }
                 else
                 {
 
-                    _canvasWrapperTransform.position -= new Vector3(0,
-                        (paddingSizeDelta.y + valueSizeDelta.y) * _canvasWrapperTransform.localScale.y, 0);
+                    _canvasWrapperTransform.pivot = new Vector2(0.5f, 1);
+
+                    _canvasWrapperTransform.position -= new Vector3(
+                        0,
+                        _collider.bounds.extents.y,
+                        0);
 
                 }
 
