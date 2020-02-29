@@ -22,6 +22,9 @@ namespace A11YTK
 #pragma warning disable CS0649
         [SerializeField]
         private Camera _mainCamera;
+
+        [SerializeField]
+        private Collider _collider;
 #pragma warning restore CS0649
 
         public bool isVisible => _canvasWrapper != null;
@@ -55,6 +58,13 @@ namespace A11YTK
             {
 
                 _mainCamera = Camera.main;
+
+            }
+
+            if (_collider == null)
+            {
+
+                _collider = gameObject.GetComponent<Collider>();
 
             }
 
@@ -148,13 +158,15 @@ namespace A11YTK
 
                 _canvasWrapperTransform.ScaleBasedOnDistanceFromCamera(_mainCamera);
 
+                _canvasWrapperTransform.ResizeToMatchCamera(_mainCamera);
+
                 _canvas.renderMode = RenderMode.WorldSpace;
 
             }
             else if (_subtitleController.type.Equals(Subtitle.Type.OBJECT))
             {
 
-                _canvasWrapperTransform.localPosition = gameObject.transform.position;
+                _canvasWrapperTransform.position = gameObject.transform.position;
 
                 _canvasWrapperTransform.ScaleBasedOnDistanceFromCamera(_mainCamera);
 
@@ -171,17 +183,17 @@ namespace A11YTK
 
             _canvas.worldCamera = _mainCamera;
 
-            if (_canvas.renderMode.Equals(RenderMode.WorldSpace))
-            {
-
-                _canvasWrapperTransform.ResizeToMatchCamera(_mainCamera);
-
-            }
-
         }
 
         private void SetupTextGameObjects()
         {
+
+            if (_subtitleController.type.Equals(Subtitle.Type.OBJECT))
+            {
+
+                _textMeshWrapperTransform.ResetRectTransform();
+
+            }
 
             _textMesh.raycastTarget = false;
 
@@ -248,8 +260,16 @@ namespace A11YTK
             var screenPadding = _canvasWrapperTransform.sizeDelta.x *
                                 (_subtitleController.subtitleOptions.screenPadding / 100);
 
-            var wrappedText = _textMesh.WrapText(value,
-                _canvasWrapperTransform.sizeDelta.x - screenPadding);
+            var wrapWidth = _canvasWrapperTransform.sizeDelta.x - screenPadding;
+
+            if (_subtitleController.type.Equals(Subtitle.Type.OBJECT))
+            {
+
+                wrapWidth = _mainCamera.pixelWidth - screenPadding;
+
+            }
+
+            var wrappedText = _textMesh.WrapText(value, wrapWidth);
 
             var valueSizeDelta = _textMesh.GetPreferredValues(wrappedText);
 
@@ -257,14 +277,48 @@ namespace A11YTK
 
             valueSizeDelta += Vector2.one * _subtitleController.subtitleOptions.backgroundPadding;
 
-            _textMeshWrapperTransform.SetInsetAndSizeFromParentEdge(
-                _subtitleController.position.Equals(Subtitle.Position.TOP)
-                    ? RectTransform.Edge.Top
-                    : RectTransform.Edge.Bottom,
-                paddingSizeDelta.y,
-                valueSizeDelta.y);
+            if (_subtitleController.type.Equals(Subtitle.Type.OBJECT))
+            {
 
-            _textMeshWrapperTransform.sizeDelta = valueSizeDelta;
+                _canvasWrapperTransform.sizeDelta = valueSizeDelta;
+
+                if (_subtitleController.position.Equals(Subtitle.Position.TOP))
+                {
+
+                    _canvasWrapperTransform.pivot = new Vector2(0.5f, 0);
+
+                    _canvasWrapperTransform.position += new Vector3(
+                        0,
+                        _collider.bounds.extents.y,
+                        0);
+
+                }
+                else
+                {
+
+                    _canvasWrapperTransform.pivot = new Vector2(0.5f, 1);
+
+                    _canvasWrapperTransform.position -= new Vector3(
+                        0,
+                        _collider.bounds.extents.y,
+                        0);
+
+                }
+
+            }
+            else
+            {
+
+                _textMeshWrapperTransform.SetInsetAndSizeFromParentEdge(
+                    _subtitleController.position.Equals(Subtitle.Position.TOP)
+                        ? RectTransform.Edge.Top
+                        : RectTransform.Edge.Bottom,
+                    paddingSizeDelta.y,
+                    valueSizeDelta.y);
+
+                _textMeshWrapperTransform.sizeDelta = valueSizeDelta;
+
+            }
 
             _textMesh.text = wrappedText;
 
