@@ -166,7 +166,7 @@ namespace A11YTK
             else if (_subtitleController.type.Equals(Subtitle.Type.OBJECT))
             {
 
-                _canvasWrapperTransform.localPosition = gameObject.transform.position;
+                _canvasWrapperTransform.position = gameObject.transform.position;
 
                 _canvasWrapperTransform.ScaleBasedOnDistanceFromCamera(_mainCamera);
 
