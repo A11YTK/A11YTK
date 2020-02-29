@@ -32,16 +32,25 @@ namespace A11YTK.Editor
             foreach (var audioSource in audioSources)
             {
 
+                var subtitleTextAsset = FindAssetWithNameInDirectory<TextAsset>(
+                    $"{Path.GetFileName(audioSource.clip.name)}.srt",
+                    Path.GetDirectoryName(AssetDatabase.GetAssetPath(audioSource.clip)));
+
+                if (!subtitleTextAsset)
+                {
+
+                    Debug.LogWarning($"There is no subtitle file for {AssetDatabase.GetAssetPath(audioSource.clip)}");
+
+                    continue;
+
+                }
+
                 if (!audioSource.gameObject.TryGetComponent(out SubtitleController subtitleController))
                 {
 
                     subtitleController = Undo.AddComponent<SubtitleVideoPlayerController>(audioSource.gameObject);
 
                 }
-
-                var subtitleTextAsset = FindAssetWithNameInDirectory<TextAsset>(
-                    $"{Path.GetFileName(audioSource.clip.name)}.srt",
-                    Path.GetDirectoryName(AssetDatabase.GetAssetPath(audioSource.clip)));
 
                 if (subtitleController.subtitleTextAsset == null)
                 {
@@ -71,16 +80,25 @@ namespace A11YTK.Editor
             foreach (var videoPlayer in videoPlayers)
             {
 
+                var subtitleTextAsset = FindAssetWithNameInDirectory<TextAsset>(
+                    $"{Path.GetFileName(videoPlayer.clip.name)}.srt",
+                    Path.GetDirectoryName(AssetDatabase.GetAssetPath(videoPlayer.clip)));
+
+                if (!subtitleTextAsset)
+                {
+
+                    Debug.LogWarning($"There is no subtitle file for {AssetDatabase.GetAssetPath(videoPlayer.clip)}");
+
+                    continue;
+
+                }
+
                 if (!videoPlayer.gameObject.TryGetComponent(out SubtitleController subtitleController))
                 {
 
                     subtitleController = Undo.AddComponent<SubtitleVideoPlayerController>(videoPlayer.gameObject);
 
                 }
-
-                var subtitleTextAsset = FindAssetWithNameInDirectory<TextAsset>(
-                    $"{Path.GetFileName(videoPlayer.clip.name)}.srt",
-                    Path.GetDirectoryName(AssetDatabase.GetAssetPath(videoPlayer.clip)));
 
                 if (subtitleController.subtitleTextAsset == null)
                 {
