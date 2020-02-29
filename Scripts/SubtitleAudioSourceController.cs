@@ -3,7 +3,7 @@ using UnityEngine;
 namespace A11YTK
 {
 
-    [AddComponentMenu("A11YTK/Subtitle AudioSource Controller")]
+    [AddComponentMenu("A11YTK/Subtitle Audio Source Controller")]
     [RequireComponent(typeof(SubtitleRenderer))]
     public class SubtitleAudioSourceController : SubtitleController
     {

@@ -4,7 +4,7 @@ using UnityEngine.Video;
 namespace A11YTK
 {
 
-    [AddComponentMenu("A11YTK/Subtitle VideoPlayer Controller")]
+    [AddComponentMenu("A11YTK/Subtitle Video Player Controller")]
     [RequireComponent(typeof(SubtitleRenderer))]
     public class SubtitleVideoPlayerController : SubtitleController
     {
