@@ -33,7 +33,7 @@ namespace A11YTK.Editor
             {
 
                 var subtitleTextAsset = FindAssetWithNameInDirectory<TextAsset>(
-                    $"{Path.GetFileName(audioSource.clip.name)}.srt",
+                    $"{audioSource.clip.name}.srt",
                     Path.GetDirectoryName(AssetDatabase.GetAssetPath(audioSource.clip)));
 
                 if (!subtitleTextAsset)
@@ -81,7 +81,7 @@ namespace A11YTK.Editor
             {
 
                 var subtitleTextAsset = FindAssetWithNameInDirectory<TextAsset>(
-                    $"{Path.GetFileName(videoPlayer.clip.name)}.srt",
+                    $"{videoPlayer.clip.name}.srt",
                     Path.GetDirectoryName(AssetDatabase.GetAssetPath(videoPlayer.clip)));
 
                 if (!subtitleTextAsset)
