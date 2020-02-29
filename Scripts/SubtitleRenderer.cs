@@ -289,6 +289,7 @@ namespace A11YTK
 
                     _canvasWrapperTransform.position += new Vector3(
                         0,
+                        _subtitleController.subtitleOptions.objectPadding +
                         _collider.bounds.extents.y,
                         0);
 
@@ -300,6 +301,7 @@ namespace A11YTK
 
                     _canvasWrapperTransform.position -= new Vector3(
                         0,
+                        _subtitleController.subtitleOptions.objectPadding +
                         _collider.bounds.extents.y,
                         0);
 
