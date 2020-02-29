@@ -22,6 +22,9 @@ namespace A11YTK
 #pragma warning disable CS0649
         [SerializeField]
         private Camera _mainCamera;
+
+        [SerializeField]
+        private Collider _collider;
 #pragma warning restore CS0649
 
         public bool isVisible => _canvasWrapper != null;
@@ -55,6 +58,13 @@ namespace A11YTK
             {
 
                 _mainCamera = Camera.main;
+
+            }
+
+            if (_collider == null)
+            {
+
+                _collider = gameObject.GetComponent<Collider>();
 
             }
 
