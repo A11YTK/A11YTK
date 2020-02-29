@@ -255,7 +255,7 @@ namespace A11YTK
             if (_subtitleController.type.Equals(Subtitle.Type.OBJECT))
             {
 
-                wrapWidth = Screen.width / 2;
+                wrapWidth = _mainCamera.pixelWidth - screenPadding;
 
             }
 
