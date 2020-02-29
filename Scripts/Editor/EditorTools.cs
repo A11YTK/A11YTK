@@ -23,6 +23,10 @@ namespace A11YTK.Editor
         public static void SetupAudioSources()
         {
 
+            Undo.SetCurrentGroupName("setup audio source subtitles");
+
+            var group = Undo.GetCurrentGroup();
+
             var audioSources = Object.FindObjectsOfType<AudioSource>();
 
             foreach (var audioSource in audioSources)
@@ -31,7 +35,7 @@ namespace A11YTK.Editor
                 if (!audioSource.gameObject.TryGetComponent(out SubtitleController subtitleController))
                 {
 
-                    subtitleController = audioSource.gameObject.AddComponent<SubtitleAudioSourceController>();
+                    subtitleController = Undo.AddComponent<SubtitleVideoPlayerController>(audioSource.gameObject);
 
                 }
 
@@ -42,9 +46,13 @@ namespace A11YTK.Editor
                 if (subtitleController.subtitleTextAsset == null)
                 {
 
+                    Undo.RecordObject(subtitleController, "set subtitle text asset");
+
                     subtitleController.subtitleTextAsset = subtitleTextAsset;
 
                 }
+
+                Undo.CollapseUndoOperations(group);
 
             }
 
@@ -54,6 +62,10 @@ namespace A11YTK.Editor
         public static void SetupVideoSources()
         {
 
+            Undo.SetCurrentGroupName("setup video player subtitles");
+
+            var group = Undo.GetCurrentGroup();
+
             var videoPlayers = Object.FindObjectsOfType<VideoPlayer>();
 
             foreach (var videoPlayer in videoPlayers)
@@ -62,7 +74,7 @@ namespace A11YTK.Editor
                 if (!videoPlayer.gameObject.TryGetComponent(out SubtitleController subtitleController))
                 {
 
-                    subtitleController = videoPlayer.gameObject.AddComponent<SubtitleVideoPlayerController>();
+                    subtitleController = Undo.AddComponent<SubtitleVideoPlayerController>(videoPlayer.gameObject);
 
                 }
 
@@ -73,9 +85,13 @@ namespace A11YTK.Editor
                 if (subtitleController.subtitleTextAsset == null)
                 {
 
+                    Undo.RecordObject(subtitleController, "set subtitle text asset");
+
                     subtitleController.subtitleTextAsset = subtitleTextAsset;
 
                 }
+
+                Undo.CollapseUndoOperations(group);
 
             }
 
