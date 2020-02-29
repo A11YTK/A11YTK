@@ -156,9 +156,10 @@ namespace A11YTK
 
                 _canvasWrapperTransform.localPosition = new Vector3(0, 0, 10);
 
-                _canvasWrapperTransform.ScaleBasedOnDistanceFromCamera(_mainCamera);
+                _canvasWrapperTransform.localScale =
+                    _canvasWrapperTransform.ScaleBasedOnDistanceFromCamera(_mainCamera);
 
-                _canvasWrapperTransform.ResizeToMatchCamera(_mainCamera);
+                _canvasWrapperTransform.sizeDelta = _canvasWrapperTransform.ResizeToMatchCamera(_mainCamera);
 
                 _canvas.renderMode = RenderMode.WorldSpace;
 
@@ -168,7 +169,8 @@ namespace A11YTK
 
                 _canvasWrapperTransform.position = gameObject.transform.position;
 
-                _canvasWrapperTransform.ScaleBasedOnDistanceFromCamera(_mainCamera);
+                _canvasWrapperTransform.localScale =
+                    _canvasWrapperTransform.ScaleBasedOnDistanceFromCamera(_mainCamera);
 
                 _canvas.renderMode = RenderMode.WorldSpace;
 
