@@ -36,6 +36,9 @@ namespace A11YTK
         [Range(0, 100)]
         public float screenPadding = 10;
 
+        [Range(0, 1)]
+        public float objectPadding = 0.25f;
+
         [Header("Text")]
         public float fontSize = 60;
 
