@@ -13,8 +13,20 @@ namespace A11YTK
         [TextArea(1, 10)]
         protected string _subtitleText = "1\n0:0:1,0 --> 0:0:2,0\nHello, world.\n";
 
+        public string subtitleText
+        {
+            get => _subtitleText;
+            set => _subtitleText = value;
+        }
+
         [SerializeField]
         protected TextAsset _subtitleTextAsset;
+
+        public TextAsset subtitleTextAsset
+        {
+            get => _subtitleTextAsset;
+            set => _subtitleTextAsset = value;
+        }
 
         [SerializeField]
         protected Subtitle.Position _position = Subtitle.Position.AUTO;
