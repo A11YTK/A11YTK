@@ -267,7 +267,7 @@ namespace A11YTK
             if (_subtitleController.type.Equals(Subtitle.Type.OBJECT))
             {
 
-                wrapWidth = _mainCamera.pixelWidth - screenPadding;
+                wrapWidth = _canvasWrapperTransform.ResizeToMatchCamera(_mainCamera).x - screenPadding;
 
             }
 
