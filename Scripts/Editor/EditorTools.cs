@@ -17,7 +17,7 @@ namespace A11YTK.Editor
                 .Select(AssetDatabase.GUIDToAssetPath)
                 .Select(path => AssetDatabase.LoadAssetAtPath(path, typeof(T)))
                 .OfType<T>()
-                .First();
+                .FirstOrDefault();
 
         [MenuItem("Window/A11YTK/Setup Audio Sources in Scene")]
         public static void SetupAudioSources()
