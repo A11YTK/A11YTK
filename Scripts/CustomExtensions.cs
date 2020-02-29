@@ -99,18 +99,18 @@ namespace A11YTK
 
         }
 
-        public static void ScaleBasedOnDistanceFromCamera(this RectTransform rectTransform, Camera camera)
+        public static Vector3 ScaleBasedOnDistanceFromCamera(this RectTransform rectTransform, Camera camera)
         {
 
             var distance = Vector3.Distance(camera.transform.position, rectTransform.gameObject.transform.position);
 
             var scale = distance / 1000;
 
-            rectTransform.localScale = Vector3.one * scale;
+            return Vector3.one * scale;
 
         }
 
-        public static void ResizeToMatchCamera(this RectTransform rectTransform, Camera camera)
+        public static Vector2 ResizeToMatchCamera(this RectTransform rectTransform, Camera camera)
         {
 
             var distance = Vector3.Distance(camera.transform.position, rectTransform.gameObject.transform.position);
@@ -118,7 +118,7 @@ namespace A11YTK
             var camHeight = 2 * distance * Mathf.Tan(Mathf.Deg2Rad * (camera.fieldOfView / 2)) /
                             rectTransform.localScale.y;
 
-            rectTransform.sizeDelta = new Vector2(camHeight * camera.aspect, camHeight);
+            return new Vector2(camHeight * camera.aspect, camHeight);
 
         }
 
