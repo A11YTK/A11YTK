@@ -4,6 +4,7 @@ using UnityEngine;
 namespace A11YTK
 {
 
+    [RequireComponent(typeof(SubtitleRenderer))]
     public abstract class SubtitleController : MonoBehaviour
     {
 
