@@ -56,7 +56,7 @@ Drag the `Subtitle Options` asset into the `Subtitle Options` property of the `S
 | ------------------ | -------------------------------------------------------------------- | --------- |
 | Enabled            | Toggle subtitles on or off.                                          | `Off`     |
 | Default Position   | Position subtitles should render on screen. Either `TOP` or `BOTTOM` | `BOTTOM`  |
-| Default Type       | Type of subtitle. Either `SCREEN`, `HEADSET`, or `OBJECT`            | `HEADSET` |
+| Default Mode       | Mode to render subtitle. Either `SCREEN`, `HEADSET`, or `OBJECT`     | `HEADSET` |
 | Screen Padding     | Percentage of screen to be used as padding around subtitles.         | `10`      |
 | Object Padding     | World units to be used as padding around subtitles.                  | `0.25`    |
 | Font Size          | Subtitle font size.                                                  | `60`      |
