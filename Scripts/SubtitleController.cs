@@ -81,6 +81,13 @@ namespace A11YTK
 
             }
 
+            if (subtitleOptions.defaultMode.Equals(Subtitle.Mode.SCREEN) && UnityEngine.XR.XRSettings.enabled)
+            {
+
+                Debug.LogWarning("Subtitles will not render in SCREEN mode while running in VR!");
+
+            }
+
         }
 
         protected void FixedUpdate()
