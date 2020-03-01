@@ -31,7 +31,7 @@ namespace A11YTK
 
         public Subtitle.Position defaultPosition = Subtitle.Position.BOTTOM;
 
-        public Subtitle.Type defaultType = Subtitle.Type.HEADSET;
+        public Subtitle.Mode defaultMode = Subtitle.Mode.HEADSET;
 
         [Range(0, 100)]
         public float screenPadding = 10;
