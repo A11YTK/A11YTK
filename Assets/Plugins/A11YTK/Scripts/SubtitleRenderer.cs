@@ -29,6 +29,12 @@ namespace A11YTK
 
         public bool isVisible => _canvasWrapper != null;
 
+        public new Collider collider
+        {
+            get => _collider;
+            set => _collider = value;
+        }
+
         private SubtitleController _subtitleController;
 
         private GameObject _canvasWrapper;
