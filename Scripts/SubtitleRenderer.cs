@@ -149,7 +149,7 @@ namespace A11YTK
         private void SetupCanvasGameObjects()
         {
 
-            if (_subtitleController.type.Equals(Subtitle.Type.HEADSET))
+            if (_subtitleController.mode.Equals(Subtitle.Mode.HEADSET))
             {
 
                 _canvasWrapperTransform.SetParent(_mainCamera.transform, false);
@@ -164,7 +164,7 @@ namespace A11YTK
                 _canvas.renderMode = RenderMode.WorldSpace;
 
             }
-            else if (_subtitleController.type.Equals(Subtitle.Type.OBJECT))
+            else if (_subtitleController.mode.Equals(Subtitle.Mode.OBJECT))
             {
 
                 _canvasWrapperTransform.position = gameObject.transform.position;
@@ -175,8 +175,8 @@ namespace A11YTK
                 _canvas.renderMode = RenderMode.WorldSpace;
 
             }
-            else if (_subtitleController.type.Equals(Subtitle.Type.AUTO) ||
-                     _subtitleController.type.Equals(Subtitle.Type.SCREEN))
+            else if (_subtitleController.mode.Equals(Subtitle.Mode.AUTO) ||
+                     _subtitleController.mode.Equals(Subtitle.Mode.SCREEN))
             {
 
                 _canvas.renderMode = RenderMode.ScreenSpaceCamera;
@@ -190,7 +190,7 @@ namespace A11YTK
         private void SetupTextGameObjects()
         {
 
-            if (_subtitleController.type.Equals(Subtitle.Type.OBJECT))
+            if (_subtitleController.mode.Equals(Subtitle.Mode.OBJECT))
             {
 
                 _textMeshWrapperTransform.ResetRectTransform();
@@ -264,7 +264,7 @@ namespace A11YTK
 
             var wrapWidth = _canvasWrapperTransform.sizeDelta.x - screenPadding;
 
-            if (_subtitleController.type.Equals(Subtitle.Type.OBJECT))
+            if (_subtitleController.mode.Equals(Subtitle.Mode.OBJECT))
             {
 
                 wrapWidth = _canvasWrapperTransform.ResizeToMatchCamera(_mainCamera).x - screenPadding;
@@ -279,7 +279,7 @@ namespace A11YTK
 
             valueSizeDelta += Vector2.one * _subtitleController.subtitleOptions.backgroundPadding;
 
-            if (_subtitleController.type.Equals(Subtitle.Type.OBJECT))
+            if (_subtitleController.mode.Equals(Subtitle.Mode.OBJECT))
             {
 
                 _canvasWrapperTransform.sizeDelta = valueSizeDelta;

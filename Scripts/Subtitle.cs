@@ -15,7 +15,7 @@ namespace A11YTK
 
         }
 
-        public enum Type
+        public enum Mode
         {
 
             AUTO,
