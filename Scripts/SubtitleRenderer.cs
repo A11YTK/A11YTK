@@ -19,6 +19,8 @@ namespace A11YTK
 
         private const string SUBTITLE_BACKGROUND_MATERIAL_NAME = "SubtitleBackground";
 
+        private const float MOVEMENT_SPEED = 5f;
+
         private const float ROTATION_SPEED = 5f;
 
 #pragma warning disable CS0649
@@ -90,9 +92,18 @@ namespace A11YTK
         public void Update()
         {
 
-            if (_subtitleController.mode.Equals(Subtitle.Mode.OBJECT) &&
-                _subtitleController.subtitleOptions.billboardTowardsCamera &&
-                _canvasWrapperTransform)
+            if (!_subtitleController.mode.Equals(Subtitle.Mode.OBJECT) ||
+                _canvasWrapperTransform == null)
+            {
+                return;
+            }
+
+            _canvasWrapperTransform.position = Vector3.Lerp(
+                _canvasWrapperTransform.position,
+                gameObject.transform.position,
+                MOVEMENT_SPEED * Time.deltaTime);
+
+            if (_subtitleController.subtitleOptions.billboardTowardsCamera)
             {
 
                 _canvasWrapperTransform.rotation = Quaternion.Lerp(_canvasWrapperTransform.rotation,
@@ -322,14 +333,15 @@ namespace A11YTK
             if (_subtitleController.mode.Equals(Subtitle.Mode.OBJECT))
             {
 
-                _canvasWrapperTransform.sizeDelta = valueSizeDelta;
+                _canvasWrapperTransform.sizeDelta = Vector3.one;
+                _textMeshWrapperTransform.sizeDelta = valueSizeDelta;
 
                 if (_subtitleController.position.Equals(Subtitle.Position.TOP))
                 {
 
-                    _canvasWrapperTransform.pivot = new Vector2(0.5f, 0);
+                    _textMeshWrapperTransform.pivot = new Vector2(0.5f, 0);
 
-                    _canvasWrapperTransform.position += new Vector3(
+                    _textMeshWrapperTransform.position += new Vector3(
                         0,
                         _subtitleController.subtitleOptions.objectPadding +
                         _collider.bounds.extents.y,
@@ -339,9 +351,9 @@ namespace A11YTK
                 else
                 {
 
-                    _canvasWrapperTransform.pivot = new Vector2(0.5f, 1);
+                    _textMeshWrapperTransform.pivot = new Vector2(0.5f, 1);
 
-                    _canvasWrapperTransform.position -= new Vector3(
+                    _textMeshWrapperTransform.position -= new Vector3(
                         0,
                         _subtitleController.subtitleOptions.objectPadding +
                         _collider.bounds.extents.y,
