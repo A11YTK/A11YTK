@@ -19,6 +19,8 @@ namespace A11YTK
 
         private const string SUBTITLE_BACKGROUND_MATERIAL_NAME = "SubtitleBackground";
 
+        private const float ROTATION_SPEED = 5f;
+
 #pragma warning disable CS0649
         [SerializeField]
         private Camera _mainCamera;
@@ -34,6 +36,8 @@ namespace A11YTK
             get => _collider;
             set => _collider = value;
         }
+
+        private Transform _mainCameraTransform;
 
         private SubtitleController _subtitleController;
 
@@ -67,6 +71,8 @@ namespace A11YTK
 
             }
 
+            _mainCameraTransform = _mainCamera.transform;
+
             if (_collider == null)
             {
 
@@ -78,6 +84,24 @@ namespace A11YTK
 
             _subtitleBackgroundMaterial = Resources.LoadAll<Material>(RESOURCES_MATERIAL_FOLDER)
                 .First(material => material.name.Equals(SUBTITLE_BACKGROUND_MATERIAL_NAME));
+
+        }
+
+        public void Update()
+        {
+
+            if (_subtitleController.mode.Equals(Subtitle.Mode.OBJECT) &&
+                _subtitleController.subtitleOptions.billboardTowardsCamera &&
+                _canvasWrapperTransform)
+            {
+
+                _canvasWrapperTransform.rotation = Quaternion.Lerp(_canvasWrapperTransform.rotation,
+                    Quaternion.LookRotation(
+                        _canvasWrapperTransform.position - _mainCameraTransform.position,
+                        Vector3.up
+                    ), ROTATION_SPEED * Time.deltaTime);
+
+            }
 
         }
 
@@ -174,6 +198,16 @@ namespace A11YTK
             {
 
                 _canvasWrapperTransform.position = gameObject.transform.position;
+
+                if (_subtitleController.subtitleOptions.billboardTowardsCamera)
+                {
+
+                    _canvasWrapperTransform.rotation = Quaternion.LookRotation(
+                        _canvasWrapperTransform.position - _mainCameraTransform.position,
+                        Vector3.up
+                    );
+
+                }
 
                 _canvasWrapperTransform.localScale =
                     _canvasWrapperTransform.ScaleBasedOnDistanceFromCamera(_mainCamera);
