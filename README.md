@@ -133,7 +133,27 @@ public class SubtitleOptionManager : MonoBehaviour
 Delete local file.
 
 ```csharp
-_subtitleOptions.Delete("subtitle_options.json");
+using A11YTK;
+using UnityEngine;
+
+public class SubtitleOptionManager : MonoBehaviour
+{
+
+    private const string SUBTITLE_OPTIONS_FILENAME = "subtitle_options.json";
+
+    [SerializeField]
+    private SubtitleOptionsReference _subtitleOptions;
+
+    public void DeleteSavedOptions()
+    {
+
+        _subtitleOptions.Delete(SUBTITLE_OPTIONS_FILENAME);
+
+    }
+
+    ...
+
+}
 ```
 
 ## Contributors
