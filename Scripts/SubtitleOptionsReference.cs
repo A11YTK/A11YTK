@@ -33,6 +33,8 @@ namespace A11YTK
 
         public Subtitle.Mode defaultMode = Subtitle.Mode.HEADSET;
 
+        public bool billboardTowardsCamera = true;
+
         [Range(0, 100)]
         public float screenPadding = 10;
 
