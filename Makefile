@@ -1,3 +1,6 @@
+build:
+	Scripts/build_package.sh
+
 deploy:
 	git subtree push --prefix Assets/Plugins/A11YTK origin upm
 
