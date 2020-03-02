@@ -189,7 +189,7 @@ namespace A11YTK
                 _canvasWrapperTransform.localScale =
                     _canvasWrapperTransform.ScaleBasedOnDistanceFromCamera(_mainCamera);
 
-                _canvasWrapperTransform.sizeDelta = _canvasWrapperTransform.ResizeToMatchCamera(_mainCamera);
+                _canvasWrapperTransform.sizeDelta = _canvasWrapperTransform.ResizeToMatchCamera(_mainCamera) / 2;
 
                 _canvas.renderMode = RenderMode.WorldSpace;
 
