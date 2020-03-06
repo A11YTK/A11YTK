@@ -29,9 +29,9 @@ namespace A11YTK
 
         public bool enabled;
 
-        public Subtitle.Position defaultPosition = Subtitle.Position.BOTTOM;
-
         public Subtitle.Mode defaultMode = Subtitle.Mode.HEADSET;
+
+        public Subtitle.Position defaultPosition = Subtitle.Position.BOTTOM;
 
         public bool billboardTowardsCamera = true;
 
