@@ -79,7 +79,7 @@ namespace A11YTK
             if (mode.Equals(Subtitle.Mode.HEADSET))
             {
 
-                _canvasWrapperTransform.SetParent(_cameraTransform, false);
+                gameObject.transform.SetParent(_cameraTransform, false);
 
                 _canvasWrapperTransform.localPosition = new Vector3(0, 0, 10);
 
