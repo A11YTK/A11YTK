@@ -162,6 +162,22 @@ namespace A11YTK
             }
 
         }
+#if UNITY_EDITOR
+        protected virtual void OnValidate()
+        {
+
+            if (_subtitleOptions == null)
+            {
+
+                _subtitleOptions =
+                    AssetDatabase.LoadAssetAtPath<SubtitleOptionsReference>(AssetDatabase.GUIDToAssetPath(AssetDatabase
+                        .FindAssets("t:SubtitleOptionsReference", null)
+                        .FirstOrDefault()));
+
+            }
+
+        }
+#endif
 
     }
 
