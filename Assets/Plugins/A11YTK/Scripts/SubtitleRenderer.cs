@@ -52,6 +52,13 @@ namespace A11YTK
         private void Awake()
         {
 
+            if (_camera == null)
+            {
+
+                _camera = Camera.main;
+
+            }
+
             _cameraTransform = _camera.transform;
 
             _canvas = gameObject.GetComponentInChildren<Canvas>();
