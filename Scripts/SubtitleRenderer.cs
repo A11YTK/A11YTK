@@ -132,19 +132,20 @@ namespace A11YTK
         private void Update()
         {
 
-            if (mode.Equals(Subtitle.Mode.OBJECT))
+            if (!mode.Equals(Subtitle.Mode.OBJECT))
             {
-                _canvasWrapperTransform.position = Vector3.Lerp(
-                    _canvasWrapperTransform.position,
-                    targetTransform.position,
-                    MOVEMENT_SPEED * Time.deltaTime);
+                return;
+            }
 
-                if (billboardTowardsCamera)
-                {
+            _canvasWrapperTransform.position = Vector3.Lerp(
+                _canvasWrapperTransform.position,
+                targetTransform.position,
+                MOVEMENT_SPEED * Time.deltaTime);
 
-                    BillboardTowardsCamera();
+            if (billboardTowardsCamera)
+            {
 
-                }
+                BillboardTowardsCamera();
 
             }
 
