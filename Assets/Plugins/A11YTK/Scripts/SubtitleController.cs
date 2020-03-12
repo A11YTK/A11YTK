@@ -85,6 +85,8 @@ namespace A11YTK
 
                 Debug.LogWarning("Subtitles will not render in SCREEN mode while running in VR!");
 
+                subtitleOptions.defaultMode = Subtitle.Mode.HEADSET;
+
             }
 
             var subtitlePrefab =
