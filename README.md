@@ -55,8 +55,8 @@ Drag the `Subtitle Options` asset into the `Subtitle Options` property of the `S
 | Property                 | Description                                                          |   Default |
 | ------------------------ | -------------------------------------------------------------------- | --------: |
 | Enabled                  | Toggle subtitles on or off.                                          |     `Off` |
-| Default Position         | Position subtitles should render on screen. Either `TOP` or `BOTTOM` |  `BOTTOM` |
 | Default Mode             | Mode to render subtitle. Either `SCREEN`, `HEADSET`, or `OBJECT`     | `HEADSET` |
+| Default Position         | Position subtitles should render on screen. Either `TOP` or `BOTTOM` |  `BOTTOM` |
 | Billboard Towards Camera | Rotate subtitles rendered in `OBJECT` mode towards the main camera.  |    `true` |
 | Screen Padding           | Percentage of screen to be used as padding around subtitles.         |      `10` |
 | Object Padding           | World units to be used as padding around subtitles.                  |    `0.25` |
