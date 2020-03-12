@@ -63,7 +63,7 @@ Fine. If you can't wave, just yell out.
         public void ParseMillisecondsFromTimeStampString()
         {
 
-            Assert.AreEqual(4200d, SRT.ParseMillisecondsFromTimeStamp("0:0:4,200", out var _));
+            Assert.AreEqual(4200d, SRT.ParseMillisecondsFromTimestamp("0:0:4,200"));
 
         }
 
