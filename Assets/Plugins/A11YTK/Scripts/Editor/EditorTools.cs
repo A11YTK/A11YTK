@@ -32,9 +32,11 @@ namespace A11YTK.Editor
             foreach (var audioSource in audioSources)
             {
 
+                var clip = audioSource.clip;
+
                 var subtitleTextAsset = FindAssetWithNameInDirectory<TextAsset>(
-                    $"{audioSource.clip.name}.srt",
-                    Path.GetDirectoryName(AssetDatabase.GetAssetPath(audioSource.clip)));
+                    $"{clip.name}.srt",
+                    Path.GetDirectoryName(AssetDatabase.GetAssetPath(clip)));
 
                 if (!subtitleTextAsset)
                 {
@@ -80,9 +82,11 @@ namespace A11YTK.Editor
             foreach (var videoPlayer in videoPlayers)
             {
 
+                var clip = videoPlayer.clip;
+
                 var subtitleTextAsset = FindAssetWithNameInDirectory<TextAsset>(
-                    $"{videoPlayer.clip.name}.srt",
-                    Path.GetDirectoryName(AssetDatabase.GetAssetPath(videoPlayer.clip)));
+                    $"{clip.name}.srt",
+                    Path.GetDirectoryName(AssetDatabase.GetAssetPath(clip)));
 
                 if (!subtitleTextAsset)
                 {
