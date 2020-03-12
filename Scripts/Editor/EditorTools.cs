@@ -19,6 +19,14 @@ namespace A11YTK.Editor
                 .OfType<T>()
                 .FirstOrDefault();
 
+        [MenuItem("Window/A11YTK/Setup Audio Sources in Scene", true)]
+        public static bool ValidateSetupAudioSources()
+        {
+
+            return !EditorApplication.isPlaying;
+
+        }
+
         [MenuItem("Window/A11YTK/Setup Audio Sources in Scene")]
         public static void SetupAudioSources()
         {
@@ -66,6 +74,14 @@ namespace A11YTK.Editor
                 Undo.CollapseUndoOperations(group);
 
             }
+
+        }
+
+        [MenuItem("Window/A11YTK/Setup Video Players in Scene", true)]
+        public static bool ValidateSetupVideoSources()
+        {
+
+            return !EditorApplication.isPlaying;
 
         }
 
