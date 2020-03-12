@@ -24,6 +24,19 @@ namespace A11YTK.Tests
 
         }
 
+        [Test]
+        public void ToColorFromString()
+        {
+
+            var color = "rgba(255, 0, 0, 100)".ToColor();
+
+            Assert.AreEqual(255, color.r);
+            Assert.AreEqual(0, color.g);
+            Assert.AreEqual(0, color.b);
+            Assert.AreEqual(100, color.a);
+
+        }
+
     }
 
 }
