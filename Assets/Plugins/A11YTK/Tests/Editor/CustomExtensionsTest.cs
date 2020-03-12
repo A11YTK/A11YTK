@@ -19,6 +19,8 @@ namespace A11YTK.Tests
             Assert.AreEqual(2, chunks[0].Count);
             Assert.AreEqual("1", chunks[0][0]);
             Assert.AreEqual("hello", chunks[0][1]);
+            Assert.AreEqual("2", chunks[1][0]);
+            Assert.AreEqual("world", chunks[1][1]);
 
         }
 
