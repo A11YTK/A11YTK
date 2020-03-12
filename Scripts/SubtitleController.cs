@@ -76,7 +76,7 @@ namespace A11YTK
             if (_subtitleOptions == null)
             {
 
-                Debug.LogWarning("Subtitle options asset is missing!");
+                Debug.LogError("Subtitle options asset is missing!");
 
             }
 
