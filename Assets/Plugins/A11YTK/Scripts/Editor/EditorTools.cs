@@ -29,10 +29,10 @@ namespace A11YTK.Editor
 
             var audioSources = Object.FindObjectsOfType<AudioSource>();
 
-            foreach (var audioSource in audioSources)
+            foreach (var source in audioSources)
             {
 
-                var clip = audioSource.clip;
+                var clip = source.clip;
 
                 var subtitleTextAsset = FindAssetWithNameInDirectory<TextAsset>(
                     $"{clip.name}.srt",
@@ -41,16 +41,16 @@ namespace A11YTK.Editor
                 if (!subtitleTextAsset)
                 {
 
-                    Debug.LogWarning($"There is no subtitle file for {AssetDatabase.GetAssetPath(audioSource.clip)}");
+                    Debug.LogWarning($"There is no subtitle file for {AssetDatabase.GetAssetPath(source.clip)}");
 
                     continue;
 
                 }
 
-                if (!audioSource.gameObject.TryGetComponent(out SubtitleController subtitleController))
+                if (!source.gameObject.TryGetComponent(out SubtitleController subtitleController))
                 {
 
-                    subtitleController = Undo.AddComponent<SubtitleVideoPlayerController>(audioSource.gameObject);
+                    subtitleController = Undo.AddComponent<SubtitleVideoPlayerController>(source.gameObject);
 
                 }
 
@@ -79,10 +79,10 @@ namespace A11YTK.Editor
 
             var videoPlayers = Object.FindObjectsOfType<VideoPlayer>();
 
-            foreach (var videoPlayer in videoPlayers)
+            foreach (var source in videoPlayers)
             {
 
-                var clip = videoPlayer.clip;
+                var clip = source.clip;
 
                 var subtitleTextAsset = FindAssetWithNameInDirectory<TextAsset>(
                     $"{clip.name}.srt",
@@ -91,16 +91,16 @@ namespace A11YTK.Editor
                 if (!subtitleTextAsset)
                 {
 
-                    Debug.LogWarning($"There is no subtitle file for {AssetDatabase.GetAssetPath(videoPlayer.clip)}");
+                    Debug.LogWarning($"There is no subtitle file for {AssetDatabase.GetAssetPath(source.clip)}");
 
                     continue;
 
                 }
 
-                if (!videoPlayer.gameObject.TryGetComponent(out SubtitleController subtitleController))
+                if (!source.gameObject.TryGetComponent(out SubtitleController subtitleController))
                 {
 
-                    subtitleController = Undo.AddComponent<SubtitleVideoPlayerController>(videoPlayer.gameObject);
+                    subtitleController = Undo.AddComponent<SubtitleVideoPlayerController>(source.gameObject);
 
                 }
 
