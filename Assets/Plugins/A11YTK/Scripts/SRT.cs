@@ -28,12 +28,19 @@ namespace A11YTK
 
         public static readonly string[] TIMESTAMP_DELIMITER = { "-->" };
 
-        public static double ParseMillisecondsFromTimeStamp(string timestamp, out TimeSpan results)
+        public static TimeSpan ParseTimeFromTimestamp(string timestamp)
         {
 
-            TimeSpan.TryParse(timestamp.Trim().Replace(',', '.'), out results);
+            TimeSpan.TryParse(timestamp.Trim().Replace(',', '.'), out var results);
 
-            return results.TotalMilliseconds;
+            return results;
+
+        }
+
+        public static double ParseMillisecondsFromTimestamp(string timestamp)
+        {
+
+            return ParseTimeFromTimestamp(timestamp).TotalMilliseconds;
 
         }
 
@@ -45,8 +52,8 @@ namespace A11YTK
             try
             {
 
-                startTime = ParseMillisecondsFromTimeStamp(times[0], out var _) / MILLISECOND;
-                endTime = ParseMillisecondsFromTimeStamp(times[1], out var _) / MILLISECOND;
+                startTime = ParseMillisecondsFromTimestamp(times[0]) / MILLISECOND;
+                endTime = ParseMillisecondsFromTimestamp(times[1]) / MILLISECOND;
 
             }
             catch (Exception error)
