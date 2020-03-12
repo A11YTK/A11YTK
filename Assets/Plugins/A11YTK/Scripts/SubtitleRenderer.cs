@@ -183,6 +183,13 @@ namespace A11YTK
             _panel.enabled = options.showBackground;
             _panel.material.color = options.backgroundColor;
 
+            if (options.backgroundSprite == null)
+            {
+                return;
+            }
+
+            _panel.sprite = options.backgroundSprite;
+
         }
 
         public void SetText(string value)
