@@ -1,4 +1,3 @@
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,318 +8,197 @@ namespace A11YTK
     public class SubtitleRenderer : MonoBehaviour
     {
 
-        private const string CANVAS_WRAPPER_NAME = "Canvas (A11YTK)";
-
-        private const string TEXT_MESH_NAME = "Text";
-
-        private const string PANEL_NAME = "Panel Background";
-
-        private const string RESOURCES_MATERIAL_FOLDER = "Materials/";
-
-        private const string SUBTITLE_BACKGROUND_MATERIAL_NAME = "SubtitleBackground";
-
         private const float MOVEMENT_SPEED = 5f;
 
         private const float ROTATION_SPEED = 5f;
 
-#pragma warning disable CS0649
-        [SerializeField]
-        private Camera _mainCamera;
+        public Subtitle.Mode mode;
+
+        public Subtitle.Position position;
+
+        public Transform targetTransform;
+
+        public Collider targetCollider;
+
+        public bool billboardTowardsCamera;
+
+        public float screenPadding = 10;
+
+        public float objectPadding = 0.25f;
+
+        public float backgroundPadding = 30;
+
+        public bool isVisible => _canvas.enabled;
 
         [SerializeField]
-        private Collider _collider;
-#pragma warning restore CS0649
+        [TextArea(1, 10)]
+        private string _text = "";
 
-        public bool isVisible => _canvasWrapper != null;
+        [SerializeField]
+        private Camera _camera;
 
-        public new Collider collider
-        {
-            get => _collider;
-            set => _collider = value;
-        }
-
-        private Transform _mainCameraTransform;
-
-        private SubtitleController _subtitleController;
-
-        private GameObject _canvasWrapper;
-
-        private RectTransform _canvasWrapperTransform;
+        private Transform _cameraTransform;
 
         private Canvas _canvas;
 
-        private GameObject _textMeshWrapper;
-
-        private RectTransform _textMeshWrapperTransform;
-
-        private GameObject _panelWrapper;
-
-        private RectTransform _panelWrapperTransform;
-
-        private Image _panelImage;
+        private RectTransform _canvasWrapperTransform;
 
         private TextMeshProUGUI _textMesh;
 
-        private Material _subtitleBackgroundMaterial;
+        private RectTransform _textMeshWrapperTransform;
+
+        private Image _panel;
 
         private void Awake()
         {
 
-            if (_mainCamera == null)
+            if (_camera == null)
             {
 
-                _mainCamera = Camera.main;
+                _camera = Camera.main;
 
             }
 
-            _mainCameraTransform = _mainCamera.transform;
+            _cameraTransform = _camera.transform;
 
-            if (_collider == null)
+            _canvas = gameObject.GetComponentInChildren<Canvas>();
+
+            _canvasWrapperTransform = _canvas.GetComponent<RectTransform>();
+
+            _textMesh = gameObject.GetComponentInChildren<TextMeshProUGUI>();
+
+            _textMeshWrapperTransform = _textMesh.GetComponent<RectTransform>();
+
+            _panel = gameObject.GetComponentInChildren<Image>();
+
+            if (targetTransform && targetCollider == null)
             {
 
-                _collider = gameObject.GetComponent<Collider>();
+                targetCollider = targetTransform.gameObject.GetComponent<Collider>();
 
             }
-
-            _subtitleController = gameObject.GetComponent<SubtitleController>();
-
-            _subtitleBackgroundMaterial = Resources.LoadAll<Material>(RESOURCES_MATERIAL_FOLDER)
-                .First(material => material.name.Equals(SUBTITLE_BACKGROUND_MATERIAL_NAME));
 
         }
 
-        public void Update()
+        private void Start()
         {
 
-            if (!_subtitleController.mode.Equals(Subtitle.Mode.OBJECT) ||
-                _canvasWrapperTransform == null)
+            if (mode.Equals(Subtitle.Mode.HEADSET))
+            {
+
+                gameObject.transform.SetParent(_cameraTransform, false);
+
+                _canvasWrapperTransform.localPosition = new Vector3(0, 0, 10);
+
+                _canvasWrapperTransform.localScale =
+                    _canvasWrapperTransform.ScaleBasedOnDistanceFromCamera(_camera);
+
+                _canvasWrapperTransform.sizeDelta = _canvasWrapperTransform.ResizeToMatchCamera(_camera) / 2;
+
+            }
+            else if (mode.Equals(Subtitle.Mode.OBJECT))
+            {
+
+                _canvasWrapperTransform.position = targetTransform.position;
+
+                _canvasWrapperTransform.localScale =
+                    _canvasWrapperTransform.ScaleBasedOnDistanceFromCamera(_camera);
+
+                _canvasWrapperTransform.sizeDelta =
+                    targetCollider.bounds.size / _canvasWrapperTransform.localScale.x;
+
+                if (billboardTowardsCamera)
+                {
+
+                    BillboardTowardsCamera();
+
+                }
+
+            }
+
+            _canvas.worldCamera = _camera;
+
+            if (_text != "")
+            {
+
+                Show();
+
+                SetText(_text);
+
+            }
+
+        }
+
+        private void Update()
+        {
+
+            if (!mode.Equals(Subtitle.Mode.OBJECT))
             {
                 return;
             }
 
             _canvasWrapperTransform.position = Vector3.Lerp(
                 _canvasWrapperTransform.position,
-                gameObject.transform.position,
+                targetTransform.position,
                 MOVEMENT_SPEED * Time.deltaTime);
 
-            if (_subtitleController.subtitleOptions.billboardTowardsCamera)
+            if (billboardTowardsCamera)
             {
 
-                _canvasWrapperTransform.rotation = Quaternion.Lerp(_canvasWrapperTransform.rotation,
-                    Quaternion.LookRotation(
-                        _canvasWrapperTransform.position - _mainCameraTransform.position,
-                        Vector3.up
-                    ), ROTATION_SPEED * Time.deltaTime);
+                BillboardTowardsCamera();
 
             }
 
         }
 
-        public void Show()
+        private void BillboardTowardsCamera()
         {
 
-            if (_subtitleController == null ||
-                _subtitleController.subtitleOptions == null ||
-                !_subtitleController.subtitleOptions.enabled)
+            _canvasWrapperTransform.rotation = Quaternion.Lerp(_canvasWrapperTransform.rotation,
+                Quaternion.LookRotation(
+                    _canvasWrapperTransform.position - _cameraTransform.position,
+                    Vector3.up
+                ), ROTATION_SPEED * Time.deltaTime);
+
+        }
+
+        public void SetOptions(SubtitleOptionsReference options)
+        {
+
+            billboardTowardsCamera = options.billboardTowardsCamera;
+            screenPadding = options.screenPadding;
+            objectPadding = options.objectPadding;
+            backgroundPadding = options.backgroundPadding;
+
+            _textMesh.color = options.fontColor;
+            _textMesh.font = options.fontAsset;
+            _textMesh.fontSize = options.fontSize;
+            _textMesh.fontSharedMaterial = options.fontMaterial;
+            _textMesh.alignment = options.textAlignment;
+
+            if (_panel == null)
             {
                 return;
             }
 
-            if (_canvasWrapper == null)
-            {
+            _panel.enabled = options.showBackground;
+            _panel.material.color = options.backgroundColor;
 
-                CreateCanvasGameObjects();
-
-                CreateTextGameObjects();
-
-                SetupCanvasGameObjects();
-
-                SetupTextGameObjects();
-
-                SetOptions(_subtitleController.subtitleOptions);
-
-            }
-
-            _canvas.enabled = true;
-
-        }
-
-        private void CreateCanvasGameObjects()
-        {
-
-            if (_canvasWrapper != null)
+            if (options.backgroundSprite == null)
             {
                 return;
             }
 
-            _canvasWrapper = new GameObject(CANVAS_WRAPPER_NAME, typeof(Canvas), typeof(CanvasScaler));
-
-            _canvasWrapperTransform = _canvasWrapper.GetComponent<RectTransform>();
-
-            _canvas = _canvasWrapper.GetComponent<Canvas>();
-
-        }
-
-        private void CreateTextGameObjects()
-        {
-
-            if (_textMeshWrapper != null && _panelWrapper != null)
-            {
-                return;
-            }
-
-            _textMeshWrapper = new GameObject(TEXT_MESH_NAME, typeof(RectTransform), typeof(TextMeshProUGUI));
-
-            _textMeshWrapperTransform = _textMeshWrapper.GetComponent<RectTransform>();
-
-            _textMeshWrapperTransform.SetParent(_canvasWrapperTransform, false);
-
-            _textMesh = _textMeshWrapper.GetComponent<TextMeshProUGUI>();
-
-            _panelWrapper = new GameObject(PANEL_NAME, typeof(RectTransform), typeof(Image));
-
-            _panelWrapperTransform = _panelWrapper.GetComponent<RectTransform>();
-
-            _panelWrapperTransform.SetParent(_textMeshWrapperTransform, false);
-
-            _panelImage = _panelWrapper.GetComponent<Image>();
-
-        }
-
-        private void SetupCanvasGameObjects()
-        {
-
-            if (_subtitleController.mode.Equals(Subtitle.Mode.HEADSET))
-            {
-
-                _canvasWrapperTransform.SetParent(_mainCamera.transform, false);
-
-                _canvasWrapperTransform.localPosition = new Vector3(0, 0, 10);
-
-                _canvasWrapperTransform.localScale =
-                    _canvasWrapperTransform.ScaleBasedOnDistanceFromCamera(_mainCamera);
-
-                _canvasWrapperTransform.sizeDelta = _canvasWrapperTransform.ResizeToMatchCamera(_mainCamera) / 2;
-
-                _canvas.renderMode = RenderMode.WorldSpace;
-
-            }
-            else if (_subtitleController.mode.Equals(Subtitle.Mode.OBJECT))
-            {
-
-                _canvasWrapperTransform.position = gameObject.transform.position;
-
-                if (_subtitleController.subtitleOptions.billboardTowardsCamera)
-                {
-
-                    _canvasWrapperTransform.rotation = Quaternion.LookRotation(
-                        _canvasWrapperTransform.position - _mainCameraTransform.position,
-                        Vector3.up
-                    );
-
-                }
-
-                _canvasWrapperTransform.localScale =
-                    _canvasWrapperTransform.ScaleBasedOnDistanceFromCamera(_mainCamera);
-
-                _canvas.renderMode = RenderMode.WorldSpace;
-
-            }
-            else if (_subtitleController.mode.Equals(Subtitle.Mode.AUTO) ||
-                     _subtitleController.mode.Equals(Subtitle.Mode.SCREEN))
-            {
-
-                _canvas.renderMode = RenderMode.ScreenSpaceCamera;
-
-            }
-
-            _canvas.worldCamera = _mainCamera;
-
-        }
-
-        private void SetupTextGameObjects()
-        {
-
-            if (_subtitleController.mode.Equals(Subtitle.Mode.OBJECT))
-            {
-
-                _textMeshWrapperTransform.ResetRectTransform();
-
-            }
-
-            _textMesh.raycastTarget = false;
-
-            _panelWrapperTransform.ResetRectTransform();
-
-            _panelImage.raycastTarget = false;
-
-            if (_subtitleController.subtitleOptions.backgroundSprite != null)
-            {
-
-                _panelImage.sprite = _subtitleController.subtitleOptions.backgroundSprite;
-                _panelImage.type = Image.Type.Sliced;
-
-            }
-
-            if (_canvas.renderMode.Equals(RenderMode.WorldSpace))
-            {
-
-                _panelImage.material = _subtitleBackgroundMaterial;
-
-            }
-
-        }
-
-        private void SetOptions(SubtitleOptionsReference subtitleOptions)
-        {
-
-            if (_textMesh == null)
-            {
-                return;
-            }
-
-            _textMesh.color = subtitleOptions.fontColor;
-            _textMesh.font = subtitleOptions.fontAsset;
-            _textMesh.fontSize = subtitleOptions.fontSize;
-            _textMesh.fontSharedMaterial = subtitleOptions.fontMaterial;
-            _textMesh.alignment = subtitleOptions.textAlignment;
-
-            if (_panelWrapper == null || _panelImage == null)
-            {
-                return;
-            }
-
-            _panelImage.enabled = subtitleOptions.showBackground;
-            _panelImage.material.color = subtitleOptions.backgroundColor;
-
-        }
-
-        public void Hide()
-        {
-
-            Destroy(_canvasWrapper);
+            _panel.sprite = options.backgroundSprite;
 
         }
 
         public void SetText(string value)
         {
 
-            if (_textMesh == null || _canvasWrapper == null)
-            {
-                return;
-            }
+            var padding = _canvasWrapperTransform.sizeDelta.x * (screenPadding / 100);
 
-            var screenPadding = _canvasWrapperTransform.sizeDelta.x *
-                                (_subtitleController.subtitleOptions.screenPadding / 100);
-
-            var wrapWidth = _canvasWrapperTransform.sizeDelta.x - screenPadding;
-
-            if (_subtitleController.mode.Equals(Subtitle.Mode.OBJECT))
-            {
-
-                wrapWidth = _canvasWrapperTransform.ResizeToMatchCamera(_mainCamera).x - screenPadding;
-
-            }
+            var wrapWidth = _canvasWrapperTransform.ResizeToMatchCamera(_camera).x - padding;
 
             var wrappedText = _textMesh.WrapText(value, wrapWidth);
 
@@ -328,23 +206,23 @@ namespace A11YTK
 
             var paddingSizeDelta = _textMesh.GetPreferredValues(value);
 
-            valueSizeDelta += Vector2.one * _subtitleController.subtitleOptions.backgroundPadding;
+            valueSizeDelta += Vector2.one * backgroundPadding;
 
-            if (_subtitleController.mode.Equals(Subtitle.Mode.OBJECT))
+            if (mode.Equals(Subtitle.Mode.OBJECT))
             {
 
                 _canvasWrapperTransform.sizeDelta = Vector3.one;
                 _textMeshWrapperTransform.sizeDelta = valueSizeDelta;
 
-                if (_subtitleController.position.Equals(Subtitle.Position.TOP))
+                if (position.Equals(Subtitle.Position.TOP))
                 {
 
                     _textMeshWrapperTransform.pivot = new Vector2(0.5f, 0);
 
-                    _textMeshWrapperTransform.position += new Vector3(
+                    _textMeshWrapperTransform.position = targetTransform.position + new Vector3(
                         0,
-                        _subtitleController.subtitleOptions.objectPadding +
-                        _collider.bounds.extents.y,
+                        objectPadding +
+                        targetCollider.bounds.extents.y,
                         0);
 
                 }
@@ -353,10 +231,10 @@ namespace A11YTK
 
                     _textMeshWrapperTransform.pivot = new Vector2(0.5f, 1);
 
-                    _textMeshWrapperTransform.position -= new Vector3(
+                    _textMeshWrapperTransform.position = targetTransform.position - new Vector3(
                         0,
-                        _subtitleController.subtitleOptions.objectPadding +
-                        _collider.bounds.extents.y,
+                        objectPadding +
+                        targetCollider.bounds.extents.y,
                         0);
 
                 }
@@ -366,7 +244,7 @@ namespace A11YTK
             {
 
                 _textMeshWrapperTransform.SetInsetAndSizeFromParentEdge(
-                    _subtitleController.position.Equals(Subtitle.Position.TOP)
+                    position.Equals(Subtitle.Position.TOP)
                         ? RectTransform.Edge.Top
                         : RectTransform.Edge.Bottom,
                     paddingSizeDelta.y,
@@ -380,13 +258,34 @@ namespace A11YTK
 
         }
 
+        public void Show()
+        {
+
+            _canvas.enabled = true;
+
+        }
+
+        public void Hide()
+        {
+
+            _canvas.enabled = false;
+
+        }
+
+        public void Remove()
+        {
+
+            Destroy(gameObject);
+
+        }
+
         private void OnValidate()
         {
 
-            if (_mainCamera == null)
+            if (_camera == null)
             {
 
-                _mainCamera = Camera.main;
+                _camera = Camera.main;
 
             }
 

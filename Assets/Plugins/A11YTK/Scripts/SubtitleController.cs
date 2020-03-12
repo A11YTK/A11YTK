@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 namespace A11YTK
 {
 
-    [RequireComponent(typeof(SubtitleRenderer))]
     public abstract class SubtitleController : MonoBehaviour
     {
 
@@ -59,8 +60,6 @@ namespace A11YTK
         protected void Awake()
         {
 
-            _subtitleRenderer = gameObject.GetComponent<SubtitleRenderer>();
-
             if (_subtitleTextAsset != null)
             {
 
@@ -77,7 +76,7 @@ namespace A11YTK
             if (_subtitleOptions == null)
             {
 
-                Debug.LogWarning("Subtitle options asset is missing!");
+                Debug.LogError("Subtitle options asset is missing!");
 
             }
 
@@ -86,7 +85,23 @@ namespace A11YTK
 
                 Debug.LogWarning("Subtitles will not render in SCREEN mode while running in VR!");
 
+                subtitleOptions.defaultMode = Subtitle.Mode.HEADSET;
+
             }
+
+            var subtitlePrefab =
+                Resources.LoadAll<GameObject>("Prefabs")
+                    .First(material =>
+                        material.name.StartsWith("Subtitle") && material.name.Contains(mode.ToString()));
+
+            _subtitleRenderer = Instantiate(subtitlePrefab).GetComponent<SubtitleRenderer>();
+
+            _subtitleRenderer.mode = mode;
+            _subtitleRenderer.position = position;
+            _subtitleRenderer.targetTransform = gameObject.transform;
+            _subtitleRenderer.targetCollider = gameObject.GetComponent<Collider>();
+
+            _subtitleRenderer.SetOptions(_subtitleOptions);
 
         }
 
@@ -149,6 +164,22 @@ namespace A11YTK
             }
 
         }
+#if UNITY_EDITOR
+        protected virtual void OnValidate()
+        {
+
+            if (_subtitleOptions == null)
+            {
+
+                _subtitleOptions =
+                    AssetDatabase.LoadAssetAtPath<SubtitleOptionsReference>(AssetDatabase.GUIDToAssetPath(AssetDatabase
+                        .FindAssets("t:SubtitleOptionsReference", null)
+                        .FirstOrDefault()));
+
+            }
+
+        }
+#endif
 
     }
 

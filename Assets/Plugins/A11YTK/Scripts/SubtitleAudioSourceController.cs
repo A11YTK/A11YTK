@@ -1,14 +1,9 @@
-#if UNITY_EDITOR
-using System.Linq;
-using UnityEditor;
-#endif
 using UnityEngine;
 
 namespace A11YTK
 {
 
     [AddComponentMenu("A11YTK/Subtitle Audio Source Controller")]
-    [RequireComponent(typeof(SubtitleRenderer))]
     public class SubtitleAudioSourceController : SubtitleController
     {
 
@@ -23,18 +18,10 @@ namespace A11YTK
             _audioSource && _audioSource.isPlaying && _audioSource.time < _audioSource.clip.length;
 
 #if UNITY_EDITOR
-        protected void OnValidate()
+        protected override void OnValidate()
         {
 
-            if (_subtitleOptions == null)
-            {
-
-                _subtitleOptions =
-                    AssetDatabase.LoadAssetAtPath<SubtitleOptionsReference>(AssetDatabase.GUIDToAssetPath(AssetDatabase
-                        .FindAssets("t:SubtitleOptionsReference", null)
-                        .FirstOrDefault()));
-
-            }
+            base.OnValidate();
 
             if (_audioSource == null)
             {

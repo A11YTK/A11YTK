@@ -19,6 +19,14 @@ namespace A11YTK.Editor
                 .OfType<T>()
                 .FirstOrDefault();
 
+        [MenuItem("Window/A11YTK/Setup Audio Sources in Scene", true)]
+        public static bool ValidateSetupAudioSources()
+        {
+
+            return !EditorApplication.isPlaying;
+
+        }
+
         [MenuItem("Window/A11YTK/Setup Audio Sources in Scene")]
         public static void SetupAudioSources()
         {
@@ -29,26 +37,28 @@ namespace A11YTK.Editor
 
             var audioSources = Object.FindObjectsOfType<AudioSource>();
 
-            foreach (var audioSource in audioSources)
+            foreach (var source in audioSources)
             {
 
+                var clip = source.clip;
+
                 var subtitleTextAsset = FindAssetWithNameInDirectory<TextAsset>(
-                    $"{audioSource.clip.name}.srt",
-                    Path.GetDirectoryName(AssetDatabase.GetAssetPath(audioSource.clip)));
+                    $"{clip.name}.srt",
+                    Path.GetDirectoryName(AssetDatabase.GetAssetPath(clip)));
 
                 if (!subtitleTextAsset)
                 {
 
-                    Debug.LogWarning($"There is no subtitle file for {AssetDatabase.GetAssetPath(audioSource.clip)}");
+                    Debug.LogWarning($"There is no subtitle file for {AssetDatabase.GetAssetPath(source.clip)}");
 
                     continue;
 
                 }
 
-                if (!audioSource.gameObject.TryGetComponent(out SubtitleController subtitleController))
+                if (!source.gameObject.TryGetComponent(out SubtitleController subtitleController))
                 {
 
-                    subtitleController = Undo.AddComponent<SubtitleVideoPlayerController>(audioSource.gameObject);
+                    subtitleController = Undo.AddComponent<SubtitleVideoPlayerController>(source.gameObject);
 
                 }
 
@@ -67,6 +77,14 @@ namespace A11YTK.Editor
 
         }
 
+        [MenuItem("Window/A11YTK/Setup Video Players in Scene", true)]
+        public static bool ValidateSetupVideoSources()
+        {
+
+            return !EditorApplication.isPlaying;
+
+        }
+
         [MenuItem("Window/A11YTK/Setup Video Players in Scene")]
         public static void SetupVideoSources()
         {
@@ -77,26 +95,28 @@ namespace A11YTK.Editor
 
             var videoPlayers = Object.FindObjectsOfType<VideoPlayer>();
 
-            foreach (var videoPlayer in videoPlayers)
+            foreach (var source in videoPlayers)
             {
 
+                var clip = source.clip;
+
                 var subtitleTextAsset = FindAssetWithNameInDirectory<TextAsset>(
-                    $"{videoPlayer.clip.name}.srt",
-                    Path.GetDirectoryName(AssetDatabase.GetAssetPath(videoPlayer.clip)));
+                    $"{clip.name}.srt",
+                    Path.GetDirectoryName(AssetDatabase.GetAssetPath(clip)));
 
                 if (!subtitleTextAsset)
                 {
 
-                    Debug.LogWarning($"There is no subtitle file for {AssetDatabase.GetAssetPath(videoPlayer.clip)}");
+                    Debug.LogWarning($"There is no subtitle file for {AssetDatabase.GetAssetPath(source.clip)}");
 
                     continue;
 
                 }
 
-                if (!videoPlayer.gameObject.TryGetComponent(out SubtitleController subtitleController))
+                if (!source.gameObject.TryGetComponent(out SubtitleController subtitleController))
                 {
 
-                    subtitleController = Undo.AddComponent<SubtitleVideoPlayerController>(videoPlayer.gameObject);
+                    subtitleController = Undo.AddComponent<SubtitleVideoPlayerController>(source.gameObject);
 
                 }
 
