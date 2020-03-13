@@ -261,12 +261,22 @@ namespace A11YTK
         public void Show()
         {
 
+            if (_canvas == null || _textMesh == null || _textMesh.text.Trim() == "")
+            {
+                return;
+            }
+
             _canvas.enabled = true;
 
         }
 
         public void Hide()
         {
+
+            if (_canvas == null || _textMesh == null || _textMesh.text.Trim() == "")
+            {
+                return;
+            }
 
             _canvas.enabled = false;
 
