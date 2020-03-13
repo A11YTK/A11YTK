@@ -164,6 +164,21 @@ namespace A11YTK
             }
 
         }
+
+        private void OnEnable()
+        {
+
+            _subtitleRenderer.Show();
+
+        }
+
+        private void OnDisable()
+        {
+
+            _subtitleRenderer.Hide();
+
+        }
+
 #if UNITY_EDITOR
         protected virtual void OnValidate()
         {
