@@ -31,10 +31,6 @@ namespace A11YTK
         public bool isVisible => _canvas.enabled;
 
         [SerializeField]
-        [TextArea(1, 10)]
-        private string _text = "";
-
-        [SerializeField]
         private Camera _camera;
 
         private Transform _cameraTransform;
@@ -117,15 +113,6 @@ namespace A11YTK
             }
 
             _canvas.worldCamera = _camera;
-
-            if (_text != "")
-            {
-
-                Show();
-
-                SetText(_text);
-
-            }
 
         }
 
