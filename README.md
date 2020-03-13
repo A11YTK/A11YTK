@@ -13,7 +13,7 @@
 ```json
 {
   "dependencies": {
-    "com.a11ytk.a11ytk": "https://github.com/a11ytk/a11ytk.git#upm",
+    "com.a11ytk.a11ytk": "https://github.com/a11ytk/a11ytk.git#v1.0.0",
     ...
   }
 }
