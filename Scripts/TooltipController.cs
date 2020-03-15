@@ -72,9 +72,9 @@ namespace A11YTK
         private void Start()
         {
 
-            _subtitleRenderer.Show();
-
             _subtitleRenderer.SetText(_tooltipText);
+
+            _subtitleRenderer.Show();
 
         }
 
