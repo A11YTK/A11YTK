@@ -157,9 +157,9 @@ namespace A11YTK
                 _elapsedTime <= _currentSubtitle.Value.endTime)
             {
 
-                _subtitleRenderer.Show();
-
                 _subtitleRenderer.SetText(_currentSubtitle.Value.text);
+
+                _subtitleRenderer.Show();
 
             }
 
