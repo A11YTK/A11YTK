@@ -67,6 +67,7 @@ namespace A11YTK.Editor
 
                     Undo.RecordObject(subtitleController, "set subtitle text asset");
 
+                    subtitleController.subtitleText = "";
                     subtitleController.subtitleTextAsset = subtitleTextAsset;
 
                 }
@@ -125,6 +126,7 @@ namespace A11YTK.Editor
 
                     Undo.RecordObject(subtitleController, "set subtitle text asset");
 
+                    subtitleController.subtitleText = "";
                     subtitleController.subtitleTextAsset = subtitleTextAsset;
 
                 }
