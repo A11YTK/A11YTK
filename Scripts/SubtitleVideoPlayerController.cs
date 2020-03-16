@@ -5,7 +5,7 @@ namespace A11YTK
 {
 
     [AddComponentMenu("A11YTK/Subtitle Video Player Controller")]
-    public class SubtitleVideoPlayerController : SubtitleController
+    public class SubtitleVideoPlayerController : SubtitleSourceController
     {
 
 #pragma warning disable CS0649
