@@ -55,7 +55,12 @@ namespace A11YTK
 
             }
 
-            _cameraTransform = _camera.transform;
+            if (_camera != null)
+            {
+
+                _cameraTransform = _camera.transform;
+
+            }
 
             _canvas = gameObject.GetComponentInChildren<Canvas>();
 
