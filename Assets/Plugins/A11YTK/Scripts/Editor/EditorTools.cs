@@ -55,7 +55,7 @@ namespace A11YTK.Editor
 
                 }
 
-                if (!source.gameObject.TryGetComponent(out SubtitleController subtitleController))
+                if (!source.gameObject.TryGetComponent(out SubtitleSourceController subtitleController))
                 {
 
                     subtitleController = Undo.AddComponent<SubtitleVideoPlayerController>(source.gameObject);
@@ -113,7 +113,7 @@ namespace A11YTK.Editor
 
                 }
 
-                if (!source.gameObject.TryGetComponent(out SubtitleController subtitleController))
+                if (!source.gameObject.TryGetComponent(out SubtitleSourceController subtitleController))
                 {
 
                     subtitleController = Undo.AddComponent<SubtitleVideoPlayerController>(source.gameObject);
