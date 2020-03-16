@@ -101,6 +101,7 @@ namespace A11YTK
             _subtitleRenderer.targetTransform = gameObject.transform;
             _subtitleRenderer.targetCollider = gameObject.GetComponent<Collider>();
 
+            _subtitleRenderer.Setup();
             _subtitleRenderer.SetOptions(_subtitleOptions);
 
         }

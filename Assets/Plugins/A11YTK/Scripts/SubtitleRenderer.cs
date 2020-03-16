@@ -76,7 +76,7 @@ namespace A11YTK
 
         }
 
-        private void Start()
+        public void Setup()
         {
 
             if (mode.Equals(Subtitle.Mode.HEADSET))
