@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -10,25 +9,6 @@ namespace A11YTK
     {
 
 #pragma warning disable CS0649
-        [SerializeField]
-        [TextArea(1, 10)]
-        protected string _subtitleText = "1\n0:0:1,0 --> 0:0:2,0\nHello, world.\n";
-
-        public string subtitleText
-        {
-            get => _subtitleText;
-            set => _subtitleText = value;
-        }
-
-        [SerializeField]
-        protected TextAsset _subtitleTextAsset;
-
-        public TextAsset subtitleTextAsset
-        {
-            get => _subtitleTextAsset;
-            set => _subtitleTextAsset = value;
-        }
-
         [SerializeField]
         protected Subtitle.Position _position = Subtitle.Position.AUTO;
 
@@ -49,29 +29,8 @@ namespace A11YTK
 
         protected SubtitleRenderer _subtitleRenderer;
 
-        protected List<SRT.Subtitle> _subtitles;
-
-        protected abstract double _elapsedTime { get; }
-
-        protected abstract bool _isPlaying { get; }
-
-        protected SRT.Subtitle? _currentSubtitle;
-
-        protected void Awake()
+        protected virtual void Awake()
         {
-
-            if (_subtitleTextAsset != null)
-            {
-
-                _subtitles = SRT.ParseSubtitlesFromString(_subtitleTextAsset.text);
-
-            }
-            else
-            {
-
-                _subtitles = SRT.ParseSubtitlesFromString(_subtitleText);
-
-            }
 
             if (_subtitleOptions == null)
             {
@@ -101,69 +60,25 @@ namespace A11YTK
             _subtitleRenderer.targetTransform = gameObject.transform;
             _subtitleRenderer.targetCollider = gameObject.GetComponent<Collider>();
 
+            _subtitleRenderer.Setup();
             _subtitleRenderer.SetOptions(_subtitleOptions);
 
         }
 
-        protected void FixedUpdate()
+        protected virtual void OnEnable()
         {
 
-            if (_subtitleOptions != null && _subtitleOptions.enabled && _isPlaying)
-            {
-
-                Tick();
-
-            }
+            _subtitleRenderer.Show();
 
         }
 
-        protected void Tick()
+        protected virtual void OnDisable()
         {
 
-            if (_currentSubtitle.HasValue &&
-                _subtitleRenderer.isVisible &&
-                (_elapsedTime < _currentSubtitle.Value.startTime ||
-                 _elapsedTime > _currentSubtitle.Value.endTime))
-            {
-
-                _subtitleRenderer.Hide();
-
-                _currentSubtitle = null;
-
-            }
-
-            if (!_currentSubtitle.HasValue)
-            {
-
-                for (var i = 0; i < _subtitles.Count; i += 1)
-                {
-
-                    if (_elapsedTime < _subtitles[i].endTime)
-                    {
-
-                        _currentSubtitle = _subtitles[i];
-
-                        break;
-
-                    }
-
-                }
-
-            }
-
-            if (_currentSubtitle.HasValue &&
-                !_subtitleRenderer.isVisible &&
-                _elapsedTime >= _currentSubtitle.Value.startTime &&
-                _elapsedTime <= _currentSubtitle.Value.endTime)
-            {
-
-                _subtitleRenderer.Show();
-
-                _subtitleRenderer.SetText(_currentSubtitle.Value.text);
-
-            }
+            _subtitleRenderer.Hide();
 
         }
+
 #if UNITY_EDITOR
         protected virtual void OnValidate()
         {

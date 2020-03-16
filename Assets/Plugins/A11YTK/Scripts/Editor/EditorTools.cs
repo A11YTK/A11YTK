@@ -55,7 +55,7 @@ namespace A11YTK.Editor
 
                 }
 
-                if (!source.gameObject.TryGetComponent(out SubtitleController subtitleController))
+                if (!source.gameObject.TryGetComponent(out SubtitleSourceController subtitleController))
                 {
 
                     subtitleController = Undo.AddComponent<SubtitleVideoPlayerController>(source.gameObject);
@@ -67,6 +67,7 @@ namespace A11YTK.Editor
 
                     Undo.RecordObject(subtitleController, "set subtitle text asset");
 
+                    subtitleController.subtitleText = "";
                     subtitleController.subtitleTextAsset = subtitleTextAsset;
 
                 }
@@ -113,7 +114,7 @@ namespace A11YTK.Editor
 
                 }
 
-                if (!source.gameObject.TryGetComponent(out SubtitleController subtitleController))
+                if (!source.gameObject.TryGetComponent(out SubtitleSourceController subtitleController))
                 {
 
                     subtitleController = Undo.AddComponent<SubtitleVideoPlayerController>(source.gameObject);
@@ -125,6 +126,7 @@ namespace A11YTK.Editor
 
                     Undo.RecordObject(subtitleController, "set subtitle text asset");
 
+                    subtitleController.subtitleText = "";
                     subtitleController.subtitleTextAsset = subtitleTextAsset;
 
                 }

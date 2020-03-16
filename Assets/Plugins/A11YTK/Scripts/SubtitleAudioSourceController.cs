@@ -4,7 +4,7 @@ namespace A11YTK
 {
 
     [AddComponentMenu("A11YTK/Subtitle Audio Source Controller")]
-    public class SubtitleAudioSourceController : SubtitleController
+    public class SubtitleAudioSourceController : SubtitleSourceController
     {
 
 #pragma warning disable CS0649
