@@ -30,11 +30,11 @@ namespace A11YTK
 
         protected List<SRT.Subtitle> _subtitles;
 
+        protected SRT.Subtitle? _currentSubtitle;
+
         protected abstract double _elapsedTime { get; }
 
         protected abstract bool _isPlaying { get; }
-
-        protected SRT.Subtitle? _currentSubtitle;
 
         protected void Awake()
         {
