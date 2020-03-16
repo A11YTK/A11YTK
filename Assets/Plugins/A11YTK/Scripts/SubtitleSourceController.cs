@@ -36,7 +36,7 @@ namespace A11YTK
 
         protected abstract bool _isPlaying { get; }
 
-        protected void Awake()
+        protected override void Awake()
         {
 
             if (_subtitleTextAsset != null)
