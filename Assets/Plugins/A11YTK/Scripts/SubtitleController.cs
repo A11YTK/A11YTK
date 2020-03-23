@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.XR;
 
 namespace A11YTK
 {
@@ -39,7 +40,7 @@ namespace A11YTK
 
             }
 
-            if (subtitleOptions.defaultMode.Equals(Subtitle.Mode.SCREEN) && UnityEngine.XR.XRSettings.enabled)
+            if (subtitleOptions.defaultMode.Equals(Subtitle.Mode.SCREEN) && XRSettings.enabled)
             {
 
                 Debug.LogWarning("Subtitles will not render in SCREEN mode while running in VR!");
