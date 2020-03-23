@@ -114,6 +114,12 @@ namespace A11YTK
                     BillboardTowardsCamera();
 
                 }
+                else
+                {
+
+                    _canvasWrapperTransform.rotation = targetTransform.rotation;
+
+                }
 
             }
 
