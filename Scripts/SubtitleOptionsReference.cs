@@ -1,7 +1,9 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 namespace A11YTK
@@ -146,6 +148,27 @@ namespace A11YTK
         {
 
             Delete(fileName, Application.persistentDataPath);
+
+        }
+
+        private void OnEnable()
+        {
+
+            if (fontAsset == null)
+            {
+
+                fontAsset = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(AssetDatabase.GUIDToAssetPath(AssetDatabase
+                    .FindAssets("Roboto-Regular")
+                    .FirstOrDefault()));
+
+            }
+
+            if (fontMaterial == null && fontAsset)
+            {
+
+                fontMaterial = fontAsset.material;
+
+            }
 
         }
 
