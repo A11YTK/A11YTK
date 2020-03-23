@@ -27,7 +27,7 @@ namespace A11YTK
     public class SubtitleOptionsReference : ScriptableObject
     {
 
-        public bool enabled;
+        public bool enabled = true;
 
         public Subtitle.Mode defaultMode = Subtitle.Mode.HEADSET;
 
