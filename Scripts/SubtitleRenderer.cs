@@ -111,7 +111,10 @@ namespace A11YTK
                 if (billboardTowardsCamera)
                 {
 
-                    BillboardTowardsCamera();
+                    _canvasWrapperTransform.rotation = Quaternion.LookRotation(
+                        _canvasWrapperTransform.position - _cameraTransform.position,
+                        Vector3.up
+                    );
 
                 }
                 else
@@ -143,20 +146,20 @@ namespace A11YTK
             if (billboardTowardsCamera)
             {
 
-                BillboardTowardsCamera();
+                _canvasWrapperTransform.rotation = Quaternion.Lerp(_canvasWrapperTransform.rotation,
+                    Quaternion.LookRotation(
+                        _canvasWrapperTransform.position - _cameraTransform.position,
+                        Vector3.up
+                    ), ROTATION_SPEED * Time.deltaTime);
 
             }
+            else
+            {
 
-        }
+                _canvasWrapperTransform.rotation = Quaternion.Lerp(_canvasWrapperTransform.rotation,
+                    targetTransform.rotation, ROTATION_SPEED * Time.deltaTime);
 
-        private void BillboardTowardsCamera()
-        {
-
-            _canvasWrapperTransform.rotation = Quaternion.Lerp(_canvasWrapperTransform.rotation,
-                Quaternion.LookRotation(
-                    _canvasWrapperTransform.position - _cameraTransform.position,
-                    Vector3.up
-                ), ROTATION_SPEED * Time.deltaTime);
+            }
 
         }
 
