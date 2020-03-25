@@ -11,10 +11,10 @@ namespace A11YTK
 
 #pragma warning disable CS0649
         [SerializeField]
-        protected Subtitle.Position _position = Subtitle.Position.AUTO;
+        protected Subtitle.Mode _mode = Subtitle.Mode.AUTO;
 
         [SerializeField]
-        protected Subtitle.Mode _mode = Subtitle.Mode.AUTO;
+        protected Subtitle.Position _position = Subtitle.Position.AUTO;
 
         [SerializeField]
         protected SubtitleOptionsReference _subtitleOptions;
