@@ -2,13 +2,18 @@
 
 > AR/VR context aware, spatialized subtitles for Unity
 
-## Installation
+## Introduction
 
-### Unity Package Manager
+## Features
 
-<https://docs.unity3d.com/Packages/com.unity.package-manager-ui@2.0/manual/index.html>
+- [Subtitles](Documentation/Subtitles.md)
+- [Tooltips](Documentation/Tooltips.md)
+
+## Install
 
 #### Git
+
+<https://docs.unity3d.com/Packages/com.unity.package-manager-ui@2.0/manual/index.html>
 
 ```json
 {
@@ -30,131 +35,11 @@
 }
 ```
 
-Install [TextMeshPro](https://docs.unity3d.com/Manual/com.unity.textmeshpro.html) and then import `Essential Resources` and `Examples and Extras`.
+Install [TextMeshPro](https://docs.unity3d.com/Manual/com.unity.textmeshpro.html) and then import `Essential Resources`.
 
-## Quick Start
+## Examples
 
-Attach a `SubtitleAudioSourceController` or `SubtitleVideoPlayerController` component to any GameObject that has an `AudioSource` or `VideoPlayer` component respectively.
-
-<img src="Screenshots/component.png" width="400">
-
-Using an SRT file, either paste the contents or drag the asset reference into the `Subtitle Text` or `Subtitle Text Asset` property respectively.
-
-Create a `Subtitle Options` asset via the create asset menu via `A11YTK > Subtitle Options` and populate with the values seen in the screenshot below.
-
-<img src="Screenshots/options.png" width="400">
-
-Drag the `Subtitle Options` asset into the `Subtitle Options` property of the `SubtitleAudioSourceController` or `SubtitleVideoPlayerController` component.
-
-## Documentation
-
-### SubtitleOptions
-
-#### Properties
-
-| Property                 | Description                                                          |   Default |
-| ------------------------ | -------------------------------------------------------------------- | --------: |
-| Enabled                  | Toggle subtitles on or off.                                          |     `Off` |
-| Default Mode             | Mode to render subtitle. Either `SCREEN`, `HEADSET`, or `OBJECT`     | `HEADSET` |
-| Default Position         | Position subtitles should render on screen. Either `TOP` or `BOTTOM` |  `BOTTOM` |
-| Billboard Towards Camera | Rotate subtitles rendered in `OBJECT` mode towards the main camera.  |    `true` |
-| Screen Padding           | Percentage of screen to be used as padding around subtitles.         |      `10` |
-| Object Padding           | World units to be used as padding around subtitles.                  |    `0.25` |
-| Font Size                | Subtitle font size.                                                  |      `60` |
-| Font Color               | Subtile font color                                                   |   `White` |
-| Font Asset               | TextMeshPro font to render subtitle with.                            |    `Null` |
-| Font Material            | TextMeshPro material to use with the TextMeshPro font.               |    `Null` |
-| Text Alignment           | TextMeshPro text alignment property.                                 | `MidLine` |
-| Show Background          | Toggle subtitle background on or off.                                |      `On` |
-| Background Color         | Background color that appears behind subtitle text                   |   `Black` |
-| Background Sprite        | Optional 9-splice sprite.                                            |    `Null` |
-| Background Padding       | Padding around the text inside the background.                       |      `30` |
-
-#### Methods
-
-##### Save
-
-Save current state of the `SubtitleOptions` asset to file path.
-
-```csharp
-using A11YTK;
-using UnityEngine;
-
-public class SubtitleOptionManager : MonoBehaviour
-{
-
-    private const string SUBTITLE_OPTIONS_FILENAME = "subtitle_options.json";
-
-    [SerializeField]
-    private SubtitleOptionsReference _subtitleOptions;
-
-    ...
-
-    public void OnDisable()
-    {
-
-        _subtitleOptions.Save(SUBTITLE_OPTIONS_FILENAME);
-
-    }
-
-}
-```
-
-##### Load
-
-Load saved state from a local file into the `SubtitleOptions` asset.
-
-```csharp
-using A11YTK;
-using UnityEngine;
-
-public class SubtitleOptionManager : MonoBehaviour
-{
-
-    private const string SUBTITLE_OPTIONS_FILENAME = "subtitle_options.json";
-
-    [SerializeField]
-    private SubtitleOptionsReference _subtitleOptions;
-
-    public void OnEnable()
-    {
-
-        _subtitleOptions.Load(SUBTITLE_OPTIONS_FILENAME);
-
-    }
-
-    ...
-
-}
-```
-
-##### Delete
-
-Delete local file.
-
-```csharp
-using A11YTK;
-using UnityEngine;
-
-public class SubtitleOptionManager : MonoBehaviour
-{
-
-    private const string SUBTITLE_OPTIONS_FILENAME = "subtitle_options.json";
-
-    [SerializeField]
-    private SubtitleOptionsReference _subtitleOptions;
-
-    public void DeleteSavedOptions()
-    {
-
-        _subtitleOptions.Delete(SUBTITLE_OPTIONS_FILENAME);
-
-    }
-
-    ...
-
-}
-```
+## Tutorial
 
 ## Contributors
 
