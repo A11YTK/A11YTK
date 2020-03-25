@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Video;
 
 namespace A11YTK
@@ -9,14 +10,15 @@ namespace A11YTK
     {
 
 #pragma warning disable CS0649
+        [FormerlySerializedAs("_videoSource")]
         [SerializeField]
-        private VideoPlayer _videoSource;
+        private VideoPlayer _videoPlayer;
 #pragma warning restore CS0649
 
-        protected override double _elapsedTime => _videoSource.time;
+        protected override double _elapsedTime => _videoPlayer.time;
 
         protected override bool _isPlaying =>
-            _videoSource && _videoSource.isPlaying && _videoSource.time < _videoSource.length;
+            _videoPlayer && _videoPlayer.isPlaying && _videoPlayer.time < _videoPlayer.length;
 
 #if UNITY_EDITOR
         protected override void OnValidate()
@@ -24,10 +26,10 @@ namespace A11YTK
 
             base.OnValidate();
 
-            if (_videoSource == null)
+            if (_videoPlayer == null)
             {
 
-                _videoSource = gameObject.GetComponent<VideoPlayer>();
+                _videoPlayer = gameObject.GetComponent<VideoPlayer>();
 
             }
 
