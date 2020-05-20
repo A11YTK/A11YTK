@@ -1,6 +1,6 @@
 # ![A11YTK](logo.png)
 
-> AR/VR context aware, spatialized subtitles for Unity
+> The Accessibility Toolkit is an open-source Unity package for adding context-aware subtitles in VR, AR, and non-XR environments. Research shows that many digital experiences exclude those with hearing impairments often due to time constraints and budgets. The Accessibility Toolkit allows inclusivity for hard of hearing populations and well as adding the ability to easily internationalize experiences greatly expanding the reach and quality of any project.
 
 ## Installation
 
