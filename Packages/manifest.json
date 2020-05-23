@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.unity.2d.sprite": "1.0.0",
     "com.unity.ext.nunit": "1.0.0",
     "com.unity.ide.rider": "1.1.4",
     "com.unity.ide.vscode": "1.2.1",
@@ -8,7 +7,9 @@
     "com.unity.textmeshpro": "2.0.1",
     "xyz.candycoded.gitstatus": "https://github.com/CandyCoded/gitstatus.git#v2.1.0",
     "com.unity.modules.audio": "1.0.0",
-    "com.unity.modules.video": "1.0.0"
+    "com.unity.modules.physics": "1.0.0",
+    "com.unity.modules.video": "1.0.0",
+    "com.unity.modules.vr": "1.0.0"
   },
   "lock": {
     "xyz.candycoded.gitstatus": {
