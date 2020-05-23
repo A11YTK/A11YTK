@@ -40,6 +40,10 @@ Shader "A11YTK/ConstantSize"
                 float dist = length(pos - _WorldSpaceCameraPos);
  
                 v.vertex.w /= dist * 0.1;
+
+                if (v.vertex.w > 1) {
+                    v.vertex.w = 1;
+                }
  
                 o.vertex = mul(UNITY_MATRIX_P, mul(UNITY_MATRIX_MV, v.vertex));
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
