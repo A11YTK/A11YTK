@@ -35,7 +35,13 @@ Shader "A11YTK/ConstantSize"
             v2f vert (appdata v)
             {
                 v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
+
+                float3 pos = mul(UNITY_MATRIX_M, v.vertex);
+                float dist = length(pos - _WorldSpaceCameraPos);
+ 
+                v.vertex.w /= dist * 0.1;
+ 
+                o.vertex = mul(UNITY_MATRIX_P, mul(UNITY_MATRIX_MV, v.vertex));
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 return o;
             }
