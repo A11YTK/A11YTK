@@ -143,12 +143,14 @@ namespace A11YTK
                 targetTransform.position,
                 MOVEMENT_SPEED * Time.deltaTime);
 
-            if (billboardTowardsCamera)
+            var cameraForward = _canvasWrapperTransform.position - _cameraTransform.position;
+
+            if (billboardTowardsCamera && cameraForward != Vector3.zero)
             {
 
                 _canvasWrapperTransform.rotation = Quaternion.Lerp(_canvasWrapperTransform.rotation,
                     Quaternion.LookRotation(
-                        _canvasWrapperTransform.position - _cameraTransform.position,
+                        cameraForward,
                         Vector3.up
                     ), ROTATION_SPEED * Time.deltaTime);
 
