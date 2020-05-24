@@ -37,6 +37,8 @@ namespace A11YTK
 
         public bool billboardTowardsCamera = true;
 
+        public bool maintainSizeRelativeToCamera = true;
+
         [Range(0, 100)]
         public float screenPadding = 10;
 
