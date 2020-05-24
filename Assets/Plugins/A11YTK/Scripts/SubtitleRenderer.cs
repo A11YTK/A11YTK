@@ -22,6 +22,8 @@ namespace A11YTK
 
         public bool billboardTowardsCamera;
 
+        public bool maintainSizeRelativeToCamera;
+
         public float screenPadding = 10;
 
         public float objectPadding = 0.25f;
@@ -44,6 +46,8 @@ namespace A11YTK
         private RectTransform _textMeshWrapperTransform;
 
         private Image _panel;
+
+        private Vector3 _localScale;
 
         private void Awake()
         {
@@ -143,12 +147,14 @@ namespace A11YTK
                 targetTransform.position,
                 MOVEMENT_SPEED * Time.deltaTime);
 
-            if (billboardTowardsCamera)
+            var cameraForward = _canvasWrapperTransform.position - _cameraTransform.position;
+
+            if (billboardTowardsCamera && cameraForward != Vector3.zero)
             {
 
                 _canvasWrapperTransform.rotation = Quaternion.Lerp(_canvasWrapperTransform.rotation,
                     Quaternion.LookRotation(
-                        _canvasWrapperTransform.position - _cameraTransform.position,
+                        cameraForward,
                         Vector3.up
                     ), ROTATION_SPEED * Time.deltaTime);
 
@@ -161,12 +167,22 @@ namespace A11YTK
 
             }
 
+            if (!_canvas.enabled || !maintainSizeRelativeToCamera)
+            {
+                return;
+            }
+
+            var distance = (_cameraTransform.position - _textMeshWrapperTransform.position).magnitude;
+
+            _textMeshWrapperTransform.localScale = _localScale * distance / 10;
+
         }
 
         public void SetOptions(SubtitleOptionsReference options)
         {
 
             billboardTowardsCamera = options.billboardTowardsCamera;
+            maintainSizeRelativeToCamera = options.maintainSizeRelativeToCamera;
             screenPadding = options.screenPadding;
             objectPadding = options.objectPadding;
             backgroundPadding = options.backgroundPadding;
@@ -269,6 +285,8 @@ namespace A11YTK
 
             _canvas.enabled = true;
 
+            _localScale = _textMeshWrapperTransform.localScale;
+
         }
 
         public void Hide()
@@ -280,6 +298,8 @@ namespace A11YTK
             }
 
             _canvas.enabled = false;
+
+            _textMeshWrapperTransform.localScale = _localScale;
 
         }
 
