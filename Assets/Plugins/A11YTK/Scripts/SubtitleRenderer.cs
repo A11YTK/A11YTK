@@ -95,30 +95,8 @@ namespace A11YTK
             else if (mode.Equals(Subtitle.Mode.OBJECT))
             {
 
-                _canvasWrapperTransform.position = targetTransform.position;
-
-                if (billboardTowardsCamera)
-                {
-
-                    var cameraForward = _canvasWrapperTransform.position - _cameraTransform.position;
-
-                    if (cameraForward != Vector3.zero)
-                    {
-
-                        _canvasWrapperTransform.rotation = Quaternion.LookRotation(
-                            cameraForward,
-                            Vector3.up
-                        );
-
-                    }
-
-                }
-                else
-                {
-
-                    _canvasWrapperTransform.rotation = targetTransform.rotation;
-
-                }
+                SetPosition(0);
+                SetRotation(0);
 
             }
 
@@ -134,10 +112,23 @@ namespace A11YTK
                 return;
             }
 
+            SetPosition(MOVEMENT_SPEED);
+            SetRotation(ROTATION_SPEED);
+
+        }
+
+        private void SetPosition(float speed = 0)
+        {
+
             _canvasWrapperTransform.position = Vector3.Lerp(
                 _canvasWrapperTransform.position,
                 targetTransform.position,
-                MOVEMENT_SPEED * Time.deltaTime);
+                speed * Time.deltaTime);
+
+        }
+
+        private void SetRotation(float speed = 0)
+        {
 
             if (billboardTowardsCamera)
             {
@@ -151,7 +142,7 @@ namespace A11YTK
                         Quaternion.LookRotation(
                             cameraForward,
                             Vector3.up
-                        ), ROTATION_SPEED * Time.deltaTime);
+                        ), speed * Time.deltaTime);
 
                 }
 
@@ -160,7 +151,7 @@ namespace A11YTK
             {
 
                 _canvasWrapperTransform.rotation = Quaternion.Lerp(_canvasWrapperTransform.rotation,
-                    targetTransform.rotation, ROTATION_SPEED * Time.deltaTime);
+                    targetTransform.rotation, speed * Time.deltaTime);
 
             }
 
