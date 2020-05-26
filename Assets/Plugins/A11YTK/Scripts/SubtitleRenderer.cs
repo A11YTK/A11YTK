@@ -28,6 +28,8 @@ namespace A11YTK
 
         public float backgroundPadding = 30;
 
+        public float maxWrapWidth;
+
         public bool isVisible => _canvas.enabled;
 
         [SerializeField]

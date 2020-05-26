@@ -18,6 +18,9 @@ namespace A11YTK
 
         [SerializeField]
         protected SubtitleOptionsReference _subtitleOptions;
+
+        [SerializeField]
+        protected float maxWrapWidth;
 #pragma warning restore CS0649
 
         public Subtitle.Position position =>
@@ -58,6 +61,7 @@ namespace A11YTK
 
             _subtitleRenderer.mode = mode;
             _subtitleRenderer.position = position;
+            _subtitleRenderer.maxWrapWidth = maxWrapWidth;
             _subtitleRenderer.targetTransform = gameObject.transform;
             _subtitleRenderer.targetCollider = gameObject.GetComponent<Collider>();
 
@@ -93,6 +97,29 @@ namespace A11YTK
                         .FirstOrDefault()));
 
             }
+
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+
+            if (maxWrapWidth <= 0)
+            {
+                return;
+            }
+
+            Gizmos.color = Color.green;
+
+            var position = gameObject.transform.position;
+            var scale = gameObject.transform.localScale;
+
+            var width = Mathf.Max(scale.x, maxWrapWidth);
+            var height = Mathf.Max(scale.y, 1);
+
+            var collider = gameObject.GetComponent<Collider>();
+
+            Gizmos.DrawWireCube(position + Vector3.down * (collider.bounds.extents.y + height),
+                new Vector3(width, height, 0));
 
         }
 #endif
