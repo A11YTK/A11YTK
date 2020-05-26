@@ -111,10 +111,17 @@ namespace A11YTK
                 if (billboardTowardsCamera)
                 {
 
-                    _canvasWrapperTransform.rotation = Quaternion.LookRotation(
-                        _canvasWrapperTransform.position - _cameraTransform.position,
-                        Vector3.up
-                    );
+                    var cameraForward = _canvasWrapperTransform.position - _cameraTransform.position;
+
+                    if (cameraForward != Vector3.zero)
+                    {
+
+                        _canvasWrapperTransform.rotation = Quaternion.LookRotation(
+                            cameraForward,
+                            Vector3.up
+                        );
+
+                    }
 
                 }
                 else
@@ -146,11 +153,18 @@ namespace A11YTK
             if (billboardTowardsCamera)
             {
 
-                _canvasWrapperTransform.rotation = Quaternion.Lerp(_canvasWrapperTransform.rotation,
-                    Quaternion.LookRotation(
-                        _canvasWrapperTransform.position - _cameraTransform.position,
-                        Vector3.up
-                    ), ROTATION_SPEED * Time.deltaTime);
+                var cameraForward = _canvasWrapperTransform.position - _cameraTransform.position;
+
+                if (cameraForward != Vector3.zero)
+                {
+
+                    _canvasWrapperTransform.rotation = Quaternion.Lerp(_canvasWrapperTransform.rotation,
+                        Quaternion.LookRotation(
+                            cameraForward,
+                            Vector3.up
+                        ), ROTATION_SPEED * Time.deltaTime);
+
+                }
 
             }
             else
