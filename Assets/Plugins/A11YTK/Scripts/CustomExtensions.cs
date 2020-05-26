@@ -101,17 +101,6 @@ namespace A11YTK
 
         }
 
-        public static Vector3 ScaleBasedOnDistanceFromCamera(this RectTransform rectTransform, Camera camera)
-        {
-
-            var distance = Vector3.Distance(camera.transform.position, rectTransform.gameObject.transform.position);
-
-            var scale = distance / 1000;
-
-            return Vector3.one * scale;
-
-        }
-
         public static Vector2 ResizeToMatchCamera(this RectTransform rectTransform, Camera camera)
         {
 

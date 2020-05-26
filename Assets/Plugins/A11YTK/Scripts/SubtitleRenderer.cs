@@ -89,11 +89,6 @@ namespace A11YTK
 
                 gameObject.transform.SetParent(_cameraTransform, false);
 
-                _canvasWrapperTransform.localPosition = new Vector3(0, 0, 10);
-
-                _canvasWrapperTransform.localScale =
-                    _canvasWrapperTransform.ScaleBasedOnDistanceFromCamera(_camera);
-
                 _canvasWrapperTransform.sizeDelta = _canvasWrapperTransform.ResizeToMatchCamera(_camera) / 2;
 
             }
@@ -101,12 +96,6 @@ namespace A11YTK
             {
 
                 _canvasWrapperTransform.position = targetTransform.position;
-
-                _canvasWrapperTransform.localScale =
-                    _canvasWrapperTransform.ScaleBasedOnDistanceFromCamera(_camera);
-
-                _canvasWrapperTransform.sizeDelta =
-                    targetCollider.bounds.size / _canvasWrapperTransform.localScale.x;
 
                 if (billboardTowardsCamera)
                 {
