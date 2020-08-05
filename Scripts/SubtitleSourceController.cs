@@ -15,7 +15,12 @@ namespace A11YTK
         public string subtitleText
         {
             get => _subtitleText;
-            set => _subtitleText = value;
+            set
+            {
+                _subtitleText = value;
+
+                _subtitles = SRT.ParseSubtitlesFromString(_subtitleText);
+            }
         }
 
         [SerializeField]
@@ -24,7 +29,12 @@ namespace A11YTK
         public TextAsset subtitleTextAsset
         {
             get => _subtitleTextAsset;
-            set => _subtitleTextAsset = value;
+            set
+            {
+                _subtitleTextAsset = value;
+
+                _subtitles = SRT.ParseSubtitlesFromString(_subtitleTextAsset.text);
+            }
         }
 #pragma warning restore CS0649
 
