@@ -10,11 +10,5 @@
     "com.unity.modules.physics": "1.0.0",
     "com.unity.modules.video": "1.0.0",
     "com.unity.modules.vr": "1.0.0"
-  },
-  "lock": {
-    "xyz.candycoded.gitstatus": {
-      "revision": "v2.1.0",
-      "hash": "e631e4ff75a9cf1427a6a8d34bc21a59736ad76f"
-    }
   }
 }
