@@ -3,8 +3,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace A11YTK
 {
@@ -151,6 +153,7 @@ namespace A11YTK
 
         }
 
+#if UNITY_EDITOR
         private void OnEnable()
         {
 
@@ -171,6 +174,7 @@ namespace A11YTK
             }
 
         }
+#endif
 
     }
 

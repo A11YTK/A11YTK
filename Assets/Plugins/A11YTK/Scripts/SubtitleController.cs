@@ -1,7 +1,9 @@
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace A11YTK
 {

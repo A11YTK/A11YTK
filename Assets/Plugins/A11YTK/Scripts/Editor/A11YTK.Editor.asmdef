@@ -1,9 +1,11 @@
 {
-    "name": "A11YTK",
+    "name": "A11YTK.Editor",
     "references": [
-        "Unity.TextMeshPro"
+        "A11YTK"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
