@@ -1,10 +1,10 @@
 {
   "dependencies": {
-    "com.unity.ext.nunit": "1.0.0",
-    "com.unity.ide.rider": "1.1.4",
-    "com.unity.ide.vscode": "1.2.1",
-    "com.unity.test-framework": "1.1.14",
-    "com.unity.textmeshpro": "2.0.1",
+    "com.unity.ext.nunit": "1.0.6",
+    "com.unity.ide.rider": "3.0.28",
+    "com.unity.ide.vscode": "1.2.5",
+    "com.unity.test-framework": "1.1.33",
+    "com.unity.textmeshpro": "3.0.6",
     "xyz.candycoded.gitstatus": "https://github.com/CandyCoded/gitstatus.git#v2.1.0",
     "com.unity.modules.audio": "1.0.0",
     "com.unity.modules.physics": "1.0.0",
