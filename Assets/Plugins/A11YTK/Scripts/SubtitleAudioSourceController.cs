@@ -15,7 +15,7 @@ namespace A11YTK
         protected override double _elapsedTime => _audioSource.time;
 
         protected override bool _isPlaying =>
-            _audioSource && _audioSource.isPlaying && _audioSource.time < _audioSource.clip.length;
+            _audioSource && _audioSource.clip && _audioSource.isPlaying && _audioSource.time < _audioSource.clip.length;
 
 #if UNITY_EDITOR
         protected override void OnValidate()
